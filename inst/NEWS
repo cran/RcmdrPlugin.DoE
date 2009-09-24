@@ -1,0 +1,7 @@
+Version 0.5-1, 24 Sep 2009
+- corrected a few links in documentation 
+- added Encoding field to DESCRIPTION
+- added version requirements to packages DoE.base, FrF2 and DoE.wrapper 
+  in DESCRIPTION
+
+Version 0.5: Beta version released 24 Sep 2009

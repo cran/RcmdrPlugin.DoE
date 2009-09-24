@@ -1,0 +1,99 @@
+# RcmdrPlugin.DoE Menu Definitions
+
+# last modified 14 Sep 2009 by U. Groemping
+
+#   type    menu/item      operation/parent  label                                          command/menu                activation  install?
+
+    menu    designMenu      topMenu         ""                                     ""                          ""          ""
+    item    topMenu         cascade         "Design"                               designMenu                  ""          ""
+    menu    importDoEMenu      designMenu      ""                                   ""                          ""          ""
+    item    importDoEMenu      command    "Load experiment from R workspace ..."            Menu.import         "existDesigns()"          ""
+    ## implement reading of externally stored responses into this design
+#    item    importDoEMenu      command    "How to Re-Import experiment from csv and rda files ..."        HowToReImport          ""          ""
+    item    importDoEMenu      command    "Re-Import experiment from csv and rda files ..."        Menu.importrdacsv          ""          ""
+        ## e.g. 2-level experiment checked with remodel
+        ## find ways to allow certain experiments to be diagnosed and made class design
+        ## have users choose responses and x's, hopefully using a menu structure that is already there
+    item    designMenu      cascade    "Import ..."                      importDoEMenu                     ""          ""
+    item    designMenu      command    "Export experiment ..."           Menu.export                      "existDesigns()"          ""
+
+    menu    designCreateMenu designMenu       ""                                      ""                          ""          ""
+    item    designMenu       cascade    "Create design"                 designCreateMenu               ""                     ""
+    ## 2-level
+    item    designCreateMenu      command    "----------- 2-level ------------------"                   dc                          "FALSE"          ""
+    item    designCreateMenu      command    "Screening design ..."                   Menu.pb2level                  ""          ""
+    item    designCreateMenu      command    "Regular (Fractional) Factorial ..."     Menu.FrF2level                 ""          ""
+    ## DesSummary2.design for actual designs ???; 
+    ## DesSummary2.matrix, DesSummary2.data.frame for checking matrices or data frames for being a design and then summarize their properties
+    ## the menu point summarize ... should always be available, once the functions have been programmed
+    item    designCreateMenu      command    "----------- General ------------------"                   dc                          "FALSE"          ""
+    item    designCreateMenu      command    "General Full Factorial Experiments ..." Menu.fac                          ""          ""
+    item    designCreateMenu      command    "General orthogonal arrays ..."          Menu.oa                          ""          ""
+    item    designCreateMenu      command    "----------- Combine ------------------"                   dc                          "FALSE"          ""
+    item    designCreateMenu      command    "Taguchi inner-outer array ..."          Menu.param          "exist2Designs()"      ""
+    ## DesSummary.design for actual designs ???; 
+    ## DesSummary.matrix, DesSummary.data.frame for checking matrices or data frames for being a design and then summarize their properties
+    ## the menu point summarize ... should always be available, once the functions have been programmed
+    item    designCreateMenu      command    "----------- Quantitative --------------"                   dc                          ""          ""
+    item    designCreateMenu      command    "Central composite ..."                  Menu.ccd                          ""          ""
+    item    designCreateMenu      command    "Box-Behnken ..."                        Menu.bbd                          ""          ""
+    item    designCreateMenu      command    "Space filling latin hypercube  ..."     Menu.lhs                          ""          ""
+  #  item    designCreateMenu      command    "D-optimal  ..."              dc                          "FALSE"          ""
+    item    designCreateMenu      command    "--------------- Info ------------------"                   dc                          "FALSE"          ""
+    item    designCreateMenu      command    "Info 2-level designs"                   help2level                   ""          ""
+    item    designCreateMenu      command    "Info general designs"                   helpgeneral                          ""          ""
+    item    designCreateMenu      command    "Info quantitative designs"              helpquant                          ""          ""
+#    menu    optdesMenu      designCreateMenu    ""              ""                          ""          ""
+#    item    optdesMenu      command    "D-optimal tbd ..."                   dc                          "FALSE"          ""
+#    item    optdesMenu      command    "D-optimal tbd2  ..."              dc                          "FALSE"          ""
+#    item    designCreateMenu      cascade    "(Non-orthogonal) optimal designs ..."                  optdesMenu                  "FALSE"               ""
+
+    menu    designInspectMenu designMenu       ""                                              ""                          ""          ""
+    item   designMenu          cascade    "Inspect design"                 designInspectMenu               ""                     ""
+    item    designInspectMenu      command    "Display active design"        display.design                   "activeDataSetDesignP()"          ""
+    item    designInspectMenu      command    "Summarize design ..."        Menu.summarize                   "existDesigns()"          ""
+
+    menu    designUtilityMenu designMenu       ""                                      ""                          ""          ""
+    item    designUtilityMenu      command    "Add response variable(s) ..."            Menu.addresponse          "activeDataSetDesignP()"      ""
+    item    designUtilityMenu      command    "Select / Deselect response variables ..."     Menu.responses          "activeDataSetDesignP()"      ""
+    item    designUtilityMenu      command    "----------------------------------"                   dc                          "FALSE"          ""
+    item    designUtilityMenu      command    "Change from long to wide format ..."     Menu.wide          "activeDataSetDesignLongToWide()"      ""
+    item    designUtilityMenu      command    "Aggregate design ..."            Menu.aggregate                   "activeDataSetDesignWide()"      ""
+    item    designUtilityMenu      command    "----------------------------------"                   dc                          "FALSE"          ""
+    #item    designUtilityMenu      command    "Fold design ..."            dc          "FALSE"      ""
+       ## will be activeDataSetDesign2P()
+    item    designUtilityMenu      command    "Add center points ..."            Menu.addcenter          "activeDataSetDesign2P()"      ""
+    item    designUtilityMenu      command    "Add star portion for central composite design ..."            Menu.ccd          "activeDataSetDesign2P()"      ""
+    item    designUtilityMenu      command    "Augment lhs design ..."            Menu.augmentlhs          "activeDataSetDesignlhs()"      ""
+    item    designUtilityMenu      command    "----------------------------------"                   dc                          "FALSE"          ""
+    item    designUtilityMenu      command    "Info ..."                               helpModify          ""      ""
+    item    designMenu       cascade    "Modify design"                 designUtilityMenu               ""                     ""
+
+    menu    designAnalMenu designMenu       ""                                              ""                          ""          ""
+    item   designMenu          cascade    "Analyze design"                 designAnalMenu               ""                     ""
+    item    designAnalMenu     command    "Default linear model ..."      Menu.model      "existDesignsWithResp()"      ""
+    item    designAnalMenu      command    "----------------------------------"                   dc                          "FALSE"          ""
+    item    designAnalMenu     command    "Effects (Half) Normal Plots (2-level design) ..."             Menu.EffectPlots           "activeDataSetDesign2PResp()"      ""
+    item    designAnalMenu     command    "Main Effects and Interaction Plots (2-level design) ..."       Menu.IAPlot        "activeDataSetDesign2PResp()"      ""
+#    item    designAnalMenu      command    "----------------------------------"                   dc                          "FALSE"          ""
+#    item    designAnalMenu     command    "Info on quantitative analysis tools..."             helpQuantDesignAnalyze      "activeDataSetDesignPResp()"      ""
+#    item    designAnalMenu  command         "Analyze Response Surface Design..."              dc              "activeDataSetDesignPResp()"          ""
+#    item    designAnalMenu  command         "Analyze Latin Hypercube Design..."               dc              "activeDataSetDesignPResp()"          ""
+    item    designAnalMenu     command    "Info ..."             helpAnalyze               "activeDataSetDesignPResp()"      ""
+
+    menu    sepMenu designMenu ""    ""    ""    ""
+    item    designMenu      cascade    "-----------------------------------"                sepMenu                     ""          ""
+    
+    menu    designHelpMenu  designMenu    ""                      ""                          ""          ""
+    item    designHelpMenu  command    "------- Info on selected statistical topics --------"         dc                 "FALSE"          ""
+    item    designHelpMenu  command    "Glossary for 2-level designs ..."              displayGlossary                          ""          ""
+    item    designHelpMenu  command    "Blocking of 2-level designs ..."              displayblock                          ""          ""
+    item    designHelpMenu  command    "2-level split-plot designs ..."              displaysplitplot                          ""          ""
+    item    designHelpMenu  command    "Central composite designs ..."              displayCentralCompositeDesigns                          ""          ""
+    item    designMenu      cascade    "Help on Experimental Design..."                designHelpMenu                     ""          ""
+
+    menu    designUseHelpMenu  designMenu    ""                      ""                          ""          ""
+    item    designUseHelpMenu  command    "------- Info on using the Design menu --------"         dc                 "FALSE"          ""
+    item    designUseHelpMenu  command    "How to make menus behave appropriately ..."              helpMenus                          ""          ""
+    item    designUseHelpMenu  command    "Export/import help ..."                        helpExpImp                          ""          ""
+    item    designMenu      cascade    "Help on Using the Design Menu ..."                designUseHelpMenu                     ""          ""
