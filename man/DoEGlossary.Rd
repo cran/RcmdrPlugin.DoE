@@ -461,7 +461,7 @@
 
 \author{ Ulrike Groemping }
 \seealso{ See also \code{\link[FrF2]{pb}} and \code{\link[FrF2]{FrF2}} for the functions that do the calculations, 
-\code{\link[FrF2]{catlg}} for the catalogue of regular 2-level fractional factorial designs, 
+\code{\link[FrF2:CatalogueAccessors]{catlg}} for the catalogue of regular 2-level fractional factorial designs, 
 and \code{\link{Menu.2level}} for overall help on 2-level factorials in this DoE software.}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

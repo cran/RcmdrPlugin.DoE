@@ -73,7 +73,7 @@ for the complete form with all tabs.
   separately store the form settings in this case. 
 }
 \author{ Ulrike Groemping }
-\seealso{ See Also \code{\link[DoE.wrapper]{lhs.augment}} for the function behind this menu and 
+\seealso{ See Also \code{\link[DoE.wrapper:lhs.design]{lhs.augment}} for the function behind this menu and 
 \code{\link{Menu.Quantitative}} for the available designs for quantitative factors 
 used in this software or its documentation.}
 % Add one or more standard keywords, see file 'KEYWORDS' in the

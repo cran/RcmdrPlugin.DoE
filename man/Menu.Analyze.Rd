@@ -62,7 +62,7 @@ have not been implemented for the GUI version yet. They are available within R-p
 \seealso{ See also \code{\link[DoE.base:class-design-methods]{summary.design}} for 
 how designs are summarized, \code{\link[DoE.base]{formula.design}} 
 for the function that creates the default linear model formula, or 
-\code{\link[FrF2]{DanielPlot}}, \code{\link[FrF2]{MEPlot}} and \code{\link[FrF2]{IAPlot}} 
+\code{\link[FrF2]{DanielPlot}}, \code{\link[FrF2:IAPlot]{MEPlot}} and \code{\link[FrF2]{IAPlot}} 
 for the functions behind the graphical analysis tools for 2-level factors. 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

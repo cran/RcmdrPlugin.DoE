@@ -83,7 +83,7 @@ for the complete form with all tabs.
 }
 \author{ Ulrike Groemping }
 \seealso{ See Also \code{\link[FrF2]{FrF2}} for the function behind this menu, 
-\code{\link[FrF2]{catlg}} for the design catalogues underlying this menu, and 
+\code{\link[FrF2:CatalogueAccessors]{catlg}} for the design catalogues underlying this menu, and 
 \code{\link{Menu.2level}} for choice between regular fractional factorial designs 
 and screening designs, and \code{\link{DoEGlossary}} for the DoE-related terminology 
 used in this software or its documentation.}

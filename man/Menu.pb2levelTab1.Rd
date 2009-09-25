@@ -39,7 +39,7 @@
 
 \references{ ~put references to the literature/web site here ~ }
 \author{ Ulrike Groemping }
-\seealso{ See Also \code{link[FrF2]{pb}} for the function that does the calculations 
+\seealso{ See Also \code{\link[FrF2]{pb}} for the function that does the calculations 
 and \code{\link{Menu.2level}} for overall help on the 2-level design menu.}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

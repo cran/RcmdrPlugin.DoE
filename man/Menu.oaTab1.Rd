@@ -56,7 +56,7 @@
 
 \references{ ~put references to the literature/web site here ~ }
 \author{ Ulrike Groemping }
-\seealso{ See Also \code{link[DoE.base]{oa.design}} for the function that does the calculations 
+\seealso{ See Also \code{\link[DoE.base]{oa.design}} for the function that does the calculations 
 and \code{\link{Menu.General}} for overall help on the general factorial design menu.}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

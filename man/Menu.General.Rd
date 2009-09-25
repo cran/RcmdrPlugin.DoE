@@ -56,7 +56,7 @@ the restrictions into account. \emph{Unfortunately, this functionality is not ye
 \author{ Ulrike Groemping }
 \seealso{ See Also \code{\link[FrF2]{pb}} for the function behind the screening designs, 
 \code{\link[FrF2]{FrF2}} for the function behind the regular fractional factorial designs, 
-and \code{\link[FrF2]{catlg}} for a catalogue of regular fractional factorial designs, 
+and \code{\link[FrF2:CatalogueAccessors]{catlg}} for a catalogue of regular fractional factorial designs, 
 and \code{\link{DoEGlossary}} for a glossary of terms relevant in connection with 
 orthogonal 2-level factorial designs. 
 }

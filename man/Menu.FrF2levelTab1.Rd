@@ -73,8 +73,8 @@
 }
 
 \author{ Ulrike Groemping }
-\seealso{ See also \code{link[FrF2]{FrF2}} for the function that does the calculations, 
-\code{\link[FrF2]{catlg}} for the catalogue of designs that this functionality is based on, 
+\seealso{ See also \code{\link[FrF2]{FrF2}} for the function that does the calculations, 
+\code{\link[FrF2:CatalogueAccessors]{catlg}} for the catalogue of designs that this functionality is based on, 
 and \code{\link{Menu.2level}} for the distinction between screening designs and regular 
 fractional factorial designs.}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
