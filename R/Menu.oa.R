@@ -347,7 +347,7 @@ onReset <- function(){
         else tkmessageBox(message="invalid name!",icon="error", type="ok", title="Invalid design name")
     }
     
-
+    
     factorsel<-function(){
         #### aendert die in der Textbox dargestellte Auswahl
         #### ruiniert aber leider auch wieder die korrekte Ueberschreibung der Werte
@@ -364,22 +364,26 @@ onReset <- function(){
         tkconfigure(flev, textvariable=curflev)
         tkconfigure(flab, textvariable=curflab)
     }
+    
     idsel<-function(){
         #### aendert die in der Textbox dargestellte Auswahl
         #### ruiniert aber leider auch wieder die korrekte Ueberschreibung der Werte
         putRcmdr("idpos", as.numeric(tclvalue(tcl(idEntry, "current"))) + 1)
-        if (idpos > 1) putRcmdr("nrunVar", tclVar(nrow(get(tclvalue(idVar)))))
-        if (as.numeric(tclvalue(nfacVar)) > ncol(get(tclvalue(idVar)))) 
+        if (idpos==1) {
+          putRcmdr("colnospecifyVariable", tclVar("0"))
+          putRcmdr("colnolist", tclVar(rep("",as.numeric(tclvalue(nfacVar)))))
+          tkconfigure(colnoListBox, listvariable=colnolist)
+          tkconfigure(colnospecifycb, variable=colnospecifyVariable)
+        }
+        else {
+          putRcmdr("nrunVar", tclVar(nrow(get(tclvalue(idVar)))))
+          if (as.numeric(tclvalue(nfacVar)) > ncol(get(tclvalue(idVar)))) 
               tkmessageBox(message=gettextRcmdr("The chosen design cannot accomodate the chosen number of factors!"), 
                icon="error", type="ok", title=gettextRcmdr("Too many factors requested for this design"))
+               }
         onRefresh()
-#        if (idpos==1 | tclvalue(colnospecifyVariable)=="0"){
-#            putRcmdr("colnolist", tclVar(rep("",tclvalue(nfacVar))))
-#            putRcmdr("curcolno", tclVar(""))
-#            tkconfigure(colnoListBox, listvariable=colnolist, state="disabled")
-#            tkconfigure(colno, textvariable=curcolno, state="disabled")
-#            }
     }
+    
     nrunsel<-function(){
         #### aendert die in der Textbox dargestellte Auswahl
         #### ruiniert aber leider auch wieder die korrekte Ueberschreibung der Werte
@@ -695,7 +699,7 @@ tkgrid(baseFrame, sticky="nw",columnspan=3)
 ## factor details frame
 ### facnameAutoVariable (not needed any more) and faclevelCommonVariable
 
-colnospecifyVariable <-  tclVar(.stored.designoa$cbInitials[3])
+putRcmdr("colnospecifyVariable", tclVar(.stored.designoa$cbInitials[3]))
 colnoFrame <- tkframe(tab2)
 colnospecifycb <- ttkcheckbutton(colnoFrame,text=gettextRcmdr("Manually specify column numbers for array ?"),
     variable=colnospecifyVariable, command=onRefresh)
@@ -740,9 +744,9 @@ if (idpos > 1) tkgrid(colnoFrame, pady=10,sticky="w")
     tkbind(nlev, "<FocusOut>", nlevchange)
     flev <- ttkentry(enterFrame, textvariable=curflev, width=20)
     tkbind(flev, "<FocusOut>", flevchange)
-    if (idpos>1 & tclvalue(colnospecifyVariable)=="1")
+    if (idpos>1 & tclvalue(colnospecifyVariable)=="1"){
     flab <- ttkentry(enterFrame, textvariable=curflab, width=15)
-    else
+    } else
     flab <- ttkentry(enterFrame, textvariable=curflab, width=20)
     tkbind(flab, "<FocusOut>", flabchange)
     tkbind(flab, "<Key-Tab>", tabflab)
@@ -754,8 +758,7 @@ if (idpos > 1) tkgrid(colnoFrame, pady=10,sticky="w")
            tklabel(enterFrame,text=gettextRcmdr("Levels \n(separate with blanks)"), width=20),
            tklabel(enterFrame,text=gettextRcmdr("Comment/label \nfor html export"), width=15),
            sticky="w")
-    tkgrid(fsel,fnam, colno, nlev, flev, flab, sticky="w")}
-    else{
+    tkgrid(fsel,fnam, colno, nlev, flev, flab, sticky="w")} else{
     tkgrid(tklabel(enterFrame,text=gettextRcmdr("Select"),width=6),
            tklabel(enterFrame,text=gettextRcmdr("Factor name"), width=15),
            tklabel(enterFrame,text=gettextRcmdr("no. of \nlevels"), width=6),
@@ -792,8 +795,7 @@ if (idpos > 1) tkgrid(colnoFrame, pady=10,sticky="w")
     if (idpos>1 & tclvalue(colnospecifyVariable)=="1")
     faclabListBox <- tklistbox(listFrame, height = min(10, as.numeric(tclvalue(nfacVar))), 
         selectmode = single, exportselection = "TRUE", listvariable=faclablist,
-        width = 15, background="#EBEBDC")
-    else
+        width = 15, background="#EBEBDC") else
     faclabListBox <- tklistbox(listFrame, height = min(10, as.numeric(tclvalue(nfacVar))), 
         selectmode = single, exportselection = "TRUE", listvariable=faclablist,
         width = 20, background="#EBEBDC")
@@ -833,8 +835,7 @@ if (idpos > 1) tkgrid(colnoFrame, pady=10,sticky="w")
     tkgrid(moveUpButton, sticky="w")
 
     if (idpos>1 & tclvalue(colnospecifyVariable)=="1")
-    tkgrid(scrollbar, facshortListBox, facnameListBox, colnoListBox, nlevListBox, faclevListBox, faclabListBox, downupFrame, sticky = "nw")
-    else
+    tkgrid(scrollbar, facshortListBox, facnameListBox, colnoListBox, nlevListBox, faclevListBox, faclabListBox, downupFrame, sticky = "nw") else
     tkgrid(scrollbar, facshortListBox, facnameListBox, nlevListBox, faclevListBox, faclabListBox, downupFrame, sticky = "nw")
     tkgrid.configure(scrollbar, sticky = "wns")
     tkgrid.configure(facnameListBox, sticky = "new")

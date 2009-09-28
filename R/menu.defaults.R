@@ -25,7 +25,7 @@
 .default.designoa <- list(nameVar=gettextRcmdr("Design.1"),
     idVar="NULL",nrunVar="NULL",nfacVar="3",nrepVar="1", minrdfVar=0, 
     colnolist=c("","",""),
-    cbInitials = as.character(c(0,1,1,1,1,1,0,0,0,0)),
+    cbInitials = as.character(c(0,1,0,1,1,1,0,0,0,0)),
     seedVar=as.character(sample(31999,1)),
     facnamlist=c("A","B","C"),nlevlist=rep("",3), faclevlist=rep("",3),faclablist=c("","",""),
     etyperbVariable="none", decimalrbVariable = "default", 
