@@ -87,6 +87,7 @@
     menu    designHelpMenu  designMenu    ""                      ""                          ""          ""
     item    designHelpMenu  command    "------- Info on selected statistical topics --------"         dc                 "FALSE"          ""
     item    designHelpMenu  command    "Glossary for 2-level designs ..."              displayGlossary                          ""          ""
+    item    designHelpMenu  command    "2-level screening designs vs. regular fractional factorial designs ..."       help2level                          ""          ""
     item    designHelpMenu  command    "Blocking of 2-level designs ..."              displayblock                          ""          ""
     item    designHelpMenu  command    "2-level split-plot designs ..."              displaysplitplot                          ""          ""
     item    designHelpMenu  command    "Central composite designs ..."              displayCentralCompositeDesigns                          ""          ""

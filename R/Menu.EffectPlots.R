@@ -9,18 +9,14 @@ Menu.EffectPlots <- function(){
       half <- as.logical(as.numeric(tclvalue(halfVar)))
 
      ## selected plots
-     if (length(grep("pb", di$type))>0){ 
-       putRcmdr("linmod", lm(formula(eval(parse(text=.activeDataSet)),degree=1), data=eval(parse(text=.activeDataSet))))
-       if (length(coef(linmod))<di$nruns)
-          warning("Effects plots for Plackett-Burman designs must be done with nruns-1 effects! The error effects are missing!")
-     }
-     else 
-       putRcmdr("linmod", lm(formula(eval(parse(text=.activeDataSet)),degree=di$nfactors), data=eval(parse(text=.activeDataSet))))
-
-       command <- paste("DanielPlot(linmod, code=", as.character(code), ", autolab=", as.character(autolab), 
-            ", alpha=", alpha, ", half=", as.character(half),")")
-       justDoItDoE(command)
+       command <- paste("DanielPlot(", .activeDataSet, ", code=", as.character(code), ", autolab=", as.character(autolab), 
+            ", alpha=", alpha, ", half=", as.character(half),")", sep="")
        logger(command)
+       hilf <- justDoItDoE(command)
+       if (class(hilf)[1] == "try-error"){
+             errorCondition(window=top,recall=NULL, message=gettextRcmdr(hilf))
+             return()
+       }
      if (length(grep("splitplot",di$type)) > 0)
          warning("Estimated effects for whole plot factors can stick out due to reasons not related to their importance!")
      closeDialog(window=top)

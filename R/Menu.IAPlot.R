@@ -15,27 +15,22 @@ Menu.IAPlot <- function(){
      ## eventually provide a method for class design in package FrF2 --> this problem goes away
      ## 
      if (tclvalue(plottyperbVar)=="ME"){ 
-       hilf <- try(
-       putRcmdr("linmod", lm(formula(eval(parse(text=.activeDataSet)),degree=1), data=eval(parse(text=.activeDataSet)))))
+       command <- paste("MEPlot(",.activeDataSet,", abbrev=",abbrev, ", select=c(", paste(select,collapse=","),"))", sep="")
+       logger(command)
+       hilf <- justDoItDoE(command)
        if (class(hilf)[1] == "try-error"){
              errorCondition(window=top,recall=NULL, message=gettextRcmdr(hilf))
              return()
        }
-       command <- paste("linmod <- lm(formula(",.activeDataSet,", degree=1), data=", .activeDataSet, ")")
-       logger(command)
-       command <- paste("MEPlot(linmod, abbrev=",abbrev, ", select=c(", paste(select,collapse=","),"))")
-       justDoItDoE(command)
-       logger(command)
-       logger("rm(linmod)")
      }
      else{ 
-       putRcmdr("linmod", lm(formula(eval(parse(text=.activeDataSet)),degree=2), data=eval(parse(text=.activeDataSet))))
-       command <- paste("linmod <- lm(formula(",.activeDataSet,", degree=2), data=", .activeDataSet, ")")
+       command <- paste("IAPlot(",.activeDataSet, ", abbrev=",abbrev,", show.alias=",show.alias,", select=c(", paste(select,collapse=","),"))", sep="")
        logger(command)
-       command <- paste("IAPlot(linmod, abbrev=",abbrev,", show.alias=",show.alias,", select=c(", paste(select,collapse=","),"))")
-       justDoItDoE(command)
-       logger(command)
-       logger("rm(linmod)")   
+       hilf <- justDoItDoE(command)
+       if (class(hilf)[1] == "try-error"){
+             errorCondition(window=top,recall=NULL, message=gettextRcmdr(hilf))
+             return()
+       }
      }
      if (length(grep("splitplot",di$type)) > 0)
          warning("Estimated effects for whole plot factors may be less reliable than others.")

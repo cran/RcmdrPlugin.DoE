@@ -1,3 +1,14 @@
+Version 0.5-4, 08 Oct 2009
+- introduced dependence on Rcmdr version at least 1.4-6 
+  (because of issues with building menus and displaying messages in earlier versions)
+- added a help topic for choosing between screening and regular fractional factorial designs
+- updated displayed available designs to reflect current status of designs implemented in 
+  package FrF2
+- improved calls to plotting routines in 2-level effect plots menus 
+  under Analyse Design (enabled by methods for designs in package FrF2):
+  calls were awkward before for main effects and interaction plots, and 
+  call documentation was incomplete for (half) normal effects plots
+
 Version 0.5-3, 28 Sep 2009
 - corrected default setting for colnospecifyVariable in menu for 
   general factorial designs
