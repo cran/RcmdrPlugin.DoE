@@ -9,9 +9,9 @@ in the Analyze Design menu.}
 \section{Available analysis options}{
 
 \bold{Generally applicable analysis options}\cr
-The topmost menu entry \emph{Summarize design} is of interest for all design types. 
-The same is true for the \emph{Default linear model} menu item. However, 
-the default linear model analysis is not available 
+The topmost menu entry \emph{Default linear model} is of interest for all design types 
+and is usable whenever the R workspace contains a design with response. 
+However, the default linear model analysis does not work 
 for long version designs with repeated measurements or for parameter designs in long format, 
 as it usually does not make sense in such situations. Rather, such designs should be brought into 
 wide format by using the \cr
@@ -30,22 +30,20 @@ There are two types of orthogonal 2-level factorial designs,
 regular fractional factorial designs and screening designs. 
 The latter has more interesting analysis options than the former.
 
-For regular 2-level designs, the topmost menu entry \emph{Summarize design} 
-is of particular interest because it also shows the alias structure of the design. 
-
 Effects plots and main effects plots are of interest for both types of 2-level 
 designs alike, while interaction plots are usually of interest for the regular designs only.
 
 Note that the interpretation of all effects plots, main effects and interaction plots 
 is useful only in connection with knowledge about the alias structure of a design. 
-For regular designs, this can be obtained from the \emph{Summarize design} menu item. 
+For regular designs, this can e.g. be obtained from the \emph{Summarize design} 
+menu item within the \emph{Inspect design} sub menu of the \emph{Design} menu. 
 For screening designs, if it can be assumed that interactions are likely to be 
 much less important than main effects, the main effect plots may be interpretable 
 without such thoughts. Considerations involving the interactions become quite complicated 
 with screening designs because of partial aliasing. 
 Advanced users might also want to try the Bayesian methods 
 offered in package \code{\link[BsMD]{BsMD-package}}, which are currently not implemented 
-in R-Commander. 
+in \pkg{RcmdrPlugin.DoE}. 
 
 \bold{Analysis options specific to designs with quantitative factors}\cr
 have not been implemented for the GUI version yet. They are available within R-package 

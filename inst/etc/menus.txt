@@ -79,7 +79,7 @@
 #    item    designAnalMenu     command    "Info on quantitative analysis tools..."             helpQuantDesignAnalyze      "activeDataSetDesignPResp()"      ""
 #    item    designAnalMenu  command         "Analyze Response Surface Design..."              dc              "activeDataSetDesignPResp()"          ""
 #    item    designAnalMenu  command         "Analyze Latin Hypercube Design..."               dc              "activeDataSetDesignPResp()"          ""
-    item    designAnalMenu     command    "Info ..."             helpAnalyze               "activeDataSetDesignPResp()"      ""
+    item    designAnalMenu     command    "Info ..."             helpAnalyze               ""      ""
 
     menu    sepMenu designMenu ""    ""    ""    ""
     item    designMenu      cascade    "-----------------------------------"                sepMenu                     ""          ""

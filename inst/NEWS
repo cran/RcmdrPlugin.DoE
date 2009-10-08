@@ -1,3 +1,7 @@
+Version 0.5-5, 08 Oct 2009
+- corrected various copy-paste errors in titles and descriptions of help files
+- made all Info menu items always visible
+
 Version 0.5-4, 08 Oct 2009
 - introduced dependence on Rcmdr version at least 1.4-6 
   (because of issues with building menus and displaying messages in earlier versions)

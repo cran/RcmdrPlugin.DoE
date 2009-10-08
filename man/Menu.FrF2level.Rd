@@ -1,7 +1,7 @@
 \name{Menu.FrF2level}
 \alias{Menu.FrF2level}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Menu for generating regular or non-regular fractional factorial 2-level designs}
+\title{Menu for generating regular fractional factorial 2-level designs}
 \description{
   With this menu, regular fractional factorial 2-level designs 
   can be generated. The menu calls function FrF2 from package FrF2 

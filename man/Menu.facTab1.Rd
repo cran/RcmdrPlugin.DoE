@@ -1,8 +1,9 @@
 \name{Menu.facTab1}
 \alias{Menu.facTab1}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Basic information for orthogonal main effects designs}
-\description{Basic information for orthogonal main effects design Menu}
+\title{Basic information for full factorial designs}
+\description{This help file describes usage of the basic information tab of 
+the full factorial design menu}
 \section{Brief statistical background}{
   Full factorial designs consist of all possible combinations of factor levels, 
   i.e. the number of runs is the product of all numbers of factor levels, 

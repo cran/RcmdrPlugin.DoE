@@ -1,10 +1,10 @@
 \name{Menu.ccd}
 \alias{Menu.ccd}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Menu for generating Box-Behnken designs for quantitative factors}
+\title{Menu for generating central composite designs for quantitative factors}
 \description{
-  With this menu, Box-Behnken designs  for quantitative factors 
-  can be generated. The menu calls function bbd.design from 
+  With this menu, central composite designs for quantitative factors 
+  can be generated. The menu calls function ccd.design from 
   R-package DoE.wrapper.
 }
 \usage{

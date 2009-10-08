@@ -1,7 +1,7 @@
 \name{Menu.fac}
 \alias{Menu.fac}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Menu for generating orthogonal full factorial designs}
+\title{Menu for generating full factorial designs}
 \description{
   This menu is for generating full factorial designs. 
   The menu calls function function fac.design from package DoE.base 

@@ -1,7 +1,7 @@
 \name{Menu.linearModelDesign}
 \alias{Menu.linearModelDesign}
 
-\title{RcmdrPlugin.DoE Linear Model Dialog for 2-level Experiments}
+\title{RcmdrPlugin.DoE Linear Model Dialog for experimental data}
 \description{
   This dialog is used to specify a linear model to be fit by the \code{\link[stats]{lm}} function.
 }
