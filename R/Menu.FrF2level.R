@@ -287,6 +287,18 @@ onestrb <- function(){
              tkconfigure(selectButton, state="disabled")
              tkconfigure(deselectButton, state="disabled")
         }
+        onRefresh()
+}
+
+onestrb.worefresh <- function(){
+        if (!tclvalue(estrbVariable)=="none"){
+             tkconfigure(selectButton, state="normal")
+             tkconfigure(deselectButton, state="normal")
+             }
+        else {
+             tkconfigure(selectButton, state="disabled")
+             tkconfigure(deselectButton, state="disabled")
+        }
 }
 
 onSpecialcb <- function(){
@@ -454,6 +466,23 @@ onReset <- function(){
         }
         else tkmessageBox(message="invalid name!",icon="error", type="ok", title="Invalid factor name")
     }
+
+     level1enter <- function(){
+              putRcmdr("the.common.level1", tclvalue(getRcmdr("level1Var")))
+        }
+     level1change <- function(){
+        if (identical(getRcmdr("the.common.level1"), tclvalue(getRcmdr("level1Var")))) return()
+        onRefresh()
+    }
+     level2enter <- function(){
+              putRcmdr("the.common.level2", tclvalue(getRcmdr("level2Var")))
+        }
+     level2change <- function(){
+        if (identical(getRcmdr("the.common.level2"), tclvalue(getRcmdr("level2Var")))) return()
+        onRefresh()
+    }
+
+
     flev1change <- function(){
         ## selpos known from factorsel
         if (length(as.character(tclObj(curflev1)))==1){
@@ -957,12 +986,17 @@ faclevelCommonVariable <- tclVar(.stored.design2FrF$cbInitials[4])
 faclevelCommonButton <- ttkcheckbutton(deflevFrame,text=gettextRcmdr("Common factor levels"),
     variable=faclevelCommonVariable,command=onRefresh)
 tkconfigure(faclevelCommonButton,takefocus=0)
-level1Var <- tclVar(.stored.design2FrF$level1Var)
+putRcmdr("level1Var", tclVar(.stored.design2FrF$level1Var))
 level1Entry <- ttkentry(deflevFrame, width="20", textvariable=level1Var)
-tkconfigure(level1Entry,takefocus=0)
-level2Var <- tclVar(.stored.design2FrF$level2Var)
+    tkconfigure(level1Entry,takefocus=0)
+    tkbind(level1Entry, "<FocusIn>", level1enter)
+    tkbind(level1Entry, "<FocusOut>", level1change)
+
+putRcmdr("level2Var", tclVar(.stored.design2FrF$level2Var))
 level2Entry <- tkentry(deflevFrame, width="20", textvariable=level2Var)
-tkconfigure(level2Entry,takefocus=0)
+    tkconfigure(level2Entry,takefocus=0)
+    tkbind(level2Entry, "<FocusIn>", level2enter)
+    tkbind(level2Entry, "<FocusOut>", level2change)
 tkgrid(faclevelCommonButton,sticky="w",columnspan=3, padx=15)
 faclevCommonLab<-tklabel(deflevFrame,text=gettextRcmdr("CAUTION: Checking this box overwrites all custom factor levels."))
 if (!as.logical(as.numeric(tclvalue(faclevelCommonVariable)))) tkgrid(faclevCommonLab,sticky="w", columnspan=3,pady=5)
@@ -1160,7 +1194,7 @@ deselectButton <- buttonRcmdr(estbuttonFrame, text = gettextRcmdr("<"),
         foreground = "darkgreen", command = onDeselect, 
         default = "normal", borderwidth = 3)
 tkgrid(deselectButton)
-onestrb()
+onestrb.worefresh()
 
 putRcmdr("notest2fislist", setdiff(intaclistt, est2fislist))
 
@@ -1313,7 +1347,7 @@ tkgrid.configure(dirEntry,padx=15)
 putRcmdr("fileVar", tclVar(.stored.design2FrF$fileVar))
 fileEntry <- tkentry(tab6, width="20", textvariable=fileVar)
 efnamelabel <- tklabel(tab6,text=gettextRcmdr("Export file names: name below with appropriate endings (html or csv, and rda)"))
-replacecbVariable <- tclVar(.stored.design2FrF$cbInitials[8])
+putRcmdr("replacecbVariable", tclVar(.stored.design2FrF$cbInitials[8]))
 replacecb <- ttkcheckbutton(tab6,text=gettextRcmdr("Replace file(s), if exists"),variable=replacecbVariable)
 
 ## always grid details, as otherwise default file name does not work

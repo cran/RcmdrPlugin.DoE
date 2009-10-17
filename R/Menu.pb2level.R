@@ -341,6 +341,22 @@ onReset <- function(){
         }
         else tkmessageBox(message="invalid name!",icon="error", type="ok", title="Invalid factor name")
     }
+
+     level1enter <- function(){
+              putRcmdr("the.common.level1", tclvalue(getRcmdr("level1Var")))
+        }
+     level1change <- function(){
+        if (identical(getRcmdr("the.common.level1"), tclvalue(getRcmdr("level1Var")))) return()
+        onRefresh()
+    }
+     level2enter <- function(){
+              putRcmdr("the.common.level2", tclvalue(getRcmdr("level2Var")))
+        }
+     level2change <- function(){
+        if (identical(getRcmdr("the.common.level2"), tclvalue(getRcmdr("level2Var")))) return()
+        onRefresh()
+    }
+
     flev1change <- function(){
         ## selpos known from factorsel
         if (length(as.character(tclObj(curflev1)))==1){
@@ -582,12 +598,16 @@ faclevelCommonVariable <- tclVar(.stored.design2pb$cbInitials[4])
 faclevelCommonButton <- ttkcheckbutton(deflevFrame,text=gettextRcmdr("Common factor levels"),
     variable=faclevelCommonVariable,command=onRefresh)
 tkconfigure(faclevelCommonButton,takefocus=0)
-level1Var <- tclVar(.stored.design2pb$level1Var)
+putRcmdr("level1Var", tclVar(.stored.design2pb$level1Var))
 level1Entry <- ttkentry(deflevFrame, width="20", textvariable=level1Var)
-tkconfigure(level1Entry,takefocus=0)
-level2Var <- tclVar(.stored.design2pb$level2Var)
+    tkconfigure(level1Entry,takefocus=0)
+    tkbind(level1Entry, "<FocusIn>", level1enter)
+    tkbind(level1Entry, "<FocusOut>", level1change)
+putRcmdr("level2Var", tclVar(.stored.design2pb$level2Var))
 level2Entry <- tkentry(deflevFrame, width="20", textvariable=level2Var)
-tkconfigure(level2Entry,takefocus=0)
+    tkconfigure(level2Entry,takefocus=0)
+    tkbind(level2Entry, "<FocusIn>", level2enter)
+    tkbind(level2Entry, "<FocusOut>", level2change)
 tkgrid(faclevelCommonButton,sticky="w",columnspan=3)
 faclevCommonLab<-tklabel(deflevFrame,text=gettextRcmdr("CAUTION: Checking this box overwrites all custom factor levels."))
 if (!as.logical(as.numeric(tclvalue(faclevelCommonVariable)))){ 

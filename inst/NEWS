@@ -1,3 +1,8 @@
+Version 0.5-6, 17 Oct 2009
+- made changes to common factor levels for 2-level designs work immediately, not with delay
+- made radio buttons on "Estimable Model" tab for regular 2-level designs bring up the 
+  appropriate controls without delay
+
 Version 0.5-5, 08 Oct 2009
 - corrected various copy-paste errors in titles and descriptions of help files
 - made all Info menu items always visible
