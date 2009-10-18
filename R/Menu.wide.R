@@ -10,7 +10,7 @@ onOK <- function(){
   ### capture error messages from export function
         name <- tclvalue(nameVar)
         if (!is.valid.name(name)) {
-            errorCondition(window=tab6,recall=Menu.export, 
+            errorCondition(window=tab6,recall=Menu.wide, 
                     message=paste('"', name, '" ', gettextRcmdr("is not a valid name."), sep=""))
             return()
           }
@@ -19,10 +19,12 @@ onOK <- function(){
         else command <- paste(name," <- reptowide(", .activeDataSet, ")",sep="")
         hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
-            errorCondition(window=tab6,recall=Menu.export, message=gettextRcmdr(hilf))
+            Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
+            errorCondition(window=tab6,recall=Menu.wide, message=gettextRcmdr(hilf))
              return()
             }
         logger(command)
+        assign(name, hilf, envir=.GlobalEnv)
         activeDataSet(name)
         closeDialog(window=tab6)
         tkwm.deiconify(CommanderWindow())

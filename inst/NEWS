@@ -1,3 +1,21 @@
+Version 0.6, 18 Oct 2009
+- changed strategy for error messages when generating designs (affects all design 
+  generating and design modifying menus):
+  After pressing OK with options that lead to an error, instead of closing the 
+  menu and printing a warning in the messages log, the menu is re-opened with an 
+  error message in the messages log. Also, the offending command is not printed into the 
+  script and output window, but into the messages log only.
+- bug fix: wrong creator class for ccd designs (menu.designlhs instead of menu.designccd)
+- bug fix: in case of an error message that re-opens the dialog, messages are suppressed
+- bug fix: for Menu.wide, re-opening the menu did not work
+- bug fix: disabled "Quantitative" separator line from Create Design menu
+- bug fix: disabled transformation element on aggregate.design menu, 
+  which does not work yet
+- bug fix: changed default formula for models with center points to not add a dummy 
+  for the center points (dummy was not found); 
+  eventually, there will be an option for including a dummy
+  ...
+
 Version 0.5-6, 17 Oct 2009
 - made changes to common factor levels for 2-level designs work immediately, not with delay
 - made radio buttons on "Estimable Model" tab for regular 2-level designs bring up the 

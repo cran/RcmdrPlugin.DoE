@@ -31,8 +31,8 @@ Menu.summarize <- function(){
         if (as.logical(as.numeric(tclvalue(plotcheck)))){ 
                     command <- paste("plot(",getSelection(designsBox),")")
         hilf <- justDoItDoE(command)
-        logger(command)
         if (class(hilf)[1]=="try-error"){
+            Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
             errorCondition(window=tab6, recall=Menu.summarize, message=gettextRcmdr(hilf))
              return()
             }
@@ -41,6 +41,7 @@ Menu.summarize <- function(){
         command <- paste("summary(",getSelection(designsBox),")")
         hilf <- doItAndPrint(command)
         if (class(hilf)[1]=="try-error"){
+            Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
             errorCondition(window=tab6, recall=Menu.summarize, message=gettextRcmdr(hilf))
              return()
             }
@@ -50,9 +51,12 @@ Menu.summarize <- function(){
                     command <- paste("table(",name,"[,names(design.info(",name,")$factor.names)])")
         hilf <- doItAndPrint(command)
         if (class(hilf)[1]=="try-error"){
+            Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
             errorCondition(window=tab6, recall=Menu.summarize, message=gettextRcmdr(hilf))
              return()
             }
+        #logger(command)
+        #print(hilf)
         }
         closeDialog()
         tkfocus(CommanderWindow())

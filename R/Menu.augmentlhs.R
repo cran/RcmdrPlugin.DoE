@@ -93,15 +93,15 @@ onOK <- function(){
                   ", m=",tclvalue(mVar), ",seed=",tclvalue(seedVar),")") 
 
                   
-        logger(paste(name, "<-", command))
-        logger("   ## creator element of design.info will be different, when using the command line command!")
-        assign(name, justDoItDoE(command), envir=.GlobalEnv)
-        if (class(eval(parse(text=name)))[1]=="try-error") {
-            errorCondition(window=topdes2,recall=Menu.augmentlhs, message=gettextRcmdr(eval(parse(text=name))))
+        hilf <- justDoItDoE(command)
+        if (class(hilf)[1]=="try-error") {
+            Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
+            errorCondition(window=topdes2,recall=Menu.augmentlhs, message=gettextRcmdr(hilf))
              return()
             }
         ## change creator to contain menu settings
-        hilf <- get(name)
+        logger(paste(name, "<-", command))
+        logger("   ## creator element of design.info will be different, when using the command line command!")
         hilfatt <- design.info(hilf)
         hilfatt$creator <- .stored.designaugmentlhs
         class(hilfatt$creator) <- c("menu.designlhs", "list")
@@ -315,7 +315,7 @@ bottomFrame <- tkframe(topdes2)
 ## grid base frame
 tkgrid(mlab <- tklabel(baseFrame, text=gettextRcmdr("Number of additional runs")), mEntry, mHint, sticky="w")
 ## omitted nfaccb, on form, nfactors must always be specified
-tkgrid(typeradioFrame, sticky="w",pady=15)
+tkgrid(typeradioFrame, sticky="w",pady=15, columnspan=4)
 tkgrid(seedlab <- tklabel(baseFrame, text=gettextRcmdr("Seed for randomization")), seedEntry, sticky="w")
 
 helptab1Button <- buttonRcmdr(nameFrame, text = gettextRcmdr("Tab Help"), 

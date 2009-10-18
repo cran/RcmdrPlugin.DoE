@@ -113,19 +113,19 @@ onOK <- function(){
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizecbVariable))),
                   ",seed=",tclvalue(seedVar),")") 
 
+        hilf <- justDoItDoE(command)
+        if (class(hilf)[1]=="try-error") {
+            Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
+            errorCondition(window=topdes2,recall=Menu.ccd, message=gettextRcmdr(hilf))
+             return()
+            }
                   
         logger(paste(name, "<-", command))
         logger("## creator element of design.info will be different, when using the command line command!")
-        assign(name, justDoItDoE(command), envir=.GlobalEnv)
-        if (class(eval(parse(text=name)))[1]=="try-error") {
-            errorCondition(window=topdes2,recall=Menu.ccd, message=gettextRcmdr(eval(parse(text=name))))
-             return()
-            }
         ## change creator to contain menu settings
-        hilf <- get(name)
         hilfatt <- design.info(hilf)
         hilfatt$creator <- .stored.designccd
-        class(hilfatt$creator) <- c("menu.designlhs", "list")
+        class(hilfatt$creator) <- c("menu.designccd", "list")
         attr(hilf, "design.info") <- hilfatt
         assign(name, hilf, envir=.GlobalEnv)
         activeDataSet(name)

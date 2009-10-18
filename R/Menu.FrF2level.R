@@ -173,9 +173,14 @@ onOK <- function(){
                   ",",textfactornameslist.forcommand, ", catlg =", tclvalue(catlgVar), ")")
           }
         }                  
+        hilf <- justDoItDoE(command)
+        if (class(hilf)[1]=="try-error") {
+            Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
+            errorCondition(window=topdes2,recall=Menu.FrF2level, message=gettextRcmdr(hilf))
+             return()
+            }
         logger(paste(name, "<-", command))
         logger("## creator element of design.info will be different, when using the command line command!")
-        hilf <- justDoItDoE(command)
         ## change creator to contain menu settings
         hilfatt <- design.info(hilf)
         hilfatt$creator <- .stored.design2FrF

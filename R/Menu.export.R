@@ -23,6 +23,7 @@ onOK <- function(){
                dQuote(tclvalue(decimalrbVariable)),")",sep="")
         hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
+            Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
             errorCondition(window=topdes2,recall=Menu.export, message=gettextRcmdr(hilf))
              return()
             }

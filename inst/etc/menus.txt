@@ -34,7 +34,7 @@
     ## DesSummary.design for actual designs ???; 
     ## DesSummary.matrix, DesSummary.data.frame for checking matrices or data frames for being a design and then summarize their properties
     ## the menu point summarize ... should always be available, once the functions have been programmed
-    item    designCreateMenu      command    "----------- Quantitative --------------"                   dc                          ""          ""
+    item    designCreateMenu      command    "----------- Quantitative --------------"                   dc                          "FALSE"          ""
     item    designCreateMenu      command    "Central composite ..."                  Menu.ccd                          ""          ""
     item    designCreateMenu      command    "Box-Behnken ..."                        Menu.bbd                          ""          ""
     item    designCreateMenu      command    "Space filling latin hypercube  ..."     Menu.lhs                          ""          ""

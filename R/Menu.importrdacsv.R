@@ -42,11 +42,14 @@ onOK <- function(){
                      as.logical(as.numeric(tclvalue(replacecbVariable))),", InDec=",
                      dQuote(tclvalue(decimalrbVariable)),")",sep="")
 
-        assign(newname, justDoItDoE(command), envir=.GlobalEnv)
-        if (class(newname)[1]=="try-error"){
-             errorCondition(window=topdes2, recall=Menu.addresponse, message=gettextRcmdr(newname))
+      hilf <- justDoItDoE(command)
+        if (class(hilf)[1]=="try-error") {
+            Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
+            errorCondition(window=topdes2,recall=Menu.importrdacsv, message=gettextRcmdr(hilf))
              return()
             }
+
+        assign(newname, hilf, envir=.GlobalEnv)
         logger(paste(newname, "<-", command))
         activeDataSet(newname)
         closeDialog(window=topdes2)

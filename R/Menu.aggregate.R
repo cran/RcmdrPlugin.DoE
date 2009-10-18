@@ -12,11 +12,14 @@ onOK <- function(){
                     message=paste('"', name, '" ', gettextRcmdr("is not a valid name."), sep=""))
             return()
           }
-        if (tclvalue(transfoVar)=="none") transfoVar <- tclVar("NULL")
+   ##     if (tclvalue(transfoVar)=="none") transfoVar <- tclVar("NULL")
+   ##     command <- paste(tclvalue(nameVar), " <- aggregate(",.activeDataSet, 
+   ##            ", response=",dQuote(tclvalue(respVar)),",transformation=",dQuote(tclvalue(transfoVar)),", FUN=",dQuote(tclvalue(funVar)),")",sep="")
         command <- paste(tclvalue(nameVar), " <- aggregate(",.activeDataSet, 
-               ", response=",dQuote(tclvalue(respVar)),",transformation=",dQuote(tclvalue(transfoVar)),", FUN=",dQuote(tclvalue(funVar)),")",sep="")
+               ", response=",dQuote(tclvalue(respVar)),", FUN=",dQuote(tclvalue(funVar)),")",sep="")
         hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
+            Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
             errorCondition(window=tab6,recall=Menu.aggregate, message=gettextRcmdr(hilf))
              return()
             }
@@ -71,10 +74,10 @@ respEntry <- ttkcombobox(tab6, textvariable=respVar,
      values=colnames(design.info(eval(parse(text=.activeDataSet)))$responselist), state="readonly")
 tkgrid(tklabel(tab6, text="Response to be aggregated:"), sticky="w")
 tkgrid(respEntry, sticky="w")
-transfoVar <- tclVar("none")
-transfoEntry <- tkentry(tab6, width="50", textvariable=transfoVar)
-tkgrid(tklabel(tab6, text="Transformation of raw data before aggregation, if requested:"), sticky="w")
-tkgrid(transfoEntry, sticky="w")
+##transfoVar <- tclVar("none")
+##transfoEntry <- tkentry(tab6, width="50", textvariable=transfoVar)
+##tkgrid(tklabel(tab6, text="Transformation of raw data before aggregation, if requested:"), sticky="w")
+##tkgrid(transfoEntry, sticky="w")
 
 
 OKCancelHelp(window=tab6, helpSubject="Menu.aggregate")

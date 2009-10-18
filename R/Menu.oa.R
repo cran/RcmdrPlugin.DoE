@@ -139,15 +139,15 @@ onOK <- function(){
                   ", min.residual.df=", tclvalue(minrdfVar), ")") 
 
                   
-        logger(paste(name, "<-", command))
-        logger("## creator element of design.info will be different, when using the command line command!")
-        assign(name, justDoItDoE(command), envir=.GlobalEnv)
-        if (class(eval(parse(text=name)))[1]=="try-error") {
-            errorCondition(window=topdes2,recall=Menu.oa, message=gettextRcmdr(eval(parse(text=name))))
+        hilf <- justDoItDoE(command)
+        if (class(hilf)[1]=="try-error") {
+            Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
+            errorCondition(window=topdes2,recall=Menu.oa, message=gettextRcmdr(hilf))
              return()
             }
+        logger(paste(name, "<-", command))
+        logger("## creator element of design.info will be different, when using the command line command!")
         ## change creator to contain menu settings
-        hilf <- get(name)
         hilfatt <- design.info(hilf)
         hilfatt$creator <- .stored.designoa
         class(hilfatt$creator) <- c("menu.designoa", "list")

@@ -23,12 +23,15 @@ Menu.addcenter <- function(){
 
       command <- paste("add.center(", .activeDataSet, 
             ", ncenter=", ncenter, ", distribute=", distribute,")")
-      logger(paste(newname, "<-", command))
-      assign(newname, justDoItDoE(command), envir=.GlobalEnv)
-        if (class(eval(parse(text=newname)))[1]=="try-error") {
-            errorCondition(window=top,recall=Menu.addcenter, message=gettextRcmdr(eval(parse(text=newname))))
+      
+      hilf <- justDoItDoE(command)
+        if (class(hilf)[1]=="try-error") {
+            Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
+            errorCondition(window=top,recall=Menu.addcenter, message=gettextRcmdr(hilf))
              return()
             }
+      logger(paste(newname, "<-", command))
+      assign(newname, hilf, envir=.GlobalEnv)
      closeDialog(window=top)
      activeDataSet(newname)
      tkfocus(CommanderWindow())

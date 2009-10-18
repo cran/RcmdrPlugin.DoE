@@ -18,7 +18,7 @@ Menu.linearModelDesign <- function(response=NULL){
         }
     if (!currentModel) {
         hilf <- formula(get(ActiveDataSet(), envir=.GlobalEnv), degree=degree, 
-            response=response)
+            response=response, use.center=FALSE)
         currentFields <- list(lhs=as.character(hilf[2]), rhs=as.character(hilf[3]), 
            data=ActiveDataSet(), subset="")
         currentModel <- TRUE
@@ -56,8 +56,15 @@ Menu.linearModelDesign <- function(response=NULL){
         formula <- paste(tclvalue(lhsVariable), tclvalue(rhsVariable), sep=" ~ ")
         command <- paste("lm(", formula,
             ", data=", ActiveDataSet(), ")", sep="")
+        hilf <- justDoItDoE(command)
+        if (class(hilf)[1]=="try-error") {
+            Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
+            errorCondition(window=topdes2,recall=Menu.linearModelDesign, message=gettextRcmdr(hilf))
+             return()
+            }
+        
         logger(paste(modelValue, " <- ", command, sep=""))
-        assign(modelValue, justDoIt(command), envir=.GlobalEnv)
+        assign(modelValue, hilf, envir=.GlobalEnv)
         doItAndPrint(paste("summary(", modelValue, ")", sep=""))
         activeModel(modelValue)
         tkfocus(CommanderWindow())

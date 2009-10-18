@@ -19,12 +19,13 @@ Menu.param <- function(){
       
       command <- paste("param.design(inner=", inner, 
             ", outer=", outr, ", direction=", dQuote(direction),")")
-      logger(paste(newname, "<-", command))
       hilf <- justDoItDoE(command)
-        if (class(eval(parse(text=hilf)))[1]=="try-error") {
+        if (class(hilf)[1]=="try-error") {
+            Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
             errorCondition(window=top,recall=Menu.param, message=gettextRcmdr(hilf))
              return()
             }
+      logger(paste(newname, "<-", command))
       assign(newname, hilf, envir=.GlobalEnv)
      closeDialog(window=top)
      activeDataSet(newname)

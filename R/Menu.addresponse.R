@@ -47,7 +47,8 @@ onOK <- function(){
                }
         hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error"){
-             errorCondition(window=topdes2, recall=Menu.addresponse, message=gettextRcmdr(eval(parse(text=hilf))))
+            Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
+             errorCondition(window=topdes2, recall=Menu.addresponse, message=gettextRcmdr(hilf))
              return()
             }
         assign(newname, hilf, envir=.GlobalEnv)
