@@ -4,7 +4,7 @@
 \title{Basic information for regular (fractional) factorial 2-level designs}
 \description{Basic information for regular (fractional) factorial 2-level designs}
 \section{Brief statistical background}{
-  These designs are created with function \code{link[FrF2]{FrF2}} from package \pkg{FrF2}. 
+  These designs are created with function \code{\link[FrF2]{FrF2}} from package \pkg{FrF2}. 
   Look up the documentation there for statistical details. Users who are not 
   familiar with the terminology around regular fractional factorial designs (e.g. 
   the concept of resolution) can browse the \code{\link{DoEGlossary}}.

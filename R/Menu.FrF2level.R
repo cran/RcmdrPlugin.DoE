@@ -152,7 +152,7 @@ onOK <- function(){
                   ",replications=",tclvalue(nrepVar),",repeat.only=",as.logical(as.numeric(tclvalue(repeat.onlyVariable))),
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizeVariable))),",seed=",tclvalue(seedVar),
                   ",",textfactornameslist.forcommand,
-                  ", estimable=", estimable, ", clear =", clear, ", res3 =", res3, ", maxtime =", tclvalue(maxtimeVar), 
+                  ", estimable=", estimable, ", clear =", clear, ", res3 =", res3, ", max.time =", tclvalue(maxtimeVar), 
                   ", catlg =", tclvalue(catlgVar),       ")")
           }
           else {
@@ -173,10 +173,22 @@ onOK <- function(){
                   ",",textfactornameslist.forcommand, ", catlg =", tclvalue(catlgVar), ")")
           }
         }                  
+            if (tclvalue(estrbVariable)=="distinct" & length(est2fislist)>0){
+                 diagcommand <- paste("print(",dQuote(paste(gettextRcmdr("Design search in progress: you allowed up to"), 
+                        tclvalue(maxtimeVar), gettextRcmdr("seconds"))), ")")
+                 doItAndPrint(diagcommand, log=FALSE)
+                 }
         hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
             Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
             errorCondition(window=topdes2,recall=Menu.FrF2level, message=gettextRcmdr(hilf))
+            if (tclvalue(estrbVariable)=="distinct" & length(est2fislist)>0){
+                 diagcommand <- paste("print(",dQuote(paste(gettextRcmdr("No design found in"), 
+                       tclvalue(maxtimeVar), gettextRcmdr("seconds"))), ")")
+                 doItAndPrint(diagcommand, log=FALSE)
+                 diagcommand <- paste("print(",dQuote(gettextRcmdr("Experts may try to speed up the search using command line programming (?estimable.2fis).")), ")")
+                 doItAndPrint(diagcommand, log=FALSE)
+                 }
              return()
             }
         logger(paste(name, "<-", command))
@@ -1157,11 +1169,17 @@ tkconfigure(helptab2Button, takefocus=0)
     tkgrid(enterlistFrame, columnspan=6,sticky="w")
 
 ## tab3
+helptab3Button <- buttonRcmdr(tab3, text = gettextRcmdr("Tab Help"), 
+        foreground = "darkgreen", command = onHelpTabEstimable, 
+        default = "normal", borderwidth = 3)
+tkconfigure(helptab3Button, takefocus=0)
+tkgrid(helptab3Button, sticky="e", columnspan=6)
+
 estradioFrame <- ttklabelframe(tab3, text=gettextRcmdr("Mode of requesting estimable 2-factor interactions"))
 putRcmdr("estrbVariable", tclVar(.stored.design2FrF$estrbVariable))
 noestrb <- tkradiobutton(estradioFrame,text=gettextRcmdr("None"),variable=estrbVariable,value="none",command=onestrb)
-clearrb <- tkradiobutton(estradioFrame,text=gettextRcmdr("Selected interactions must be clear of aliasing with all main effects and 2-factor interactions"),variable=estrbVariable,value="clear",wraplength="500",justify="left",command=onestrb)
-distinctrb <- tkradiobutton(estradioFrame,text=gettextRcmdr("Selected interactions must be clear of aliasing with each other and with main effects"),variable=estrbVariable,value="distinct",wraplength="500",justify="left",command=onestrb)
+clearrb <- tkradiobutton(estradioFrame,text=gettextRcmdr("Selected interactions must be clear of aliasing with ANY 2-factor interactions"),variable=estrbVariable,value="clear",wraplength="500",justify="left",command=onestrb)
+distinctrb <- tkradiobutton(estradioFrame,text=gettextRcmdr("Selected interactions must be clear of aliasing with EACH OTHER"),variable=estrbVariable,value="distinct",wraplength="500",justify="left",command=onestrb)
 ## deactivate all fields on this tab, if this box is not checked
 estlabel <- tklabel(estradioFrame, text=gettextRcmdr("NOTE: Resolution entry on tab Base Settings is ignored, if choice is not None"))
 tkgrid(noestrb, sticky="w")
@@ -1217,20 +1235,24 @@ putRcmdr("notest2fis", variableListBox(selFrame, variableList=intaclistt, listHe
      est2fis$varlist <- est2fislist
 
 maxtimeFrame <- ttklabelframe(selFrame, text=gettextRcmdr("Limit search time"))
-maxtimelabel <- tklabel(maxtimeFrame, text=gettextRcmdr("The search can take very long.\nIf it times out unsuccessfully, expert users may try the command line mode of function FrF2 that allows more control options."),
-    wraplength="350", justify="left")
+maxtimelabel <- tklabel(maxtimeFrame, 
+    text=gettextRcmdr("The search can take very long.\nIf it times out unsuccessfully, \nexpert users may try the command line mode of function FrF2 that allows more control options."),
+    justify="left", wraplength="280")
 maxtimeentrylabel <- tklabel(maxtimeFrame, text=gettextRcmdr("Maximum search time in seconds"))
 maxtimeVar <- tclVar(.stored.design2FrF$maxtimeVar)
 maxtimeEntry <- tkentry(maxtimeFrame, textvariable=maxtimeVar)
-tkgrid(maxtimeentrylabel, maxtimeEntry, sticky="w")
-tkgrid(maxtimelabel,sticky="w", columnspan=2)
+tkgrid(maxtimeentrylabel, sticky="w")
+tkgrid(maxtimeEntry, sticky="e")
+tkgrid(maxtimelabel,sticky="w")
 ## create empty row
 tkgrid(tklabel(tab3,text="   "))
 #tkgrid(maxtimeFrame, sticky="w", columnspan=5)
 
-if (tclvalue(estrbVariable)=="distinct") tkgrid(notest2fis$frame, estbuttonFrame, est2fis$frame, maxtimeFrame, sticky="w")
+if (tclvalue(estrbVariable)=="distinct") {tkgrid(notest2fis$frame, estbuttonFrame, est2fis$frame, maxtimeFrame, sticky="w")
+     tkgrid.configure(maxtimeFrame, sticky="e")
+}
 else tkgrid(notest2fis$frame, estbuttonFrame, est2fis$frame, sticky="w")
-tkgrid(selFrame, sticky="w", columnspan=6)
+tkgrid(selFrame, sticky="ew", columnspan=6)
 
 #if (tclvalue(estrbVariable)=="none"){
 #    tkconfigure(selectButton, state="disabled")

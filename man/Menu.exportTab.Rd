@@ -33,8 +33,11 @@
      If chosen correctly, the html file can be opened in Excel with decimal numbers 
      read as such; furthermore, decimal separator \dQuote{,} is taken to also mean 
      separator \dQuote{;}, i.e. \code{csv} files also use the matching separator 
-     (comma corresponds to \code{csv2}). }
-\item{The Storage Directory}{should be changed with the selection button. }
+     (decimal separator comma goes with separator semicolon and corresponds to \code{read.csv2}, 
+     decimal separator point goes with separator comma and corresponds to \code{read.csv}). }
+\item{The Storage Directory}{can be changed with the selection button. 
+     For the separate export menu, the chosen directory will become the new working directory; 
+     this is not the case for the Export tab in design creation menus.}
 \item{Provide the file name}{without ending in the file names field. 
      Files with this name and the appropriate endings are produced, 
      as chosen by the \dQuote{(How to) export} radio buttons.

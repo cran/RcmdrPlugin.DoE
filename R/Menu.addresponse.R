@@ -1,14 +1,24 @@
 Menu.addresponse <- function(){
-putRcmdr("respVar", tclVar("response"))
 initializeDialogDoE(title=gettextRcmdr("Add response ..."))   
        ## refresh bei Nutzung der radiobuttons
        ## Link auf das Menü des R-Commanders zum Einbinden von Daten --> anschl. R-Objekt verwenden
+
+if (!exists("nameVar")) putRcmdr("nameVar", tclVar(""))
+if (!exists("newnameVar")) putRcmdr("newnameVar", tclVar(""))
+if (!exists("respVar")) putRcmdr("respVar", tclVar(""))
+if (!exists("responseQuelle")) putRcmdr("responseQuelle", "R")
 
 onOK <- function(){
      closeDialog(window=topdes2)
   ### capture error messages from export function
         name <- tclvalue(nameVar)
         newname <- tclvalue(newnameVar)
+        putRcmdr("csvpath", tclvalue(fileVar))
+        putRcmdr("respname", tclvalue(respVar))
+        if (!identical(respname,""))
+           putRcmdr(respname, eval(parse(text=tclvalue(respVar))))
+        putRcmdr("decimal.setting", tclvalue(decimalrbVariable))
+        putRcmdr("responseQuelle", tclvalue(etyperbVariable))
         if (is.element(newname, listObjects()))
           {
           if ("no" == tclvalue(checkReplace(newname, gettextRcmdr("Object"))))
@@ -29,19 +39,16 @@ onOK <- function(){
             return()
           }
     ### adding a response
-        putRcmdr("path", tclvalue(fileVar))
-        respname <- tclvalue(respVar)
-        putRcmdr(respname, eval(parse(text=tclvalue(respVar))))
         if (tclvalue(etyperbVariable)=="R")
            command <- paste("add.response(",name,
                ",", respname, ", replace=",
                as.logical(as.numeric(tclvalue(replacecbVariable))),")",sep="")
            else{
               if (tclvalue(decimalrbVariable)=="default") command <- paste("add.response(",name,
-                     ", ",dQuote(path),", replace=",
+                     ", ",dQuote(csvpath),", replace=",
                      as.logical(as.numeric(tclvalue(replacecbVariable))),")",sep="")
               else command <- paste("add.response(",name, 
-                     ", ",dQuote(path),", replace=",
+                     ", ",dQuote(csvpath),", replace=",
                      as.logical(as.numeric(tclvalue(replacecbVariable))),", InDec=", 
                      dQuote(tclvalue(decimalrbVariable)),")",sep="")
                }
@@ -54,14 +61,19 @@ onOK <- function(){
         assign(newname, hilf, envir=.GlobalEnv)
         logger(paste(newname, "<-", command))
         activeDataSet(newname)
+        putRcmdr("nameVar", tclVar(""))
+        putRcmdr("newnameVar", tclVar(""))
+        putRcmdr("csvpath", "")
+        putRcmdr("respVar", tclVar(""))
         closeDialog(window=topdes2)
         tkwm.deiconify(CommanderWindow())
         tkfocus(CommanderWindow())
   }
 
      namechange <- function(){
+        if (!tclvalue(respVar)==""){
         if (!exists(tclvalue(respVar)))
-          tkmessageBox(message="invalid response name!", icon="error", type="ok", title="Non-existing response")
+          tkmessageBox(message="invalid response name!", icon="error", type="ok", title="Non-existing response")}
     }
 dquote <- function(obj){
     ## quote vector elements for use as character vector in a command
@@ -76,6 +88,8 @@ dquote <- function(obj){
 
  onRadio <- function(){
     if (tclvalue(etyperbVariable)=="R"){
+        tkconfigure(dirEntry, state="disabled")
+        tkconfigure(dirButton, state="disabled")
         tkconfigure(fileEntry, state="disabled")
         tkconfigure(fileButton, state="disabled")
         tkconfigure(defaultrb, state="disabled")
@@ -84,6 +98,8 @@ dquote <- function(obj){
         tkconfigure(respEntry, state="normal")
     } 
     else{ 
+        tkconfigure(dirEntry, state="normal")
+        tkconfigure(dirButton, state="normal")
         tkconfigure(fileEntry, state="normal")
         tkconfigure(fileButton, state="normal")
         tkconfigure(defaultrb, state="normal")
@@ -91,6 +107,15 @@ dquote <- function(obj){
         tkconfigure(commarb, state="normal")
         tkconfigure(respEntry, state="disabled")
     } 
+ }
+ 
+ onChangeDir <- function(){
+     putRcmdr("direct",tclvalue(tkchooseDirectory()))
+     if (!direct=="") {
+        putRcmdr("dirVar", tclVar(direct))
+        tkconfigure(dirEntry, textvariable = dirVar)
+        setwd(direct)
+        }
  }
  
  onChangeFile <- function(){
@@ -135,19 +160,27 @@ tkgrid(designsel, replacecb, sticky="w", padx=15)
 
 ## radio buttons for choosing response source type
 etradioFrame <- ttklabelframe(topdes2, text=gettextRcmdr("What type of response ?"))
-etyperbVariable <- tclVar("R")
+etyperbVariable <- tclVar(responseQuelle)
 Rrb <- tkradiobutton(etradioFrame,text=gettextRcmdr("R object (data frame or vector"),variable=etyperbVariable,value="R",command=onRadio)
 csvrb <- tkradiobutton(etradioFrame,text=gettextRcmdr("External csv file"),variable=etyperbVariable,value="csv",command=onRadio)
 tkgrid(Rrb, sticky="w")
 tkgrid(csvrb, sticky="w")
 
+
 ## import file
 ## (enabled visible for external only)
 fileFrame <- ttklabelframe(topdes2, text=gettextRcmdr("csv file with response data"))
+putRcmdr("dirVar", tclVar(getwd()))
+dirEntry <- tkentry(fileFrame, width="50", textvariable=dirVar)
+dirButton <- buttonRcmdr(fileFrame, text = gettextRcmdr("Change \n working directory"), 
+        foreground = "darkgreen", width = "20", command = onChangeDir, 
+        default = "normal", borderwidth = 3)
+tkgrid(dirEntry, tklabel(fileFrame, text="   "), dirButton, sticky="w")
 ## radio buttons for choosing export decimal separator
 ## make visible for external only!!!
 decimalradioFrame <- ttklabelframe(fileFrame, text=gettextRcmdr("Decimal Separator ?"))
 decimalrbVariable <- tclVar("default")
+if (exists("decimal.setting")) decimalrbVariable <- tclVar(decimal.setting)
 defaultrb <- tkradiobutton(decimalradioFrame,text=gettextRcmdr("default"),variable=decimalrbVariable, value="default")
 pointrb <- tkradiobutton(decimalradioFrame,text=gettextRcmdr("."),variable=decimalrbVariable, value=".")
 commarb <- tkradiobutton(decimalradioFrame,text=gettextRcmdr(","),variable=decimalrbVariable, value=",")
@@ -155,7 +188,8 @@ tkgrid(defaultrb, sticky="w")  ## in this case, leave default option from option
 tkgrid(pointrb, sticky="w")
 tkgrid(commarb, sticky="w")
 
-putRcmdr("fileVar", tclVar(""))
+if (!exists("csvpath")) putRcmdr("fileVar", tclVar(""))
+   else putRcmdr("fileVar", tclVar(csvpath))
 fileEntry <- tkentry(fileFrame, width="50", textvariable=fileVar)
 fileButton <- buttonRcmdr(fileFrame, text = gettextRcmdr("Select csv file"), 
         foreground = "darkgreen", width = "20", command = onChangeFile, 
@@ -186,11 +220,12 @@ tkgrid(fileFrame, sticky="w", columnspan=3, pady=15)
 
 
 ## default: R object
-        tkconfigure(fileEntry, state="disabled")
-        tkconfigure(fileButton, state="disabled")
-        tkconfigure(defaultrb, state="disabled")
-        tkconfigure(pointrb, state="disabled")
-        tkconfigure(commarb, state="disabled")
+#        tkconfigure(fileEntry, state="disabled")
+#        tkconfigure(fileButton, state="disabled")
+#        tkconfigure(defaultrb, state="disabled")
+#        tkconfigure(pointrb, state="disabled")
+#        tkconfigure(commarb, state="disabled")
+onRadio()
 
 tkgrid(newnamelabel, sticky="w")
 tkgrid(newnameEntry, sticky="w")

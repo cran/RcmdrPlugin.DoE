@@ -1,3 +1,22 @@
+Version 0.6-6, 25 Oct 2009
+- added help button to "Estimable Model" tab for regular 2-level fractional factorials
+
+Version 0.6-5, 25 Oct 2009
+- a few changes to help files
+- made several menus more comfortable:
+  - keep decimal settings between menus and calls in menus (except for export sub 
+    menus of larger menus)
+  - allow change of working directory in import, export and add response menu
+  - keep further settings in export, import and add response menus, 
+    especially in case of errors, so that corrections can be made more comfortably
+- small layout changes to Estimable Model tab 
+  for regular 2-level fractional factorials
+- bug fix: maximum time for searching for designs with specified 2fis not aliased  
+  with each other or with main effects (Estimable Model tab 
+  for regular 2-level fractional factorials)
+  was not properly implemented (search was always 60 seconds);
+  - improvement for this situation: indication that search is in progress in the output window
+
 Version 0.6, 18 Oct 2009
 - changed strategy for error messages when generating designs (affects all design 
   generating and design modifying menus):

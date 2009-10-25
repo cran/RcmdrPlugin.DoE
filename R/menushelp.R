@@ -1,4 +1,17 @@
 ## Menu info functions
+helpabout <- function(){
+     if (GrabFocus() && .Platform$OS.type != "windows")
+            tkgrab.release(topdes2)
+     print(help("RcmdrPlugin.DoE-package"))
+}
+
+onHelpTabEstimable <- function(){
+     if (GrabFocus() && .Platform$OS.type != "windows")
+            tkgrab.release(topdes2)
+     print(help("Menu.FrF2levelTabEstimable"))
+}
+
+
 help2level <- function(){
      if (GrabFocus() && .Platform$OS.type != "windows")
             tkgrab.release(topdes2)

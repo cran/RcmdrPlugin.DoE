@@ -6,6 +6,7 @@ onOK <- function(){
      closeDialog(window=topdes2)
   ### capture error messages from export function
         name <- tclvalue(nameVar)
+     putRcmdr("decimal.setting", tclvalue(decimalrbVariable))
         if (!is.valid.name(name)) {
             errorCondition(window=topdes2,recall=Menu.export, 
                     message=paste('"', name, '" ', gettextRcmdr("is not a valid name."), sep=""))
@@ -65,6 +66,7 @@ dquote <- function(obj){
      if (!direct=="") {
         putRcmdr("dirVar", tclVar(direct))
         tkconfigure(dirEntry, textvariable = dirVar)
+        setwd(direct)
         }
  }
  ######## end define functions                          
@@ -108,6 +110,7 @@ tkgrid(csvrb, sticky="w")
 ## radio buttons for choosing export decimal separator
 decimalradioFrame <- ttklabelframe(topdes2, text=gettextRcmdr("Decimal Separator ?"))
 decimalrbVariable <- tclVar("default")
+if (exists("decimal.setting")) decimalrbVariable <- tclVar(decimal.setting)
 defaultrb <- tkradiobutton(decimalradioFrame,text=gettextRcmdr("default"),variable=decimalrbVariable, value="default")
 pointrb <- tkradiobutton(decimalradioFrame,text=gettextRcmdr("."),variable=decimalrbVariable, value=".")
 commarb <- tkradiobutton(decimalradioFrame,text=gettextRcmdr(","),variable=decimalrbVariable, value=",")
@@ -119,7 +122,7 @@ tkgrid(commarb, sticky="w")
 dirFrame <- ttklabelframe(topdes2, text=gettextRcmdr("Storage Directory"))
 putRcmdr("dirVar", tclVar(getwd()))
 dirEntry <- tkentry(dirFrame, width="50", textvariable=dirVar)
-dirButton <- buttonRcmdr(dirFrame, text = gettextRcmdr("Change directory"), 
+dirButton <- buttonRcmdr(dirFrame, text = gettextRcmdr("Change \n working directory"), 
         foreground = "darkgreen", width = "20", command = onChangeDir, 
         default = "normal", borderwidth = 3)
 tkgrid(dirEntry, tklabel(dirFrame, text="   "), dirButton, sticky="w")

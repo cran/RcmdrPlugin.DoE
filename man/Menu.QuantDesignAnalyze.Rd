@@ -6,7 +6,9 @@
 %- maybe also 'usage' for other objects documented here.
 
 \section{Available analysis options}{
-??? must be filled with content
+Currently, no special analysis methods for quantitative designs have been implemented.
+Use the analysis facilities within the R-commander, or use the command-line facilities 
+offered e.g. in package \code{\link[rsm:rsm-package]{rsm}}
 }
 
 
@@ -16,8 +18,6 @@
     New York: Wiley.
  }
 \author{ Ulrike Groemping }
-\seealso{ See Also ... 
-}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ design }

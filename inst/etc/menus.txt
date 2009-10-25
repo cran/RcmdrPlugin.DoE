@@ -98,3 +98,7 @@
     item    designUseHelpMenu  command    "How to make menus behave appropriately ..."              helpMenus                          ""          ""
     item    designUseHelpMenu  command    "Export/import help ..."                        helpExpImp                          ""          ""
     item    designMenu      cascade    "Help on Using the Design Menu ..."                designUseHelpMenu                     ""          ""
+
+    menu    aboutDesign    designMenu        ""        ""         ""            ""
+    item    aboutDesign    command      "About RcmdrPlugin.DoE"        helpabout     ""      ""
+    item    designMenu    cascade      "About RcmdrPlugin.DoE"         aboutDesign   ""      "" 

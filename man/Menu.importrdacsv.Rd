@@ -14,9 +14,10 @@
   The re-importing supports the addition of responses that are available in a csv file
   to the class \code{\link[DoE.base:class-design]{design}} data frame in the saved rda file.
   Usage of this menu also works, if the design is already present in the R workspace. 
-  In this case, it is not necessary to first load an rda file.
+  In this case, it is not necessary to first load an rda file. 
     
   Simply provide a valid file name for the combined design, \cr
+  for convenience, change the working directory,\cr
   select the rda file, \cr
   if necessary, select the correct design from the drop-down, \cr
   select the csv file, \cr

@@ -20,10 +20,12 @@
   \alias{existDesigns} 
   \alias{existDesignsWithResp}
   \alias{help2level} 
+  \alias{helpabout} 
   \alias{helpAnalyze} 
   \alias{helpExpImp} 
   \alias{helpgeneral} 
   \alias{helpGeneralAnalyze}
+  \alias{onHelpTabEstimable}
   \alias{helpMenus}
   \alias{helpModify} 
   \alias{helpquant} 
@@ -71,10 +73,12 @@
   existDesigns() 
   existDesignsWithResp()
   help2level() 
+  helpabout()
   helpAnalyze() 
   helpExpImp() 
   helpgeneral() 
   helpGeneralAnalyze()
+  onHelpTabEstimable()
   helpMenus()
   helpModify() 
   helpquant() 

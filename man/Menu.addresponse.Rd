@@ -12,11 +12,13 @@
   that are to be overwritten).
   
   Decide whether response data are already in R or are available from a \code{csv} file. 
+  In the latter case, changing the working directory is possible (but not necessary).
     
   If the response data are already in R or are to be calculated, fill in the appropriate 
   information in the entry field for the response (for playing with random data, 
   this could e.g. be \code{rnorm(8)}). Otherwise, select a csv file and choose the 
-  correct decimal setting. 
+  correct decimal setting. The chosen decimal setting will become the default also 
+  for other menus that require a decimal setting.
   
   Finally, provide a valid file name for the modified design.
   
