@@ -399,7 +399,7 @@ tkgrid(commarb, sticky="w")
 
 ## export directory
 dirFrame <- ttklabelframe(tab6, text=gettextRcmdr("Storage Directory"))
-dirVar <- tclVar(.stored.designccd$dirVar)
+putRcmdr("dirVar", tclVar(.stored.designccd$dirVar))
 dirEntry <- tkentry(dirFrame, width="50", textvariable=dirVar)
 dirButton <- buttonRcmdr(dirFrame, text = gettextRcmdr("Change directory"), 
         foreground = "darkgreen", width = "20", command = onChangeDir, 

@@ -1,3 +1,9 @@
+Version 0.6-7, 21 Nov 2009
+- improved help for manually incorporating blocks into designs with 
+  estimable 2-factor interactions 
+- bug fix: directory selection did not work on export tabs of design creation
+  menus
+
 Version 0.6-6, 25 Oct 2009
 - added help button to "Estimable Model" tab for regular 2-level fractional factorials
 

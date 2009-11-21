@@ -15,8 +15,8 @@ Blocked designs (number of blocks larger than 1 on the \dQuote{Base Settings} ta
 and specification of an estimable model are not compatible 
 with each other in the current version of the software. 
 Thus, you have to decide on using blocks OR specifying estimable 2-factor interactions. 
-Nevertheless, at least for 2 blocks only, it may be feasible to specify the 
-block factor as one of the regular experimental factors.
+(Nevertheless, 2 or 4 blocks can be specified as detailed in the 
+section \dQuote{Brief statistical background} below. 
 
 Generators or a specific design (radio buttons on the \dQuote{Base Settings} tab) 
 can neither be specified together with estimable 2-factor interactions.
@@ -39,6 +39,19 @@ estimable 2-factor interactions.
   with ANY 2fis (both with each other and the other 2fis). Even under this approach, the 
   design need not be resolution V, since the unselected 2fis may be aliased 
   with each other. 
+  
+  If a design with certain interactions to be estimable is to be run in more 
+  than four blocks, there is currently no automated way to produce it, 
+  as it is not permitted to specify a number of blocks together 
+  with selecting 2fis to be estimable. A blocked design with 2 or 4 blocks can be 
+  obtained by explicitly including one (2 blocks) or two (4 blocks) blocking factors. \cr
+  For the case of 4 blocks, it is important to include the interaction between 
+  the two blocking factors into the selected interactions. \cr
+  For the case of 2 blocks only, the blocking factor is treated like the 
+  other factors, i.e. if its interactions with other factors are not among the selected ones, 
+  they may be aliased with other 2fis (and even with main effects, 
+  if resolution III is permitted in exceptional situations), which is usually 
+  considered adequate. 
   
   The design is created with function \code{\link[FrF2]{FrF2}} from package \pkg{FrF2}. 
   The special functionality for estimable 2fis is described \code{\link[FrF2:estimable.2fis]{here}}. 
