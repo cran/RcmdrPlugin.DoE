@@ -6,6 +6,8 @@
   \alias{activeDataSetDesignLongToWide}
   \alias{activeDataSetDesignP} 
   \alias{activeDataSetDesignPResp} 
+  \alias{activeDataSetDesignQualP} 
+  \alias{activeDataSetDesignRemovableP} 
   \alias{activeDataSetDesignWide}
   \alias{dc} 
   \alias{display.design} 
@@ -43,7 +45,6 @@
   \alias{Menu.aggregate}
   \alias{Menu.EffectPlots} 
   \alias{Menu.export} 
-  \alias{Menu.responses}
   \alias{Menu.wide} 
   \alias{textcorrect} 
   \alias{textentry}

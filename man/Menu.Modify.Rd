@@ -16,8 +16,21 @@
   
   Default analyses for experimental designs either work with all responses or with the first 
   response of the design. It can therefore be advantageous to delete responses from the list of responses. 
-  This can be done with the menu item \emph{Change response variables}. At a later stage, one might want to 
+  This can be done with the menu item \emph{Select/Deselect response variables}. 
+  At a later stage, one might want to 
   redefine previous response variables as responses. This is also possible via that menu. 
+  
+  Contrary to response deselection, which leaves the variable in the design, 
+  one may want to permanently remove a column (response or other variable, but not 
+  experimental factor or block factor), for example 
+  because some artificial data for playing are no longer needed with real response data available. 
+  This can be done with the \emph{Remove column(s)} menu item.
+  
+  Qualitative design factors come with prespecified contrast coding, which influences 
+  how analysis results appear. If the default contrasts are not the desired ones, they 
+  can be changed from the \emph{Change contrasts} menu item. Note that this is preferrable 
+  to the built-in function from R-Commander, because it preserves the integrity 
+  of the class \code{design} object.
   
   Some designs come in long format (repeated measurements, some parameter designs) 
   but should be brought into wide format and aggregated for conducting simple analyses. 

@@ -103,3 +103,22 @@ isDesign2FrF <- function(design){
            if (all(nlevels==2)) aus <- TRUE}
         aus
 }
+
+activeDataSetDesignQualP <- function (){
+  aus <- FALSE
+  if (activeDataSetDesignP()){
+     hilf <- design.info(eval(parse(text=ActiveDataSet())))$quantitative
+     aus <- !all(hilf) | is.null(hilf)
+     }
+  aus
+}
+
+activeDataSetDesignRemovableP <- function (){
+  aus <- FALSE
+  if (activeDataSetDesignP()){
+     di <- design.info(eval(parse(text=ActiveDataSet())))
+     if (length(setdiff(colnames(eval(parse(text=ActiveDataSet()))), c(names(di$factor.names), di$block.name)))>0)
+     aus <- TRUE
+     }
+  aus
+}

@@ -56,6 +56,8 @@
     menu    designUtilityMenu designMenu       ""                                      ""                          ""          ""
     item    designUtilityMenu      command    "Add response variable(s) ..."            Menu.addresponse          "activeDataSetDesignP()"      ""
     item    designUtilityMenu      command    "Select / Deselect response variables ..."     Menu.responses          "activeDataSetDesignP()"      ""
+    item    designUtilityMenu      command    "Remove column(s) ..."     Menu.colremove          "activeDataSetDesignRemovableP()"      ""
+    item    designUtilityMenu      command    "Change factor contrast(s) ..."     Menu.changecontr          "activeDataSetDesignQualP()"      ""
     item    designUtilityMenu      command    "----------------------------------"                   dc                          "FALSE"          ""
     item    designUtilityMenu      command    "Change from long to wide format ..."     Menu.wide          "activeDataSetDesignLongToWide()"      ""
     item    designUtilityMenu      command    "Aggregate design ..."            Menu.aggregate                   "activeDataSetDesignWide()"      ""

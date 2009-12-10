@@ -1,3 +1,9 @@
+Version 0.6-8, 10 Dec 2009
+- added menu for permanently removing columns from the design
+- added menu for modifying factor contrasts
+- bug fix: help button for response selection menu now points to the correct 
+  help file
+
 Version 0.6-7, 21 Nov 2009
 - improved help for manually incorporating blocks into designs with 
   estimable 2-factor interactions 

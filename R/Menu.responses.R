@@ -4,7 +4,7 @@ Menu.responses <- function(){
    di <- design.info(eval(parse(text=.activeDataSet)))
 
     putRcmdr("curresp", response.names(eval(parse(text=.activeDataSet))))
-    putRcmdr("potentialresp", setdiff(listNumeric(),curresp))
+    putRcmdr("potentialresp", setdiff(listNumeric(),c(curresp,names(di$factor.names))))
 
    onSelect <- function(){
      if (tclvalue(tcl(other.numerics$listbox, "curselection"))=="") return()
@@ -80,7 +80,7 @@ onOK <- function(){
          tkgrid(getFrame(other.numerics), estbuttonFrame, getFrame(sel.responses))
          tkgrid(selFrame,sticky="n")
 
-    OKCancelHelp(helpSubject="Menu.EffectsPlots")
+    OKCancelHelp(helpSubject="Menu.responses")
     tkgrid(buttonsFrame, sticky="w")
     dialogSuffix(rows=2, columns=3)
 }
