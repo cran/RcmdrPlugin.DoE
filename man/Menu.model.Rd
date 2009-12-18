@@ -12,8 +12,10 @@
 \details{
   This help file describes usage of the linear model menu. 
   The menu is only available 
-  if at least one (object of class) design exists in the R workspace.
-  Selecting a different than the active design changes the active design.
+  if the active data set is a design with at least one response.
+  
+  Select the intended response in the menu (it can also be changed afterwards,
+  but less conveniently).
   
   The default NULL for the degree will use the default polynomial degree from function 
   \code{\link[DoE.base]{formula.design}}. 

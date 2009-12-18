@@ -5,7 +5,9 @@
 \description{Using the menu for 2-level main effects and interaction plots}
 %- maybe also 'usage' for other objects documented here.
 \section{Using the menu for 2-level main effects and interaction plots}{
-  Select the factors whose interactions are to be plotted.\cr
+  Select the response that is to be analysed.\cr
+  Select the factors whose main effects or interactions are to be plotted 
+  (at least two factors are needed even for main effects).\cr
   Decide with the radio buttons, whether a main effects plot or an interaction plot is needed.\cr
   Select the abbreviation length for factor names from a list of lengths (Often the default will be OK).\cr
   For interaction plots, indicate whether confounding should be shown in the plot. 
@@ -17,9 +19,10 @@
   they are confounded. This means that the displayed interaction is the sum 
   of all the confounded interactions - they can either work into the same 
   direction or into opposite directions, or most of them are negligible and 
-  one is dominating.
+  one is dominating or ...
 }
-\seealso{See also \code{\link[FrF2]{IAPlot}} for the underlying function}
+\seealso{See also \code{\link[FrF2]{MEPlot}} and \code{\link[FrF2]{IAPlot}} 
+for the underlying functions for main effects and interaction plots.}
 \author{ Ulrike Groemping }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

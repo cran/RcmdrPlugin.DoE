@@ -73,7 +73,7 @@
 
     menu    designAnalMenu designMenu       ""                                              ""                          ""          ""
     item   designMenu          cascade    "Analyze design"                 designAnalMenu               ""                     ""
-    item    designAnalMenu     command    "Default linear model ..."      Menu.model      "existDesignsWithResp()"      ""
+    item    designAnalMenu     command    "Default linear model ..."      Menu.model      "activeDataSetDesign2PResp()"      ""
     item    designAnalMenu      command    "----------------------------------"                   dc                          "FALSE"          ""
     item    designAnalMenu     command    "Effects (Half) Normal Plots (2-level design) ..."             Menu.EffectPlots           "activeDataSetDesign2PResp()"      ""
     item    designAnalMenu     command    "Main Effects and Interaction Plots (2-level design) ..."       Menu.IAPlot        "activeDataSetDesign2PResp()"      ""

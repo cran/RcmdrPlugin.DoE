@@ -10,7 +10,7 @@ in the Analyze Design menu.}
 
 \bold{Generally applicable analysis options}\cr
 The topmost menu entry \emph{Default linear model} is of interest for all design types 
-and is usable whenever the R workspace contains a design with response. 
+and is usable whenever the active dataset is a design with response. 
 However, the default linear model analysis does not work 
 for long version designs with repeated measurements or for parameter designs in long format, 
 as it usually does not make sense in such situations. Rather, such designs should be brought into 

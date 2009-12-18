@@ -1,16 +1,18 @@
 Menu.EffectPlots <- function(){
    .activeDataSet <- ActiveDataSet()
    di <- design.info(eval(parse(text=.activeDataSet)))
+    putRcmdr("resp.list", response.names(eval(parse(text=.activeDataSet))))
    
    onOK <- function(){
       code <- as.logical(as.numeric(tclvalue(codeVar)))
       autolab <- as.logical(as.numeric(tclvalue(autolabVar)))
       alpha <- as.numeric(tclvalue(alphaVar))
       half <- as.logical(as.numeric(tclvalue(halfVar)))
+      response <- getSelection(sel.resps)
 
      ## selected plots
        command <- paste("DanielPlot(", .activeDataSet, ", code=", as.character(code), ", autolab=", as.character(autolab), 
-            ", alpha=", alpha, ", half=", as.character(half),")", sep="")
+            ", alpha=", alpha, ", half=", as.character(half),", response=", dQuote(response), ")", sep="")
        logger(command)
        hilf <- justDoItDoE(command)
        if (class(hilf)[1] == "try-error"){
@@ -48,6 +50,12 @@ Menu.EffectPlots <- function(){
    if (!exists("codeVar")) putRcmdr("codeVar", tclVar("1"))
    if (!exists("alphaVar")) putRcmdr("alphaVar", tclVar("0.1"))
    if (!exists("autolabVar")) putRcmdr("autolabVar", tclVar("1"))
+   selFrame <- tkframe(top)
+   putRcmdr("sel.resps", variableListBox(selFrame, variableList=resp.list, listHeight=10, 
+        title="Response to be analysed (select one)",selectmode="single", initialSelection=0))
+   tkgrid(selFrame,sticky="n")
+   tkgrid(getFrame(sel.resps), sticky="n")
+
    resetBut <- tkbutton(top, text="Reset to defaults", command=onReset)
    halfcb <- ttkcheckbutton(top, text="Half normal plot ?", variable=halfVar)
    codecb <- ttkcheckbutton(top, text="Label effects with codes instead of names ?",

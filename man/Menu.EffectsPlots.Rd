@@ -5,6 +5,7 @@
 \description{Help on using the menu for (half) normal effects plots}
 %- maybe also 'usage' for other objects documented here.
 \section{Help on using the menu for (half) normal effects plots}{
+  Select the response that is to be analyzed.\cr
   Decide with the check buttons, \cr
   whether a half or full normal plot is requested, \cr
   whether effects are labelled with their names or with codes (usually \code{A}, \code{B} etc.)\cr

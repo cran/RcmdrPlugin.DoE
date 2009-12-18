@@ -1,3 +1,9 @@
+Version 0.6-9, 18 Dec 2009
+Created comfort for analysing designs with several response variables:
+- added response selection to the currently available analysis menus
+- removed design selection from linear model menu; this menu now always refers 
+  to the design in the active dataset, like the other analysis menus
+
 Version 0.6-8, 10 Dec 2009
 - added menu for permanently removing columns from the design
 - added menu for modifying factor contrasts

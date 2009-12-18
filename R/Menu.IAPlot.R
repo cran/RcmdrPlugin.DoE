@@ -2,11 +2,13 @@ Menu.IAPlot <- function(){
    .activeDataSet <- ActiveDataSet()
    di <- design.info(eval(parse(text=.activeDataSet)))
    factors <- names(di$factor.names)
+    putRcmdr("resp.list", response.names(eval(parse(text=.activeDataSet))))
    
    onOK <- function(){
      select <- which(factors %in% unlist(strsplit(getSelection(factorsBox)," ")))
      abbrev <- as.numeric(getSelection(abbrevBox))
      show.alias <- as.logical(as.numeric(as.character(tclvalue(showaliVar))))
+      response <- getSelection(sel.resps)
 
      ## selected plots
      ## the interim result linmod is produced within the R-commander workspace
@@ -15,7 +17,7 @@ Menu.IAPlot <- function(){
      ## eventually provide a method for class design in package FrF2 --> this problem goes away
      ## 
      if (tclvalue(plottyperbVar)=="ME"){ 
-       command <- paste("MEPlot(",.activeDataSet,", abbrev=",abbrev, ", select=c(", paste(select,collapse=","),"))", sep="")
+       command <- paste("MEPlot(",.activeDataSet,", abbrev=",abbrev, ", select=c(", paste(select,collapse=","),"), response=", dQuote(response), ")", sep="")
        logger(command)
        hilf <- justDoItDoE(command)
        if (class(hilf)[1] == "try-error"){
@@ -38,6 +40,12 @@ Menu.IAPlot <- function(){
     }
    
    initializeDialog(title=gettextRcmdr("Interaction plots for 2-level factors"))
+   selFrame <- tkframe(top)
+   putRcmdr("sel.resps", variableListBox(selFrame, variableList=resp.list, listHeight=10, 
+        title="Response to be analysed (select one)",selectmode="single", initialSelection=0))
+   tkgrid(selFrame,sticky="n")
+   tkgrid(getFrame(sel.resps), sticky="n")
+
    factorsBox <- variableListBox(top, variableList=factors, selectmode="multiple",
         title=gettextRcmdr("Factors (select at least two)"),
         initialSelection=NULL)
