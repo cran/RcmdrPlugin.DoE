@@ -68,11 +68,14 @@ storeRcmdr <- function(){
         genVar=tclvalue(genVar),catlgVar=tclvalue(catlgVar),designVar=tclvalue(designVar),
         resVar=tclvalue(resVar),
         qualcritrbVariable=tclvalue(qualcritrbVariable),
+        comprclassVar=tclvalue(comprclassVar),
         facnamlist=as.character(tclObj(facnamlist)),
         faclev1list=as.character(tclObj(faclev1list)),
         faclev2list=as.character(tclObj(faclev2list)),
         faclablist=as.character(tclObj(faclablist)),
-        estrbVariable=tclvalue(estrbVariable),maxtimeVar=tclvalue(maxtimeVar),est2fislist=est2fislist,
+        estrbVariable=tclvalue(estrbVariable),
+        comprrbVariable=tclvalue(comprrbVariable),
+        maxtimeVar=tclvalue(maxtimeVar),est2fislist=est2fislist,
         etyperbVariable=tclvalue(etyperbVariable),
         decimalrbVariable=tclvalue(decimalrbVariable),
         dirVar=tclvalue(dirVar), fileVar=tclvalue(fileVar))
@@ -136,18 +139,37 @@ onOK <- function(){
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizeVariable))),",seed=",tclvalue(seedVar),
                   ",",textfactornameslist.forcommand,")")
     else{
+               estimable <- "NULL"
           ## only do if special cases present
           if (!tclvalue(estrbVariable)=="none" & length(est2fislist)>0){
                 ## only if selected and specified!!
                 ### estimable interactions
-                #### 
+                ## compromise plans
+                if (tclvalue(comprrbVariable) == "compr") {
+                    command <- paste("compromise(",tclvalue(nfacVar),", c(",
+                       paste(dquote(which(Letters  %in% notest2fislist)),collapse=","),
+                       "), ",substr(tclvalue(comprclassVar),1,1),")")
+                    hilf <- justDoItDoE(command)
+                    if (class(hilf)[1]=="try-error") {
+                          Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
+                          errorCondition(window=topdes2,recall=Menu.FrF2level, message=gettextRcmdr(hilf))
+                          return()
+                    }
+                    assign("calc.estim", hilf, envir=.GlobalEnv)
+
+                    #compromise(as.numeric(tclvalue(nfacVar)), which(Letters  %in% notest2fislist), 
+                    #        as.numeric(substr(tclvalue(comprclassVar),1,1))))
+                    logger(paste("calc.estim <-", command))
+                    estimable <- "calc.estim$requirement"
+                    if (tclvalue(estrbVariable)=="distinct") estimable <- paste(estimable, ", perms=calc.estim$perms.full")
+                }
+                else estimable <- paste("c(",paste(dquote(est2fislist),collapse=","),")")
+                
                 if (!(tclvalue(hardVar)=="0" & tclvalue(designrbVariable)=="default" & tclvalue(nblockVar)=="1"))
                     tk_messageBox(message=gettextRcmdr("estimable has taken precedence, not all other requests have been granted!"),type="ok")
-               estimable <- "NULL"
                clear <- "TRUE"
                if (tclvalue(estrbVariable)=="distinct") clear <- "FALSE"
                res3 <- as.logical(as.numeric(as.character(tclvalue(res3cbVariable))))
-               estimable <- paste("c(",paste(dquote(est2fislist),collapse=","),")")
             command <- paste("FrF2(nruns=",nrun.forcommand,",nfactors=",tclvalue(nfacVar), ", MaxC2 =", MaxC2, 
                   ",replications=",tclvalue(nrepVar),",repeat.only=",as.logical(as.numeric(tclvalue(repeat.onlyVariable))),
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizeVariable))),",seed=",tclvalue(seedVar),
@@ -172,23 +194,23 @@ onOK <- function(){
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizeVariable))),",seed=",tclvalue(seedVar),
                   ",",textfactornameslist.forcommand, ", catlg =", tclvalue(catlgVar), ")")
           }
-        }                  
-            if (tclvalue(estrbVariable)=="distinct" & length(est2fislist)>0){
+        }       ## end of special           
+        hilf <- justDoItDoE(command)
+        if (tclvalue(estrbVariable)=="distinct" & length(est2fislist)>0){
                  diagcommand <- paste("print(",dQuote(paste(gettextRcmdr("Design search in progress: you allowed up to"), 
                         tclvalue(maxtimeVar), gettextRcmdr("seconds"))), ")")
                  doItAndPrint(diagcommand, log=FALSE)
                  }
-        hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
             Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
             errorCondition(window=topdes2,recall=Menu.FrF2level, message=gettextRcmdr(hilf))
-            if (tclvalue(estrbVariable)=="distinct" & length(est2fislist)>0){
-                 diagcommand <- paste("print(",dQuote(paste(gettextRcmdr("No design found in"), 
-                       tclvalue(maxtimeVar), gettextRcmdr("seconds"))), ")")
-                 doItAndPrint(diagcommand, log=FALSE)
-                 diagcommand <- paste("print(",dQuote(gettextRcmdr("Experts may try to speed up the search using command line programming (?estimable.2fis).")), ")")
-                 doItAndPrint(diagcommand, log=FALSE)
-                 }
+#            if (tclvalue(estrbVariable)=="distinct" & length(est2fislist)>0){
+#                 diagcommand <- paste("print(",dQuote(paste(gettextRcmdr("No design found in"), 
+#                       tclvalue(maxtimeVar), gettextRcmdr("seconds"))), ")")
+#                 doItAndPrint(diagcommand, log=FALSE)
+#                 diagcommand <- paste("print(",dQuote(gettextRcmdr("Experts may try to speed up the search using command line programming (?estimable.2fis).")), ")")
+#                 doItAndPrint(diagcommand, log=FALSE)
+#                 }
              return()
             }
         logger(paste(name, "<-", command))
@@ -200,6 +222,11 @@ onOK <- function(){
         attr(hilf, "design.info") <- hilfatt
         assign(name, hilf, envir=.GlobalEnv)
         activeDataSet(name)
+        ## remove calc.estim
+        if (tclvalue(comprrbVariable)=="compr"){ 
+            rm(calc.estim, envir=.GlobalEnv)
+            logger("rm(calc.estim)")
+        }
     ### exporting
     if (!tclvalue(etyperbVariable)=="none"){
         putRcmdr("path", tclvalue(dirVar))
@@ -296,14 +323,7 @@ onRefresh <- function(){
 }
 
 onestrb <- function(){
-        if (!tclvalue(estrbVariable)=="none"){
-             tkconfigure(selectButton, state="normal")
-             tkconfigure(deselectButton, state="normal")
-             }
-        else {
-             tkconfigure(selectButton, state="disabled")
-             tkconfigure(deselectButton, state="disabled")
-        }
+        onestrb.worefresh()
         onRefresh()
 }
 
@@ -311,10 +331,30 @@ onestrb.worefresh <- function(){
         if (!tclvalue(estrbVariable)=="none"){
              tkconfigure(selectButton, state="normal")
              tkconfigure(deselectButton, state="normal")
+             tkconfigure(comprestrb, state="normal")
+             tkconfigure(manualestrb, state="normal")
+             tkconfigure(comprclassEntry, state="normal")
              }
         else {
              tkconfigure(selectButton, state="disabled")
              tkconfigure(deselectButton, state="disabled")
+             tkconfigure(comprestrb, state="disabled")
+             tkconfigure(manualestrb, state="disabled")
+             tkconfigure(comprclassEntry, state="disabled")
+        }
+}
+
+
+oncomprestrb <- function(){
+        oncomprestrb.worefresh
+        onRefresh()
+}
+oncomprestrb.worefresh <- function(){
+        if (tclvalue(comprrbVariable)=="compr"){
+             tkconfigure(comprclassEntry, state="normal")
+             }
+        else {
+             tkconfigure(comprclassEntry, state="disabled")
         }
 }
 
@@ -1200,14 +1240,49 @@ else tkgrid(estradioFrame, resoFrame, sticky="w", columnspan=5)
 
 ## create empty row
 tkgrid(tklabel(tab3,text="   "))
+selFrame <- ttklabelframe(tab3, text=gettextRcmdr("Select 2-factor interactions"))
+comprradioFrame <- ttklabelframe(selFrame, text=gettextRcmdr("Type of specification"))
+
+## design from older version of RcmdrPlugin.DoE
+if (is.null(.stored.design2FrF$comprrbVariable)) 
+         .stored.design2FrF$comprrbVariable <- "manual"
+putRcmdr("comprrbVariable", tclVar(.stored.design2FrF$comprrbVariable))
+manualestrb <- tkradiobutton(comprradioFrame,text=gettextRcmdr("Select manually"),
+      variable=comprrbVariable,value="manual",command=oncomprestrb)
+comprestrb <- tkradiobutton(comprradioFrame,text=gettextRcmdr("Pre-specified structure from two groups of factors"),
+      variable=comprrbVariable,value="compr",wraplength="500",justify="left",command=oncomprestrb)
 
 varlistshortt=(strsplit(tclvalue(varlistshort)," ")[[1]])
-hilf <- combn(length(varlistshortt),2)
-intaclistt <- paste(varlistshortt[hilf[1,]],varlistshortt[hilf[2,]],sep="")
-putRcmdr("est2fislist", setdiff(.stored.design2FrF$est2fislist,setdiff(.stored.design2FrF$est2fislist,intaclistt)))
-  ## omit clicked already selected interactions that must be lost because of a reduction in nfactors
+if (tclvalue(comprrbVariable)=="manual"){
+  hilf <- combn(length(varlistshortt),2)
+  intaclistt <- paste(varlistshortt[hilf[1,]],varlistshortt[hilf[2,]],sep="")
+  putRcmdr("est2fislist", setdiff(.stored.design2FrF$est2fislist,setdiff(.stored.design2FrF$est2fislist,intaclistt)))
+    ## omit clicked already selected interactions that must be lost because of a reduction in nfactors
+}
+else{
+  intaclistt <- varlistshortt
+  putRcmdr("est2fislist", setdiff(.stored.design2FrF$est2fislist,setdiff(.stored.design2FrF$est2fislist,intaclistt)))
+    ## omit clicked already selected factors that must be lost because of a reduction in nfactors
+}
 
-selFrame <- ttklabelframe(tab3, text=gettextRcmdr("Select 2-factor interactions"))
+## design from older version of RcmdrPlugin.DoE
+if (is.null(.stored.design2FrF$comprclassVar)) 
+         .stored.design2FrF$comprclassVar <- "3: all interactions of group 1"
+putRcmdr("comprclassVar", tclVar(.stored.design2FrF$comprclassVar))
+
+#resEntry <- tkentry(despropframe, textvariable=resVar)
+    putRcmdr("comprclassEntry", ttkcombobox(comprradioFrame, textvariable=comprclassVar, width=50, 
+         values=c("1: interactions within group1",
+                  "2: interactions within groups 1 and groups 2",
+                  "3: all interactions of group 1", 
+                  "4: interactions between groups 1 and 2"), state="readonly"))
+    #tkbind(comprclassEntry, "<<ComboboxSelected>>", onRefresh)
+
+tkgrid(manualestrb, sticky="w")
+tkgrid(comprestrb, comprclassEntry, sticky="w")
+tkgrid(comprradioFrame, sticky="w", columnspan=6)
+if (!tclvalue(comprrbVariable)=="compr") tkconfigure(comprclassEntry, state="disabled")
+
 estbuttonFrame <- ttkframe(selFrame)
 selectButton <- buttonRcmdr(estbuttonFrame, text = gettextRcmdr(">"), 
         foreground = "darkgreen", command = onSelect, 
@@ -1225,14 +1300,24 @@ putRcmdr("notest2fislist", setdiff(intaclistt, est2fislist))
 ## intaclistt is the master list
 
 ## make sure that both lists are of equal length and long enough
+## ## make selection offering depend on choice of compromise settings
+     if (tclvalue(comprrbVariable)=="compr"){
+        TITEL.LINKS <- "Group 1 (at least 1 element)"
+        TITEL.RECHTS <- "Group 2 (at least 1 element)"
+     }
+     else {
+        TITEL.LINKS <- "Available 2-factor interactions"
+        TITEL.RECHTS <- "Selected 2-factor interactions"
+     }
 putRcmdr("est2fis", variableListBox(selFrame, variableList=intaclistt, listHeight=15, 
-    title="Selected 2-factor interactions", selectmode="multiple"))
+    title=TITEL.RECHTS, selectmode="multiple"))
 putRcmdr("notest2fis", variableListBox(selFrame, variableList=intaclistt, listHeight=15, 
-    title="Available 2-factor interactions", selectmode="multiple"))
+    title=TITEL.LINKS, selectmode="multiple"))
      tkconfigure(notest2fis$listbox, listvariable=tclVar(paste(notest2fislist,collapse=" ")))
      notest2fis$varlist <- notest2fislist
      tkconfigure(est2fis$listbox, listvariable=tclVar(paste(est2fislist,collapse=" ")))
      est2fis$varlist <- est2fislist
+
 
 maxtimeFrame <- ttklabelframe(selFrame, text=gettextRcmdr("Limit search time"))
 maxtimelabel <- tklabel(maxtimeFrame, 

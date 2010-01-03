@@ -68,14 +68,27 @@ estimable 2-factor interactions.
      been discussed above. }
 \item{Mimimum resolution}{is per default IV and can be set to III by checking 
      the box. Usually, the default is more appropriate.}
-\item{Select 2-factor interactions }{move selected 2-factor interactions between 
+\item{Select 2-factor interactions }{
+     In case of the manual selection radio button choice, 
+     move selected 2-factor interactions between 
      the available list (those are not selected) and the selected list by 
      selecting them with the mouse (multiple selections possible) and 
-     moving them with the arrow buttons. }
-\item{Limit search time}{If the bottom radio button is chosen, the search for a 
+     moving them with the arrow buttons.\cr
+     For some classical structures (compromise designs by Addelman (1962) or Ke, Tang and Wu (2005), 
+     cf. also \code{\link[FrF2]{estimable.2fis}}), 
+     it is more comfortable, and in case of distinct designs 
+     (bottom radio button for mode of requesting estimable interactions) also often much faster, 
+     to use the pre-specified strucures for two groups of factors; the type of structure 
+     can be selected from the drop-down, and the factors can be moved between the two groups 
+     using the arrow buttons (each factor must belong to one of the groups). }
+\item{Limit search time}{If the bottom radio button for the mode of requesting estimable 2fis 
+     is chosen, the search for a 
      design can take a long time. In this case, it is possible to increase (or decrease) 
      the search time after which the search is stopped even if no appropriate design 
-     was identified.}
+     was identified. Searches with extensive requests can easily time out, 
+     especially if they are not implemented using the pre-specified group structure. 
+     Expert users may be able to utilize the structure of their problem for finding 
+     an appropriate design, using the command-line language rather than the menus. }
 }
 }
 

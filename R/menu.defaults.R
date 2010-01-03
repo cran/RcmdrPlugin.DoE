@@ -6,8 +6,9 @@
     specialrbVariable="none",hardVar="0",designrbVariable="default",
     genVar="NULL", catlgVar="catlg", designVar="NULL",
     resVar="III",qualcritrbVariable="MA",
+    comprclassVar="3: all interactions of group 1",
     facnamlist=c("A","B","C","D"),faclev1list=rep(-1,4),faclev2list=rep(1,4),faclablist=c("","","",""),
-    estrbVariable="none",maxtimeVar="60",est2fislist="", 
+    estrbVariable="none",comprrbVariable="manual", maxtimeVar="60",est2fislist="",
     etyperbVariable="none", decimalrbVariable = "default", 
     dirVar=getwd(), fileVar=gettextRcmdr("Design.1"))
     

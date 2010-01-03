@@ -15,8 +15,15 @@ onOK <- function(){
         newname <- tclvalue(newnameVar)
         putRcmdr("csvpath", tclvalue(fileVar))
         putRcmdr("respname", tclvalue(respVar))
-        if (!identical(respname,""))
-           putRcmdr(respname, eval(parse(text=tclvalue(respVar))))
+        if (!identical(respname,"")){
+              hilf <- try(eval(parse(text=tclvalue(respVar))))
+              if (class(hilf)[1]=="try-error"){ 
+                  errorCondition(window=topdes2,recall=Menu.addresponse, 
+                  gettextRcmdr("Invalid response specification"))
+                  return()
+                  }
+              putRcmdr(respname, hilf)
+              }
         putRcmdr("decimal.setting", tclvalue(decimalrbVariable))
         putRcmdr("responseQuelle", tclvalue(etyperbVariable))
         if (is.element(newname, listObjects()))
