@@ -52,6 +52,13 @@ helpExpImp <- function(){
             tkgrab.release(topdes2)
      print(help("Menu.ExpImp"))
 }
+
+helpInspect <- function(){
+     if (GrabFocus() && .Platform$OS.type != "windows")
+            tkgrab.release(topdes2)
+     print(help("Menu.Inspect"))
+}
+
 helpModify <- function(){
      if (GrabFocus() && .Platform$OS.type != "windows")
             tkgrab.release(topdes2)

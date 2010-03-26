@@ -4,13 +4,6 @@ initializeDialogDoE(title=gettextRcmdr("Create main effects design from orthogon
      ## last stored top left corner for window is stored under topleft2xy
      ## onRefresh still makes window walk a little
      
-     ## id dropdown box not yet implemented (idVar)
-         ## must update nruns
-     ## minrdfVar not yet implemented
-     
-     ## nruns dropdown box not yet implemented
-     ## column selection not yet implemented
-         ## must incorporate on tab 2, perhaps instead of factor label ?
 
 if (exists("curindex", where="RcmdrEnv")) rm(curindex, pos="RcmdrEnv")
 
@@ -19,18 +12,22 @@ if (!exists(".stored.designoa",where="RcmdrEnv"))
            ## nameVar, nrunVar, nfacVar, nrepVar
            ## cbInitials containing repeat.onlyVariable, randomizeVariable, 
            ##                       facnamesAutoVariable, faclevelsCommonVariable, 
-           ##                       nrunEntryVariable, estcbVariable
-           ##                       specialcbVariable, replacecbVariable, MaxC2cbVariable
+           ##                       nrunEntryVariable, usenlevelscbVariable
+           ##                       specialcbVariable, replacecbVariable, parentcbVariable,
            ##                       res3cbVariable
            ## level1Var, level2Var, seedVar, specialrbVariable, hardVar, genVar, 
            ## catlgVar, designVar, designrbVariable, destyperbVariable
            ## resVar, qualcritrbVariable, facnamlist,nlevlist,faclevlist, faclablist
            ## etyperbVariable, decimalrbVariable, dirVar, fileVar
-
-## MaxC2cbVariable is free again (no. 9 of cbInitials)
+           ## fromVar, toVar
 
 putRcmdr("nrunslist",c("NULL",as.character(unique(oacat$nruns))))
-putRcmdr("idlist",c("NULL",as.character(oacat$name)))
+idlist <- as.character(oacat$name)
+idlist <- idlist[-which(oacat$lineage=="" & 
+              oacat$nruns==sapply(strsplit(idlist,".", fixed=TRUE), function(obj) 
+              prod(apply(matrix(as.numeric(obj[-1]), nrow=2), 2, function(obj2) obj2[1]^obj2[2]))))]
+idlist <- c("NULL",idlist)
+putRcmdr("idlist", idlist)
 
 ## define called functions
  infoClose <- function(){
@@ -61,14 +58,43 @@ putRcmdr("idlist",c("NULL",as.character(oacat$name)))
         activestab.tn
 }
 
+onInspect <- function(){
+     if (tclvalue(fromVar)=="" & tclvalue(toVar)=="") {
+        if (!tclvalue(nrunVar)=="NULL") nrunshow <- paste("c(",tclvalue(nrunVar),", 100000),")
+        else nrunshow <- "\"all\", "
+     }
+     else{
+        if (tclvalue(fromVar) == "") nrunshow <- paste("c(0,", tclvalue(toVar),"),")
+        else {if (tclvalue(toVar) =="") nrunshow <- paste("c(",tclvalue(fromVar),", 100000),")
+              else if (tclvalue(toVar)==tclvalue(fromVar)) nrunshow <- paste(tclvalue(toVar),",", sep="")
+                   else nrunshow <- paste("c(",tclvalue(fromVar),",",tclvalue(toVar),"),")
+             }
+     }
+     if (as.logical(as.numeric(tclvalue(usenlevelscbVariable))))
+         nlevelsshow <- paste("nlevels = c(",paste(as.character(tclObj(nlevlist)),collapse=","),"),")
+         else nlevelsshow <- ""
+     command <- paste("show.oas(nruns = ", nrunshow, nlevelsshow, 
+        " parents.only = ", as.logical(as.numeric(tclvalue(parentcbVariable))), 
+        ", show = Inf)")
+     hilf <- justDoItDoE(command)
+        if (class(hilf)[1]=="try-error") {
+            logger(gettextRcmdr("Something went wrong, perhaps invalid values for number of runs?"))
+            return()
+            }
+      ## logger(command)  ## braucht man nur für justDoIt
+      tkgrab.release(topdes2)
+      doItAndPrint(command)
+      }
+
 storeRcmdr <- function(){
         hilf <- list(nameVar=tclvalue(nameVar),idVar = tclvalue(idVar), 
         nrunVar=tclvalue(nrunVar),nfacVar=tclvalue(nfacVar),nrepVar=tclvalue(nrepVar), 
         minrdfVar=tclvalue(minrdfVar),
+        optimVar = tclvalue(optimVar),
         cbInitials = c(tclvalue(repeat.onlyVariable), tclvalue(randomizeVariable),
                        tclvalue(colnospecifyVariable),0,
-                       1,0,
-                       0,tclvalue(replacecbVariable),0,
+                       1,tclvalue(usenlevelscbVariable),
+                       0,tclvalue(replacecbVariable),tclvalue(parentcbVariable),
                        0
                        ),
         seedVar=tclvalue(seedVar),
@@ -79,7 +105,8 @@ storeRcmdr <- function(){
         faclablist=as.character(tclObj(faclablist)),
         etyperbVariable=tclvalue(etyperbVariable),
         decimalrbVariable=tclvalue(decimalrbVariable),
-        dirVar=tclvalue(dirVar), fileVar=tclvalue(fileVar))
+        dirVar=tclvalue(dirVar), fileVar=tclvalue(fileVar),
+        fromVar=tclvalue(fromVar), toVar=tclvalue(toVar))
         class(hilf) <- c("menu.designoa","list")
         putRcmdr(".stored.designoa",hilf)
 }
@@ -126,9 +153,12 @@ onOK <- function(){
                             ")",sep=""),collapse=","),")")
 
     
-    columns <- "NULL"
+    columns <- dquote("order")
     if (as.logical(as.numeric(as.character(tclvalue(colnospecifyVariable)))))
        columns <- paste("c(",paste(as.character(tclObj(colnolist)), collapse=","),")")
+    
+    if (columns == dquote("order") & !tclvalue(optimVar)=="none")
+       columns <- dquote(tclvalue(optimVar))
     
     command <- paste("oa.design(ID=",tclvalue(idVar),",nruns=",tclvalue(nrunVar),
                      ",nfactors=",tclvalue(nfacVar),",replications=",
@@ -138,7 +168,7 @@ onOK <- function(){
                   "),",textfactornameslist.forcommand, ", columns =", columns,
                   ", min.residual.df=", tclvalue(minrdfVar), ")") 
 
-                  
+        logger(gettextRcmdr("## Trying to create design ... "))
         hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
             Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
@@ -376,8 +406,9 @@ onReset <- function(){
           tkconfigure(colnospecifycb, variable=colnospecifyVariable)
         }
         else {
-          putRcmdr("nrunVar", tclVar(nrow(get(tclvalue(idVar)))))
-          if (as.numeric(tclvalue(nfacVar)) > ncol(get(tclvalue(idVar)))) 
+          hilf <- eval(parse(text=paste("oa.design(",tclvalue(idVar),",randomize=FALSE)")))
+          putRcmdr("nrunVar", tclVar(nrow(hilf)))
+          if (as.numeric(tclvalue(nfacVar)) > ncol(hilf)) 
               tkmessageBox(message=gettextRcmdr("The chosen design cannot accomodate the chosen number of factors!"), 
                icon="error", type="ok", title=gettextRcmdr("Too many factors requested for this design"))
                }
@@ -389,7 +420,7 @@ onReset <- function(){
         #### ruiniert aber leider auch wieder die korrekte Ueberschreibung der Werte
         putRcmdr("nrunpos", as.numeric(tclvalue(tcl(nrunEntry, "current")))+1)
         if (!tclvalue(idVar)=="NULL") 
-           if (nrunpos>1 & !nrow(get(tclvalue(idVar)))==tclvalue(nrunVar)) 
+           if (nrunpos>1 & !nrow(eval(parse(text=paste("oa.design(",tclvalue(idVar),",randomize=FALSE)"))))>=tclvalue(nrunVar)) 
               tkmessageBox(message=gettextRcmdr("mismatch between chosen design and number of runs!"), 
                icon="error", type="ok", title=gettextRcmdr("Number of runs does not match chosen design"))
     }
@@ -654,6 +685,14 @@ nrunEntry <- ttkcombobox(baseFrame, textvariable=nrunVar, width=5, values=nrunsl
     tkbind(nrunEntry, "<<ComboboxSelected>>", nrunsel)
 nrunHint <- ttklabel(baseFrame, text="(select, if desired)", foreground="#888888")
 
+### allow for old version stored settings
+if (is.null(.stored.designoa$optimVar)) optimVar <- tclVar("none")
+else optimVar <- tclVar(.stored.designoa$optimVar)
+
+putRcmdr("optimlist", c("none","min3","min34"))
+putRcmdr("optimpos", which(optimlist %in% tclvalue(optimVar)))
+optimEntry <- ttkcombobox(baseFrame, textvariable=optimVar, width=5, values=optimlist, state="readonly")
+
 minrdfVar <- tclVar(.stored.designoa$minrdfVar)
 minrdfEntry <- tkentry(baseFrame, width="8", textvariable=minrdfVar)
 nrepVar <- tclVar(.stored.designoa$nrepVar)
@@ -668,6 +707,30 @@ repeat.onlyVariable <- tclVar(.stored.designoa$cbInitials[1])
 repeat.onlycb <- ttkcheckbutton(baseFrame,text=gettextRcmdr("Repeat only"),variable=repeat.onlyVariable)
 tkconfigure(repeat.onlycb, takefocus=0)
 
+inspectFrame <- ttklabelframe(tab1,text=gettextRcmdr("Inspect avaialable designs"))
+fromVar <- tclVar(as.character(.stored.designoa$fromVar))  ## as.character should also make it work 
+toVar <- tclVar(as.character(.stored.designoa$toVar))      ## with stored designs from previous version
+fromRuns <- tkentry(inspectFrame, width="5", textvariable=fromVar)
+toRuns <- tkentry(inspectFrame, width="5", textvariable=toVar)
+tkgrid(tklabel(inspectFrame, text=gettextRcmdr("Number of of runs")), sticky="w", columnspan=4)
+tkgrid(tklabel(inspectFrame, text="from"), fromRuns, tklabel(inspectFrame, text="to"), toRuns)
+
+inspectButton <- buttonRcmdr(inspectFrame, text=gettextRcmdr("Show available designs\n     The menu remains open, \n     fetch it back after looking at designs"),
+        foreground = "darkgreen", command = onInspect, 
+        default = "normal", borderwidth = 3)
+tkconfigure(inspectButton, takefocus=0)
+parentcbVariable <- tclVar(.stored.designoa$cbInitials[9])
+parentcb <- ttkcheckbutton(inspectFrame,variable=parentcbVariable,text=gettextRcmdr("Restrict to parent arrays"))
+tkconfigure(parentcb, takefocus=0)
+tkgrid(parentcb, columnspan=4, sticky="w")
+
+usenlevelscbVariable <- tclVar(.stored.designoa$cbInitials[6])
+usenlevelscb <- ttkcheckbutton(inspectFrame,variable=usenlevelscbVariable,text=gettextRcmdr("Use level information from factor details"))
+tkconfigure(usenlevelscb, takefocus=0)
+tkgrid(usenlevelscb, columnspan=4, sticky="w")
+
+tkgrid(inspectButton, columnspan=4)
+
 ## preparations for bottom frame
 bottomFrame <- tkframe(topdes2)
 
@@ -675,7 +738,9 @@ bottomFrame <- tkframe(topdes2)
 ## omitted nfaccb, on form, nfactors must always be specified
 tkgrid(nfaclab <- tklabel(baseFrame, text=gettextRcmdr("Number of factors")), nfacEntry, nfacHint, sticky="w")
 tkgrid(idlab <- tklabel(baseFrame, text=gettextRcmdr("Specific array")), idEntry, idHint, sticky="w")
+tkgrid(optimlab <- tklabel(baseFrame, text=gettextRcmdr("Automatic optimization")), optimEntry, sticky="w")
 tkgrid(nrunlab <- tklabel(baseFrame, text=gettextRcmdr("Minimum number of runs")), nrunEntry, nrunHint, sticky="w")
+
 tkgrid(minrdflab <- tklabel(baseFrame, text=gettextRcmdr("Minimum residual df")), minrdfEntry, sticky="w", pady=c(15,0))
 tkgrid(nreplab <- tklabel(baseFrame, text=gettextRcmdr("Replications")), nrepEntry, repeat.onlycb, sticky="w")
 tkgrid.configure(nreplab, pady=15)
@@ -693,7 +758,7 @@ tkgrid(tklabel(nameFrame, text="Name of new design"), nameEntry, helptab1Button,
 tkgrid(nameFrame, sticky="w", columnspan=4)
 tkgrid.configure(nameFrame, pady=c(5,20))
 tkgrid.configure(helptab1Button, sticky="ne")
-tkgrid(baseFrame, sticky="nw",columnspan=3)
+tkgrid(baseFrame, inspectFrame, sticky="nw",columnspan=3)
 
 ## Factor Details Tab
 ## factor details frame

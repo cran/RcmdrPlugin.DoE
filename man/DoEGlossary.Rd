@@ -107,6 +107,11 @@
   Some people also use this expression for the design itself, or for the whole 
   process of running a designed experiment.
 }
+\item{D-optimal}{
+  A D-optimal design minimizes the volume of the confidence ellipsoid for the model 
+  coefficients (by maximizing the determinant of the model information matrix); 
+  requires that a model is specified in advance
+}
 \item{effect}{
   The term \dQuote{effect} stands for all kinds of impact that a factor or a 
   combination of factors can have on the response. Effect summarizes main effects, 
@@ -250,6 +255,16 @@
   (also called higher-order interactions). 
   In practice, however, interactions between more than 2 factors are very rarely 
   considered important and are very difficult to interpret. 
+}
+\item{latin hypercube}{
+  Computer experiments usually do not benefit from repeating runs, because the 
+  results will be virtually the same. Therefore, one tries to use designs that 
+  do not produce replications when projected into lower-dimensional space (e.g. 
+  for modelling with a few factors that turn out to be relevant only). Latin hypercube 
+  designs or latin hypercube samples have as many levels for each factor as there are 
+  runs. Usually, one tries to choose level combinations such that the design 
+  is \dQuote{space-filling}, i.e. fills the experimental space with points so that 
+  the experiment provides information everywhere in the experimental region.
 }
 \item{level}{
   A level is one of the predetermined settings over which a factor is varied 
@@ -440,6 +455,11 @@
   a constant column of \dQuote{+1}, CDEF is a word of length four 
   (as there are four factors involved). The number of (non-trivial) words for 
   a design is \code{2^g-1} with \code{g} denoting the number of generating contrasts.
+  
+  For irregular designs and mixed-level designs, it is possible to determine the 
+  number of generalized words (usually of lengths 3 and 4), by summing up the 
+  scalar products of the intercept column with all length 3 or 4 combinations of 
+  orthogonal effect columns for three or four different factors (Xu and Wu 2001).
 }
 \item{Yates order}{
   Frank Yates is a renowned experimenter, who found an ordering of the rows of 

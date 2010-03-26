@@ -31,7 +31,7 @@
      }
 \item{Manually specify column numbers for array}{ is a checkbox for the orthogonal 
      array menu that is available if a specific design has been selected by ID 
-     (from a drop-down manu on the Base Settings tab). 
+     (from a drop-down menu on the Base Settings tab). 
      If this box is checked, the factor details include an additional column 
      for the column numbers that needs to be filled with a valid column number for 
      each factor. The number of levels is then automatically derived. 
@@ -40,7 +40,12 @@
      properties of a design and wants to obtain a better-suited design than the 
      default one. For example, when accomodating two 2-level factors, one 4-level factor 
      and one 8-level factor in \code{L64.2.5.4.10.8.4}, it is better to use columns 2 and 3 
-     than the default columns 1 and 2 for the two 2-level factors.
+     than the default columns 1 and 2 for the two 2-level factors. With the latest 
+     version of the software, this optimization can also be done automatically using 
+     the setting \dQuote{min3} for Automatic Optimization on the \dQuote{Base Settings} tab;
+     nevertheless, because of performance reasons, it may be wise to specify known good column 
+     numbers, if available. 
+     Note that explicit specification of column numbers overrides any optimization request.
     }
 }
 }

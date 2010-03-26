@@ -1,3 +1,20 @@
+Next steps: implement D-optimal designs, and perhaps further types of lhs designs
+
+Version 0.6-11, 26 Mar 2010
+- updated resolution information to include newly implemented designs 
+  from packages FrF2 and DoE.base 
+  (and included bug fix to previous version that was incomplete regarding 64 run designs)
+- updated general orthogonal arrays: 
+    - added automatic optimization
+    - added button for displaying available designs
+- updated "Inspect design" menu: 
+    - all menu items work for active design only
+    - summary only does the printed summary itself
+    - plot and table become menu items themselves, 
+      with the added possibility of selecting a subset of factors only
+- bug fix: creation of general orthogonal arrays did not work for most recent version 
+  of package DoE.base
+
 Version 0.6-10, 03 Jan 2010
 - added possibility for compromise designs to estimable menu for regular fractional factorials
 - Bugfix: error message for wrong response specigication in add response menu

@@ -44,9 +44,12 @@ the valuable experimental data themselves stored in a safe place.
 }
 
 \section{Covered methodology and planned extensions}{
-Full factorial designs, orthogonal main effects designs (limited catalogue, extension planned), 
+Full factorial designs, orthogonal main effects designs, 
 regular and non-regular 2-level fractional factorial designs, central composite and Box-Behnken 
 designs, and latin hypercube samples can currently be generated from the GUI.
+
+Extensions to cover further latin hypercube designs as well as D-optimal designs are 
+planned for the near future.
 
 \pkg{RcmdrPlugin.DoE} implements much of the functionality in packages \pkg{DoE.base} 
 and \pkg{FrF2} - especially the implementation of function \code{\link[FrF2]{FrF2}} 

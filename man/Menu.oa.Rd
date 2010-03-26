@@ -28,7 +28,9 @@ functions for this purpose is both more convenient and yields more efficient des
 Thus, it is recommended to use the menu for 2-level designs, if all factors are at 
 2 levels only. At the screening stage, where you are not yet sure which factors are 
 important, it is very often reasonable to conduct the experiment with each factor 
-at only 2 levels!}
+at only 2 levels!
+
+Exceptions: special resolution V designs in 128, 256 or 2048 runs}
 
 
 \section{User form structure}{

@@ -1,4 +1,5 @@
 Menu.summarize <- function(){
+    ### is currently not used! 
     designs <- listDesigns()
     .activeDataSet <- ActiveDataSet()
   #  if ((length(designs) == 1) && !is.null(.activeDataSet) && designs==.activeDataSet) {

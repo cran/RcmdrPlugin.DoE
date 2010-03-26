@@ -27,6 +27,7 @@
   \alias{helpExpImp} 
   \alias{helpgeneral} 
   \alias{helpGeneralAnalyze}
+  \alias{helpInspect}
   \alias{onHelpTabEstimable}
   \alias{helpMenus}
   \alias{helpModify} 
@@ -46,6 +47,7 @@
   \alias{Menu.EffectPlots} 
   \alias{Menu.export} 
   \alias{Menu.wide} 
+  \alias{summarize.design} 
   \alias{textcorrect} 
   \alias{textentry}
   
@@ -79,6 +81,7 @@
   helpExpImp() 
   helpgeneral() 
   helpGeneralAnalyze()
+  helpInspect() 
   onHelpTabEstimable()
   helpMenus()
   helpModify() 
@@ -99,6 +102,7 @@
   Menu.export() 
   Menu.responses()
   Menu.wide() 
+  summarize.design() 
   textcorrect(message) 
   textentry()
 }

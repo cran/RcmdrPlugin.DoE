@@ -29,6 +29,8 @@
     item    designCreateMenu      command    "----------- General ------------------"                   dc                          "FALSE"          ""
     item    designCreateMenu      command    "General Full Factorial Experiments ..." Menu.fac                          ""          ""
     item    designCreateMenu      command    "General orthogonal arrays ..."          Menu.oa                          ""          ""
+ #   item    designCreateMenu      command    "----------- D-optimal ------------------"                   dc                          "FALSE"          ""
+  #  item    designCreateMenu      command    "D-optimal plan ..."                     Menu.Dopt                          ""          ""
     item    designCreateMenu      command    "----------- Combine ------------------"                   dc                          "FALSE"          ""
     item    designCreateMenu      command    "Taguchi inner-outer array ..."          Menu.param          "exist2Designs()"      ""
     ## DesSummary.design for actual designs ???; 
@@ -51,8 +53,12 @@
     menu    designInspectMenu designMenu       ""                                              ""                          ""          ""
     item   designMenu          cascade    "Inspect design"                 designInspectMenu               ""                     ""
     item    designInspectMenu      command    "Display active design"        display.design                   "activeDataSetDesignP()"          ""
-    item    designInspectMenu      command    "Summarize design ..."        Menu.summarize                   "existDesigns()"          ""
-
+#    item    designInspectMenu      command    "Summarize active design ..."        Menu.summarize                   "activeDataSetDesignP()"          ""
+    item    designInspectMenu      command    "Summarize active design"        summarize.design                   "activeDataSetDesignP()"          ""
+    item    designInspectMenu      command    "Plot active design ..."        Menu.plot                   "activeDataSetDesignP()"          ""
+    item    designInspectMenu      command    "Tabulate active design ..."        Menu.tab                   "activeDataSetDesignP()"          ""
+    item    designInspectMenu      command    "Info ..."                               helpInspect          ""      ""
+    
     menu    designUtilityMenu designMenu       ""                                      ""                          ""          ""
     item    designUtilityMenu      command    "Add response variable(s) ..."            Menu.addresponse          "activeDataSetDesignP()"      ""
     item    designUtilityMenu      command    "Select / Deselect response variables ..."     Menu.responses          "activeDataSetDesignP()"      ""
