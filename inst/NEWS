@@ -1,5 +1,9 @@
 Next steps: implement D-optimal designs, and perhaps further types of lhs designs
 
+Version 0.6-12, 03 Apr 2010
+bug fix: added requirement for DoE.base version 0.10 
+(new design inspection for creation of general orthogonal arrays did not work for older versions)
+
 Version 0.6-11, 26 Mar 2010
 - updated resolution information to include newly implemented designs 
   from packages FrF2 and DoE.base 
