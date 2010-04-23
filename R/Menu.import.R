@@ -8,7 +8,7 @@ Menu.import <- function(){
   #      return()
   #      }
     if (length(designs) == 0){
-        Message(message=gettextRcmdr("There are no design from which to choose."),
+        Message(message=gettextRcmdr("There are no designs from which to choose."),
                 type="error")
         tkfocus(CommanderWindow())
         return()

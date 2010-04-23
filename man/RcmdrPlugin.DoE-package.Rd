@@ -23,6 +23,12 @@ as it happens very frequently that windows suddenly disappear. They usually
 have iconized only and can be retrieved from the taskbar; nevertheless, this behavior 
 can be very annoying and can be avoided by using R in SDI mode.}
 
+\section{Suggests field is not meant as a suggestion}{
+For ensuring valid checks of package \pkg{RcmdrPlugin.DoE}, 
+it was necessary to include package \pkg{FrF2.catlg128} under suggested packages. 
+Note that most users will not need that package and should not install it.
+}
+
 \section{Beta Version!}{
 \pkg{RcmdrPlugin.DoE} is currently in beta shape. The calculation functions have 
 been reasonably tested within the underlying calculation packages. Usage of the menus 

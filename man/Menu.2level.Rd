@@ -31,6 +31,13 @@ useful, if not only main effects but also 2-factor interactions are expected to 
 active. Note that interactions between more than two factors are usually considered negligible. 
 This is usually appropriate, if the experimental region is not too large, since many 
 functions can be approximated well by first- or second-order polynomials over small regions. 
+
+If package \pkg{\link[FrF2.catlg128:FrF2.catlg128-package]{FrF2.catlg128}} 
+is installed (this will not be necessary for standard use), 
+there is an Expert menu entry for loading catalogues from this package 
+for usage with regular fractional factorial 2-level designs. 
+On using this menu entry, the package is loaded, and a list of catalogues is shown. 
+Do not unnecessarily load them, because some of them are very large.
 }
 \section{Warning}{Important: For both types of design, like also for other factorial designs, 
 the experiment must conduct all experimental runs as determined in the design, 

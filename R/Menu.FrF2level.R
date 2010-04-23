@@ -105,6 +105,7 @@ onOK <- function(){
               return()
              }
           }
+
     ###  further error messages with return to menu ?
 
     textfactornameslist.forcommand <- paste("factor.names=list(",paste(paste(as.character(tclObj(facnamlist)),"=c(",
@@ -175,7 +176,7 @@ onOK <- function(){
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizeVariable))),",seed=",tclvalue(seedVar),
                   ",",textfactornameslist.forcommand,
                   ", estimable=", estimable, ", clear =", clear, ", res3 =", res3, ", max.time =", tclvalue(maxtimeVar), 
-                  ", catlg =", tclvalue(catlgVar),       ")")
+                  ", select.catlg =", tclvalue(catlgVar),       ")")
           }
           else {
             hard.forcommand <- tclvalue(hardVar)
@@ -192,7 +193,7 @@ onOK <- function(){
                   ", design =", design, 
                   ",replications=",tclvalue(nrepVar),",repeat.only=",as.logical(as.numeric(tclvalue(repeat.onlyVariable))),
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizeVariable))),",seed=",tclvalue(seedVar),
-                  ",",textfactornameslist.forcommand, ", catlg =", tclvalue(catlgVar), ")")
+                  ",",textfactornameslist.forcommand, ", select.catlg =", tclvalue(catlgVar), ")")
           }
         }       ## end of special           
         hilf <- justDoItDoE(command)
@@ -365,14 +366,21 @@ onSpecialcb <- function(){
            putRcmdr("specialrbVariable", tclVar("none"))
            putRcmdr("hardVar", tclVar("0"))
            putRcmdr("genVar", tclVar("NULL"))
-           putRcmdr("designVar", tclVar("NULL"))
            putRcmdr("catlgVar", tclVar("catlg"))
+           putRcmdr("designVar", tclVar("NULL"))
            putRcmdr("estimable2fis", "")
            putRcmdr("estrbVariable", tclVar("none"))
            }
        tkconfigure(noestrb, variable=estrbVariable)
        tkconfigure(clearrb, variable=estrbVariable)
        tkconfigure(distinctrb, variable=estrbVariable)
+       tkconfigure(defaultrb, variable=designrbVariable)
+       tkconfigure(genrb, variable=designrbVariable)
+       tkconfigure(catlgrb, variable=designrbVariable)
+       tkconfigure(designrb, variable=designrbVariable)
+       tkconfigure(genEntry, textvariable=genVar)
+       tkconfigure(catlgEntry, textvariable=catlgVar)
+       tkconfigure(designEntry, textvariable=designVar)
       # tkconfigure(nonerb, variable=specialrbVariable)
       # tkconfigure(hardrb, variable=specialrbVariable)
       # tkconfigure(debarrb, variable=specialrbVariable)
@@ -474,6 +482,27 @@ onReset <- function(){
 #          putRcmdr("exportlabVar", tclVar(paste("Current design to be saved:", tclvalue(nameVar),"\n   ")))  ## otherwise, variables would be directly tied
           tkconfigure(fileEntry, textvariable=getRcmdr("fileVar"))
 #          tkconfigure(exportlab, textvariable=getRcmdr("exportlabVar"))
+          }
+        }
+        else tkmessageBox(message="invalid name!",icon="error", type="ok", title="Invalid design name")
+    }
+
+     catlgnamechange <- function(){
+        if (is.valid.name(tclvalue(catlgVar))){
+          if (!exists(tclvalue(catlgVar))) 
+              tkmessageBox(message="catalogue does not exist",icon="error", type="ok", title="Specified catalogue does not exist")
+          else{
+              if (!"catlg" %in% class(get(tclvalue(catlgVar)))) 
+                  tkmessageBox(message="is not a design catalogue of class catlg",icon="error", type="ok", title="invalid catalogue specified")
+              else onRefresh()
+#              else { pick <- nfac.catlg(get(tclvalue(catlgVar)))==as.numeric(tclvalue(nfacVar))
+#                    if (tclvalue(resVar)=="IV") pick <- pick & res.catlg(get(tclvalue(catlgVar))) > 3 else
+#                    if (tclvalue(resVar)=="V+") pick <- pick & res.catlg(get(tclvalue(catlgVar))) > 4
+#                    if (tclvalue(nrunEntryVariable)=="1") pick <- pick & nruns.catlg(get(tclvalue(catlgVar))) == as.numeric(tclvalue(nrunVar))
+#                    if (any(pick)) putRcmdr("catlgliste", names(get(tclvalue(catlgVar)))[pick])
+#                    else putRcmdr("catlgliste", "")
+#                    tkconfigure(designEntry, values=catlgliste)
+#              }
           }
         }
         else tkmessageBox(message="invalid name!",icon="error", type="ok", title="Invalid design name")
@@ -956,16 +985,27 @@ tkgrid(descritFrame, desinfoFrame, sticky="w", columnspan=3)
   ### widgets for design frame
 
   catlab <- tklabel(designFrame, text=gettextRcmdr("Catalogue of designs:"))
-  catlgVar <- tclVar(.stored.design2FrF$catlgVar)
-  catlgEntry <- tkentry(designFrame, textvariable=catlgVar, width=24)
-  
+  putRcmdr("catlgVar", tclVar(.stored.design2FrF$catlgVar))
+  ## set to valid default, if invalid entry
+  if (!exists(tclvalue(catlgVar))){ 
+       putRcmdr("catlgVar", tclVar("catlg"))
+       message("The specified design catalogue does not exist and has been replaced by the default!")
+  }
+  else{
+    if (!"catlg" %in% class(get(tclvalue(catlgVar)))){ 
+         putRcmdr("catlgVar", tclVar("catlg"))
+         message("The specified design catalogue is invalid and has been replaced by the default!")
+         }
+  }
   designrbVariable <- tclVar(.stored.design2FrF$designrbVariable) 
   designrbFrame <- ttkframe(designFrame)
   defaultrb <- tkradiobutton(designrbFrame,text=gettextRcmdr("None"),variable=designrbVariable,value="default", command=onRefresh)
   genrb <- tkradiobutton(designrbFrame,text=gettextRcmdr("Specify Generators (generators option)"),variable=designrbVariable,value="gen", command=onRefresh)
+  catlgrb <- tkradiobutton(designrbFrame,text=gettextRcmdr("Specify catalogue name (select.catlg option)"),variable=designrbVariable,value="catlg", command=onRefresh)
   designrb <- tkradiobutton(designrbFrame,text=gettextRcmdr("Specify Design name (design option)"),variable=designrbVariable,value="design", command=onRefresh)
   tkgrid(defaultrb,sticky="w")
   tkgrid(genrb,sticky="w")
+  tkgrid(catlgrb,sticky="w")
   tkgrid(designrb,sticky="w")
   tkgrid(tklabel(designrbFrame,text="  "))
 
@@ -975,22 +1015,32 @@ tkgrid(descritFrame, desinfoFrame, sticky="w", columnspan=3)
   
   tkgrid(designrbFrame,columnspan=4,sticky="n")
   
-  if (!"catlg" %in% class(get(tclvalue(catlgVar)))) tkmessageBox("The specified design catalogue is invalid!")
-  else{
-      pick <- nfac.catlg(get(tclvalue(catlgVar)))==as.numeric(tclvalue(nfacVar))
-      if (tclvalue(resVar)=="IV") pick <- pick & res.catlg(get(tclvalue(catlgVar))) > 3 else
-      if (tclvalue(resVar)=="V+") pick <- pick & res.catlg(get(tclvalue(catlgVar))) > 4
-      if (tclvalue(nrunEntryVariable)=="1") pick <- pick & nruns.catlg(get(tclvalue(catlgVar))) == as.numeric(tclvalue(nrunVar))
-      if (any(pick)) putRcmdr("catlgliste", names(catlg)[pick])
-      else putRcmdr("catlgliste", "")
-      if (!tclvalue(designVar) %in% catlgliste & length(catlgliste > 0)) designVar <- tclVar(catlgliste[1])
-  }
+  ## prepare list of catalogue names
+  ## catlgliste (without s) is list of catlg entries of current catalogue
+  putRcmdr("catlgsliste", listCatlgs())
+  catlgEntry <- ttkcombobox(designFrame, textvariable=catlgVar, width=24, values=catlgsliste)
+    tkbind(catlgEntry, "<<ComboboxSelected>>", catlgnamechange)
+  
+  
+  ## prepare list of design names, based on current setting for the catalogue
+        pick <- nfac.catlg(get(tclvalue(catlgVar)))==as.numeric(tclvalue(nfacVar))
+        if (tclvalue(resVar)=="IV") pick <- pick & res.catlg(get(tclvalue(catlgVar))) > 3 else
+        if (tclvalue(resVar)=="V+") pick <- pick & res.catlg(get(tclvalue(catlgVar))) > 4
+        if (tclvalue(nrunEntryVariable)=="1") pick <- pick & nruns.catlg(get(tclvalue(catlgVar))) == as.numeric(tclvalue(nrunVar))
+        if (any(pick)) putRcmdr("catlgliste", names(get(tclvalue(catlgVar)))[pick])
+        else putRcmdr("catlgliste", "")
+        if (!tclvalue(designVar) %in% catlgliste & length(catlgliste) > 0) designVar <- tclVar(catlgliste[1])
+  
+  
   designEntry <- ttkcombobox(designFrame, textvariable=designVar, values=catlgliste, width=24, state="readonly")
   
   if (tclvalue(designrbVariable)=="gen") 
   {   tkgrid(tklabel(designFrame,text=gettextRcmdr("Type in generators")), columnspan=2, sticky="w")
       tkgrid(genEntry, columnspan=2)
       tkgrid(tklabel(designFrame,text=gettextRcmdr("comma-separated column numbers of Yates matrix (e.g. 7, 13, 11)\nor comma-separated interaction columns (e.g. ABC, ACD, ABD)"), wraplength=500),columnspan=2)
+  }
+  if (tclvalue(designrbVariable)=="catlg") 
+  {  tkgrid(catlab,catlgEntry,sticky="nw")
   }
   if (tclvalue(designrbVariable)=="design") 
   {  tkgrid(catlab,catlgEntry,sticky="nw")

@@ -19,7 +19,7 @@
   (usually the left-most menu) of the R-commander. 
   
   A special routine for importing an experimental design from an Excel or csv file 
-  is not yet available but will be developed. 
+  together with an rda file is also available. 
   
   Importing data - of course also experimental data - from other file formats is possible 
   from R commanders data management menu.

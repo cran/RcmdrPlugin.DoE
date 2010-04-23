@@ -64,10 +64,12 @@
      in case the latter button is used, since this button releases the grab on the menu 
      in support of scrollability of the printed results. I hope to find a better solution 
      for this in the future.}
-\item{Expert Choices}{If the special choices are activated, it is possible to 
-     pick a design name from the catalogue of designs or to 
-     specify a set of generators. 
-     Details for these choices can be found in the help file for function \code{FrF2}.
+\item{Expert Choices}{If the special choices are activated, it is possible\cr 
+     to specify a set of generators,\cr
+     to specify a catalogue of designs different from the default one (if one is in the workspace)\cr 
+     or to pick a specific design name from the current catalogue of designs.\cr
+     Radio buttons activate one of these possibilities. 
+     Details for the consequences of these choices can be found in the help file for function \code{\link{FrF2}}.
      }
 }
 }

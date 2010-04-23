@@ -4,25 +4,27 @@
 
 #   type    menu/item      operation/parent  label                                          command/menu                activation  install?
 
-    menu    designMenu      topMenu         ""                                     ""                          ""          ""
-    item    topMenu         cascade         "Design"                               designMenu                  ""          ""
+    menu    designMenu        topMenu         ""                                     ""                          ""          ""
+    item    topMenu           cascade         "Design"                               designMenu                  ""          ""
     menu    importDoEMenu      designMenu      ""                                   ""                          ""          ""
     item    importDoEMenu      command    "Load experiment from R workspace ..."            Menu.import         "existDesigns()"          ""
     ## implement reading of externally stored responses into this design
 #    item    importDoEMenu      command    "How to Re-Import experiment from csv and rda files ..."        HowToReImport          ""          ""
-    item    importDoEMenu      command    "Re-Import experiment from csv and rda files ..."        Menu.importrdacsv          ""          ""
+    item    importDoEMenu       command    "Re-Import experiment from csv and rda files ..."        Menu.importrdacsv          ""          ""
         ## e.g. 2-level experiment checked with remodel
         ## find ways to allow certain experiments to be diagnosed and made class design
         ## have users choose responses and x's, hopefully using a menu structure that is already there
-    item    designMenu      cascade    "Import ..."                      importDoEMenu                     ""          ""
-    item    designMenu      command    "Export experiment ..."           Menu.export                      "existDesigns()"          ""
+    item    designMenu        cascade    "Import ..."                      importDoEMenu                     ""          ""
+    item    designMenu        command    "Export experiment ..."            Menu.export                      "existDesigns()"          ""
 
     menu    designCreateMenu designMenu       ""                                      ""                          ""          ""
-    item    designMenu       cascade    "Create design"                 designCreateMenu               ""                     ""
+    item    designMenu         cascade    "Create design"                 designCreateMenu               ""                     ""
     ## 2-level
     item    designCreateMenu      command    "----------- 2-level ------------------"                   dc                          "FALSE"          ""
     item    designCreateMenu      command    "Screening design ..."                   Menu.pb2level                  ""          ""
     item    designCreateMenu      command    "Regular (Fractional) Factorial ..."     Menu.FrF2level                 ""          ""
+    item    designCreateMenu      command      "Experts: load additional catalogue ..."     Menu.loadcatlg  ""          "packageAvailable('FrF2.catlg128')"
+    #item    loadcatlgMenu         command    "Load catalogue from loaded catalogues package ..."            Menu.loadcatlg  "existcatlgPkgs()"          ""
     ## DesSummary2.design for actual designs ???; 
     ## DesSummary2.matrix, DesSummary2.data.frame for checking matrices or data frames for being a design and then summarize their properties
     ## the menu point summarize ... should always be available, once the functions have been programmed
@@ -57,6 +59,7 @@
     item    designInspectMenu      command    "Summarize active design"        summarize.design                   "activeDataSetDesignP()"          ""
     item    designInspectMenu      command    "Plot active design ..."        Menu.plot                   "activeDataSetDesignP()"          ""
     item    designInspectMenu      command    "Tabulate active design ..."        Menu.tab                   "activeDataSetDesignP()"          ""
+    item    designInspectMenu      command    "Experts: display design.info for active design"        design.info.design        "activeDataSetDesignP()"          ""
     item    designInspectMenu      command    "Info ..."                               helpInspect          ""      ""
     
     menu    designUtilityMenu designMenu       ""                                      ""                          ""          ""

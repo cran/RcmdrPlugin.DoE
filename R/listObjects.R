@@ -12,6 +12,15 @@ listLists <- function (envir = .GlobalEnv, ...)
         envir = envir)))))
 }
 
+listCatlgs <- function (envir = .GlobalEnv, ...)
+{
+   Vars <- ls(envir = envir, all.names = TRUE)
+    if (length(Vars) == 0)
+        return(Vars)
+    c("catlg", names(which(sapply(Vars, function(.x) "catlg" %in% class(get(.x,
+        envir = envir))))))
+}
+
 listDesigns <- function (envir = .GlobalEnv, ...)
 {
    Vars <- ls(envir = envir, all.names = TRUE)

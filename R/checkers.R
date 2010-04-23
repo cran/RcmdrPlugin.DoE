@@ -82,6 +82,10 @@ existDesignsWithResp <- function(){
     length(listDesignsWithResp()) > 0
 }
 
+existcatlgPkgs <- function(){
+    "FrF2.catlg128" %in% .packages()
+    ## das funktioniert nicht
+    }
 
 isDesign2pb <- function(design){
         aus <- FALSE

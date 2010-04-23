@@ -21,6 +21,7 @@
   \alias{existDesign2pb} 
   \alias{existDesigns} 
   \alias{existDesignsWithResp}
+  \alias{existcatlgPkgs} 
   \alias{help2level} 
   \alias{helpabout} 
   \alias{helpAnalyze} 
@@ -43,11 +44,13 @@
   \alias{listDesignsWithResp} 
   \alias{listLists} 
   \alias{listObjects} 
+  \alias{listCatlgs} 
   \alias{Menu.aggregate}
   \alias{Menu.EffectPlots} 
   \alias{Menu.export} 
   \alias{Menu.wide} 
   \alias{summarize.design} 
+  \alias{design.info.design} 
   \alias{textcorrect} 
   \alias{textentry}
   

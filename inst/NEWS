@@ -1,5 +1,21 @@
 Next steps: implement D-optimal designs, and perhaps further types of lhs designs
 
+Version 0.6-13, 23 Apr 2010
+   - improved Base Settings tab for regular fractional factorials 
+     to allow specification of an extra catalogue without having to specify the design itself
+       - fourth radio button for catlg only
+       - design radio button always also displays catalogue entry box, which is now a combobox
+   - allowed loading of special further design catalogues 
+     for regular fractional factorials from package FrF2.catlg128, 
+     if installed
+   - added possibility to display design.info attribute
+bug fixes: 
+   - fixed command for selection of specific catalogue 
+     (for generating regular fractional factorials) and 
+     added dependence on new version of FrF2, because catalogue selection did not 
+     work properly in earlier versions
+   - corrected an instruction in Menu.import.Rd (regarding loading of R workspace)
+
 Version 0.6-12, 03 Apr 2010
 bug fix: added requirement for DoE.base version 0.10 
 (new design inspection for creation of general orthogonal arrays did not work for older versions)

@@ -20,6 +20,9 @@
   of any responses. \cr
   The menu item \emph{Tabulate active design ...} tabulates selected experimental factors 
   of the current design.\cr 
+  The menu item \emph{Experts: display design.info for active design} displays the  
+  design.info attribute of the current design (cf. \code{\link[DoE.base:class-design]{design}} 
+  for a general description of class \code{design} and its attributes).\cr 
   
   Plotting and tabulating are particularly interesting for designs with qualitative factors, 
   and when looking at three or four 
