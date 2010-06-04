@@ -33,6 +33,7 @@
     item    designCreateMenu      command    "General orthogonal arrays ..."          Menu.oa                          ""          ""
  #   item    designCreateMenu      command    "----------- D-optimal ------------------"                   dc                          "FALSE"          ""
   #  item    designCreateMenu      command    "D-optimal plan ..."                     Menu.Dopt                          ""          ""
+  ##  requires programming for entering candidates, a formula and potential restrictions
     item    designCreateMenu      command    "----------- Combine ------------------"                   dc                          "FALSE"          ""
     item    designCreateMenu      command    "Taguchi inner-outer array ..."          Menu.param          "exist2Designs()"      ""
     ## DesSummary.design for actual designs ???; 
@@ -48,7 +49,7 @@
     item    designCreateMenu      command    "Info general designs"                   helpgeneral                          ""          ""
     item    designCreateMenu      command    "Info quantitative designs"              helpquant                          ""          ""
 #    menu    optdesMenu      designCreateMenu    ""              ""                          ""          ""
-#    item    optdesMenu      command    "D-optimal tbd ..."                   dc                          "FALSE"          ""
+#    item    optdesMenu      command    "D-optimal tbd ..."                dc                          "FALSE"          ""
 #    item    optdesMenu      command    "D-optimal tbd2  ..."              dc                          "FALSE"          ""
 #    item    designCreateMenu      cascade    "(Non-orthogonal) optimal designs ..."                  optdesMenu                  "FALSE"               ""
 
@@ -82,14 +83,20 @@
 
     menu    designAnalMenu designMenu       ""                                              ""                          ""          ""
     item   designMenu          cascade    "Analyze design"                 designAnalMenu               ""                     ""
-    item    designAnalMenu     command    "Default linear model ..."      Menu.model      "activeDataSetDesign2PResp()"      ""
+    item    designAnalMenu     command    "Default linear model ..."      Menu.model      "activeDataSetDesignPResp()"      ""
     item    designAnalMenu      command    "----------------------------------"                   dc                          "FALSE"          ""
     item    designAnalMenu     command    "Effects (Half) Normal Plots (2-level design) ..."             Menu.EffectPlots           "activeDataSetDesign2PResp()"      ""
     item    designAnalMenu     command    "Main Effects and Interaction Plots (2-level design) ..."       Menu.IAPlot        "activeDataSetDesign2PResp()"      ""
 #    item    designAnalMenu      command    "----------------------------------"                   dc                          "FALSE"          ""
 #    item    designAnalMenu     command    "Info on quantitative analysis tools..."             helpQuantDesignAnalyze      "activeDataSetDesignPResp()"      ""
-#    item    designAnalMenu  command         "Analyze Response Surface Design..."              dc              "activeDataSetDesignPResp()"          ""
+#    item    designAnalMenu  command         "Analyze Response Surface Design..."        Menu.rsm              "activeDataSetDesignPResp()"          ""
+    ## requires programming of menu that uses Russ Lenths FO, SO, PQ and/or TWI notation, because otherwise steepest ascent unusable
+#    item    designAnalMenu  command         "Contour plot..."              Menu.contour              "activeDataSetDesignPResp()"          ""
+    ## only usable in case of linear model available
+#    item    designAnalMenu  command         "Steepest ascent..."              Menu.steep              "activeDataSetDesignPResp()"          ""
+    ## only usable in case of rsm object available; steepest itself good for linear model only; canonical.path more interesting for SO models
 #    item    designAnalMenu  command         "Analyze Latin Hypercube Design..."               dc              "activeDataSetDesignPResp()"          ""
+    ## is this really needed?
     item    designAnalMenu     command    "Info ..."             helpAnalyze               ""      ""
 
     menu    sepMenu designMenu ""    ""    ""    ""

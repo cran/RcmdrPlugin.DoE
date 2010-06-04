@@ -1,5 +1,9 @@
 Next steps: implement D-optimal designs, and perhaps further types of lhs designs
 
+Version 0.6-14, 04 Jun 2010
+   Bug fixes:
+   - contrary to documentation, the default linear model tab worked for models with 2-level factors only.
+
 Version 0.6-13, 23 Apr 2010
    - improved Base Settings tab for regular fractional factorials 
      to allow specification of an extra catalogue without having to specify the design itself

@@ -2,7 +2,7 @@
 \alias{Menu.Analyze}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Analyze experimental designs}
-\description{This is a brief explanation on the analysis faciliteis for experimental designs 
+\description{This is a brief explanation on the analysis facilities for experimental designs 
 in the Analyze Design menu.}
 %- maybe also 'usage' for other objects documented here.
 
