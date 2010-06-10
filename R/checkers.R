@@ -58,6 +58,20 @@ activeDataSetDesign2PResp <- function (){
   aus
 }
 
+activeModelRSM <- function(){
+  aus <- FALSE
+  if (activeModelP())
+     if ("rsm" %in% class(get(.activeModel))) aus <- TRUE
+  aus
+}
+
+activeModelLM <- function(){
+  aus <- FALSE
+  if (activeModelP())
+     if ("lm" %in% class(get(.activeModel)) & 
+         !(any(c("glm","mlm") %in% class(get(.activeModel))))) aus <- TRUE
+  aus
+}
 
 exist2Designs <- function(){
    length(listDesigns()) > 1
@@ -86,6 +100,10 @@ existcatlgPkgs <- function(){
     "FrF2.catlg128" %in% .packages()
     ## das funktioniert nicht
     }
+
+existRSMs <- function()
+    length(listRSMs())>=1
+
 
 isDesign2pb <- function(design){
         aus <- FALSE
@@ -126,3 +144,4 @@ activeDataSetDesignRemovableP <- function (){
      }
   aus
 }
+

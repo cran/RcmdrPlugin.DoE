@@ -6,9 +6,22 @@
 %- maybe also 'usage' for other objects documented here.
 
 \section{Available analysis options}{
-Currently, no special analysis methods for quantitative designs have been implemented.
-Use the analysis facilities within the R-commander, or use the command-line facilities 
-offered e.g. in package \code{\link[rsm:rsm-package]{rsm}}
+The menu item \emph{Response surface model ...} creates a response surface 
+analysis with first order (FO) terms, and potentially also two-factor interactions 
+(TWI) and/or pure quadratic (PQ) terms. The resulting object has class \code{\link[rsm]{rsm}} 
+and can be postprocessed with the subsequent menu items.
+
+The menu item \emph{Steepest slope ...} supports moving the experimental range 
+towards a more promising area, based on a first order model or on a second order 
+model with a saddle point.
+
+The menu item \emph{Plot response surface ...} supports creation of contour, 
+perspective or image plots of a response surface model, 
+and can also be used for linear models with quantitative variables.
+
+It is of course also possible to use other analysis facilities within the R-commander, 
+or to use the command-line facilities offered in package \code{\link[rsm:rsm-package]{rsm}}
+and elsewhere.
 }
 
 

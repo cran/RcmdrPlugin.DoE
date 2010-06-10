@@ -71,3 +71,12 @@
     etyperbVariable="none", decimalrbVariable = "default", 
     dirVar=getwd(), fileVar=gettextRcmdr("Design.1"))
     
+.default.designDopt <- list(nameVar=gettextRcmdr("Design.1.Dopt"),
+    nrunsVar="8",
+    rhsVariable="",constraintVar=gettextRcmdr("<all candidate data set rows eligible>"),
+    nrepeatVar="5",
+    cbInitials = as.character(c(0,1,1,1,1,1,0,0,0,0)),
+    seedVar=as.character(sample(31999,1)),
+    etyperbVariable="none", decimalrbVariable = "default", 
+    dirVar=getwd(), fileVar=gettextRcmdr("Design.1"))
+    

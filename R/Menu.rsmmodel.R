@@ -1,23 +1,40 @@
-Menu.model <- function(){
+Menu.rsmmodel <- function(){
+     ## menu for setting the overall scene (degree, response, coding)
     .activeDataSet <- ActiveDataSet()
      di <- design.info(eval(parse(text=.activeDataSet)))
      putRcmdr("resphilf", di$response.names[1])
-     putRcmdr("resp.list", response.names(eval(parse(text=.activeDataSet))))
+     putRcmdr("resp.list", di$response.names)
+     putRcmdr("factor.list", names(di$factor.names))
+     putRcmdr("coded", as.numeric(!is.null(di$coding)))
      ### needed (among other things) for correction of automatic formula, 
                           ### if individual response of wide design is to be analyzed
-    degreeVar <- tclVar("NULL")
-    initializeDialog(window=top, title=gettextRcmdr("Select Design and Degree"))
+    codedcbVariable <- tclVar(getRcmdr("coded"))
+    degreeVar <- tclVar(2)
+    initializeDialog(window=top, title=gettextRcmdr("Select Design, Degree, and Coding"))
     degreeEntry <- ttkentry(top, width=7, textvariable=degreeVar)
-    degreelab <- ttklabel(top, text=gettextRcmdr("degree (positive integer)"))
+    degreelab <- ttklabel(top, text="degree (1, 1.5 or 2)")
+    
+    codingcb <- ttkcheckbutton(top,text=gettextRcmdr("Use coded values for calculations"),
+                variable=codedcbVariable)
+    
     putRcmdr("sel.resps", variableListBox(top, variableList=resp.list, listHeight=10, 
-        title=gettextRcmdr("Response to be analysed (select one)"),selectmode="single", initialSelection=0))
+        title=gettextRcmdr("Response to be analysed (select one)"), 
+        selectmode="single", initialSelection=0))
+    putRcmdr("sel.factors", variableListBox(top, variableList=factor.list, listHeight=10, 
+        title=gettextRcmdr("Factors for response surface model (select at least two)"), 
+        selectmode="multiple", initialSelection=0:(di$nfactors-1)))
     onOK <- function(){
         response <- getSelection(sel.resps)
+        fn <- getSelection(sel.factors)
         putRcmdr("resphilf", response)
-        command <- paste("formula(",.activeDataSet,", response=", dQuote(response), ")")
+        putRcmdr("facthilf", paste("c(", paste(dQuote(fn),collapse=","), ")", sep=""))
+        putRcmdr("coded", as.numeric(tclvalue(codedcbVariable)))
+        command <- paste("rsmformula(",.activeDataSet,", response=", dQuote(response), 
+              ", factor.names=c(", paste(dQuote(fn),collapse=","), "), degree=", tclvalue(degreeVar), 
+              ", coded=", as.logical(getRcmdr("coded")), ")")
         hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
-            errorCondition(window=top,recall=Menu.model, message=gettextRcmdr(hilf))
+            errorCondition(window=top,recall=Menu.rsmmodel, message=gettextRcmdr(hilf))
              return()
             }
         
@@ -43,11 +60,12 @@ Menu.model <- function(){
           Whole-plot factors are often subject to much more variability than split-plot factors.")
           putRcmdr("degree", tclvalue(degreeVar))
           closeDialog()
-          Menu.linearModelDesign(response=resphilf)
+          Menu.rsm(response=resphilf, factor.names=eval(parse(text=facthilf)))
         }
         }
-    OKCancelHelp(helpSubject="Menu.model")
-    tkgrid(getFrame(sel.resps), degreelab, degreeEntry, sticky="n")
+    OKCancelHelp(helpSubject="Menu.rsmmodel")
+    tkgrid(getFrame(sel.resps), getFrame(sel.factors), sticky="n")
+    tkgrid(codingcb, degreelab, degreeEntry, sticky="w")
     tkgrid.configure(degreeEntry, sticky="nse")
     tkgrid.configure(degreelab, sticky="nse")
     tkgrid(buttonsFrame, sticky="w")

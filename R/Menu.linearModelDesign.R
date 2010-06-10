@@ -4,11 +4,10 @@ Menu.linearModelDesign <- function(response=NULL){
     currentModel <- if (!is.null(.activeModel))
         "lm" %in% class(get(.activeModel, envir=.GlobalEnv))[1]
         else FALSE
-        
     currentModel <- FALSE
     oldwarn <- options("warn")$warn
-    options(warn=0)
-    if (is.na(as.numeric(getRcmdr("degree")))) degree <- NULL 
+    options(warn=-1)  ## suppress frequent harmless warning
+    if (is.na(as.numeric(getRcmdr("degree")))) degree <- 2 
         else degree <- as.numeric(getRcmdr("degree"))
     options(warn=oldwarn)
 
@@ -18,7 +17,7 @@ Menu.linearModelDesign <- function(response=NULL){
         }
     if (!currentModel) {
         hilf <- formula(get(ActiveDataSet(), envir=.GlobalEnv), degree=degree, 
-            response=response, use.center=FALSE)
+            response=response)
         currentFields <- list(lhs=as.character(hilf[2]), rhs=as.character(hilf[3]), 
            data=ActiveDataSet(), subset="")
         currentModel <- TRUE
@@ -33,17 +32,17 @@ Menu.linearModelDesign <- function(response=NULL){
         modelValue <- trim.blanks(tclvalue(modelName))
         closeDialog()
         if (!is.valid.name(modelValue)){
-            errorCondition(recall=linearModelFrF2, message=sprintf(gettextRcmdr('"%s" is not a valid name.'), modelValue), model=TRUE)
+            errorCondition(recall=Menu.linearModelDesign, message=sprintf(gettextRcmdr('"%s" is not a valid name.'), modelValue), model=TRUE)
             return()
             }
         check.empty <- gsub(" ", "", tclvalue(lhsVariable))
         if ("" == check.empty) {
-            errorCondition(recall=linearModel, message=gettextRcmdr("Left-hand side of model empty."), model=TRUE)
+            errorCondition(recall=Menu.linearModelDesign, message=gettextRcmdr("Left-hand side of model empty."), model=TRUE)
             return()
             }
         check.empty <- gsub(" ", "", tclvalue(rhsVariable))
         if ("" == check.empty) {
-            errorCondition(recall=linearModel, message=gettextRcmdr("Right-hand side of model empty."), model=TRUE)
+            errorCondition(recall=Menu.linearModelDesign, message=gettextRcmdr("Right-hand side of model empty."), model=TRUE)
             return()
             }
         if (is.element(modelValue, listLinearModels())) {
@@ -67,6 +66,7 @@ Menu.linearModelDesign <- function(response=NULL){
         assign(modelValue, hilf, envir=.GlobalEnv)
         doItAndPrint(paste("summary(", modelValue, ")", sep=""))
         activeModel(modelValue)
+          closeDialog()
         tkfocus(CommanderWindow())
         }
     OKCancelHelp(helpSubject="Menu.linearModelDesign", model=TRUE)

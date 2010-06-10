@@ -2,7 +2,7 @@
 \alias{Menu.ccdTab1}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Basic information for Central Composite Designs }
-\description{Basic information for Box-Behnken designs }
+\description{Basic information for Central Composite designs }
 \section{Brief statistical background}{
   Central composite designs can have three (\code{alpha=1}) or five levels in all factors 
   and are useful for fitting second order polynomials to experimental data 
@@ -20,9 +20,13 @@
      this name in the R workspace. }
 \item{Determine the cube portion}{An existing 2-level fractional factorial, 
      preferrably of at least resolution V, can be selected, or a new design 
-     for the cube portion can be generated.}
+     for the cube portion can be generated; \cr
+     if the number of center points is to be different between cube and star 
+     portion of the design, the cube portion must be generated with center points.}
 \item{number of center points}{refers to the center points in the star portion. 
-     The number of center points in the cube portion is defined within the cube itself.
+     The number of center points in the cube portion is ideally defined within the cube itself.
+     (Alternatively, if the cube portion has no center points, it is assigned 
+     the same number of center points as the star portion.)
      }
 \item{alpha}{determines how far inside (alpha<1) or outside (alpha>1) of the cube 
       the star points are positioned. The special values \code{orthogonal} (default)

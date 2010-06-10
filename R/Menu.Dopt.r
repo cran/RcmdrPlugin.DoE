@@ -1,28 +1,17 @@
-Menu.ccd <- function(){
-    putRcmdr("designs", listDesigns2(type="FrF2"))
-## the next three rows should be omittable
-#    waehl <- unlist(sapply(designs, function(obj) length(grep("FrF2",design.info(get(obj))$type))>0))
-#    if (sum(waehl)) putRcmdr("designs", designs[waehl])
-#       else putRcmdr("designs", "")
+Menu.Dopt <- function(){
+    putRcmdr(".activeDataSet", ActiveDataSet())
+    putRcmdr("variables", colnames(get(.activeDataSet)))
+#candidate set is the active data set
 
-#angefangen
-#FrF2-Design Entry mit Knopf für Erzeugung über FrF2-Menü
-
-## FrF2Var für zu verwendendes FrF2 (mit selection box designsBox auszuwählen)
-## Falls es noch kein FrF2 gibt oder ein anderes verwendet werden soll 
-##         (radio buttons): interim Aufruf des FrF2 Menüs mit Button, 
-##         anschl. ist FrF2Var das neu erzeugte Design
-
-
-initializeDialogDoE(title=gettextRcmdr("Central composite design ..."))   
+initializeDialogDoE(title=gettextRcmdr("D-optimal design ..."))   
      ## function initializeDialogDoE assumes topdes2 as windowname
      ## last stored top left corner for window is stored under topleft2xy
      ## onRefresh still makes window walk a little
 
 if (exists("curindex", where="RcmdrEnv")) rm(curindex, pos="RcmdrEnv")
 
-if (!exists(".stored.designccd",where="RcmdrEnv")) 
-           putRcmdr(".stored.designccd", .default.designccd)
+if (!exists(".stored.designDopt",where="RcmdrEnv")) 
+           putRcmdr(".stored.designDopt", .default.designDopt)
            ## nameVar, nrunVar, nfacVar, nrepVar
            ## cbInitials containing repeat.onlyVariable, randomizeVariable, 
            ##                       facnamesAutoVariable, faclevelsCommonVariable, 
@@ -44,7 +33,7 @@ if (!exists(".stored.designccd",where="RcmdrEnv"))
  onHelpTab1 <- function(){
      if (GrabFocus() && .Platform$OS.type != "windows") 
             tkgrab.release(topdes2)     
-     print(help("Menu.ccdTab1"))
+     print(help("Menu.DoptTab1"))
  }
  onHelpTab6 <- function(){
      if (GrabFocus() && .Platform$OS.type != "windows") 
@@ -62,8 +51,10 @@ if (!exists(".stored.designccd",where="RcmdrEnv"))
 
 storeRcmdr <- function(){
         hilf <- list(nameVar=tclvalue(nameVar),
-        ncenterVar=tclvalue(ncenterVar),
-        alphaVar=tclvalue(alphaVar),
+        nrunsVar=tclvalue(nrunsVar),
+        rhsVariable=tclvalue(rhsVariable),
+        constraintVar=tclvalue(constraintVar),
+        nrepeatVar=tclvalue(nrepeatVar),
         cbInitials = c("0", tclvalue(randomizecbVariable),
                        "0",
                        1,0,
@@ -74,8 +65,8 @@ storeRcmdr <- function(){
         etyperbVariable=tclvalue(etyperbVariable),
         decimalrbVariable=tclvalue(decimalrbVariable),
         dirVar=tclvalue(dirVar), fileVar=tclvalue(fileVar))
-        class(hilf) <- c("menu.designccd","list")
-        putRcmdr(".stored.designccd",hilf)
+        class(hilf) <- c("menu.designDopt","list")
+        putRcmdr(".stored.designDopt",hilf)
 }
 
 onOK <- function(){
@@ -83,12 +74,11 @@ onOK <- function(){
     ## store entries so that users do not have to redo everything
     ## in case of stupid mistakes
     storeRcmdr()
-    putRcmdr("FrF2Var",getSelection(designsBox))
     ## seed is not used from previously stored design
      closeDialog(window=topdes2)
         name <- tclvalue(nameVar)
         if (!is.valid.name(name)){
-            errorCondition(window=topdes2,recall=Menu.ccd, 
+            errorCondition(window=topdes2,recall=Menu.Dopt, 
                     message=paste('"', name, '" ', gettextRcmdr("is not a valid name."), sep=""))
             return()
           }
@@ -96,7 +86,7 @@ onOK <- function(){
           {
           if ("no" == tclvalue(checkReplace(name, gettextRcmdr("Object"))))
             {
-              errorCondition(window=topdes2,recall=Menu.ccd, 
+              errorCondition(window=topdes2,recall=Menu.Dopt, 
               gettextRcmdr("Introduce another name for the new data.frame, or allow replacing."))
               return()
              }
@@ -106,20 +96,22 @@ onOK <- function(){
     ### not yet perfect, especially NULL entries are not possible
     ### for didactic reasons distinguish between usage of default.levels and other?
     
-    if (tclvalue(alphaVar) %in% c("orthogonal","rotatable"))
-          command <- paste("ccd.augment(",FrF2Var,
-                  ", alpha=",dQuote(tclvalue(alphaVar)), ", ncenter=", tclvalue(ncenterVar),
+    if (!tclvalue(constraintVar) == gettextRcmdr("<all candidate data set rows eligible>"))
+    command <- paste("Dopt.design(",tclvalue(nrunsVar), ", data=", getRcmdr(".activeDataSet"),
+                  ", formula=", dQuote(paste("~",tclvalue(rhsVariable),sep="")),", constraint=", dQuote(tclvalue(constraintVar)),
+                  ", nRepeat=",tclvalue(nrepeatVar), 
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizecbVariable))),
                   ",seed=",tclvalue(seedVar),")") 
-    else command <- paste("ccd.augment(",FrF2Var, 
-                  ", alpha=",tclvalue(alphaVar), ", ncenter=", tclvalue(ncenterVar),
+    else     command <- paste("Dopt.design(",tclvalue(nrunsVar), ", data=", getRcmdr(".activeDataSet"),
+                  ", formula=", dQuote(paste("~",tclvalue(rhsVariable),sep="")),
+                  ", nRepeat=",tclvalue(nrepeatVar), 
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizecbVariable))),
                   ",seed=",tclvalue(seedVar),")") 
 
         hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
             Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
-            errorCondition(window=topdes2,recall=Menu.ccd, message=gettextRcmdr(hilf))
+            errorCondition(window=topdes2,recall=Menu.Dopt, message=gettextRcmdr(hilf))
              return()
             }
                   
@@ -127,8 +119,8 @@ onOK <- function(){
         logger("## creator element of design.info will be different, when using the command line command!")
         ## change creator to contain menu settings
         hilfatt <- design.info(hilf)
-        hilfatt$creator <- .stored.designccd
-        class(hilfatt$creator) <- c("menu.designccd", "list")
+        hilfatt$creator <- .stored.designDopt
+        class(hilfatt$creator) <- c("menu.designDopt", "list")
         attr(hilf, "design.info") <- hilfatt
         assign(name, hilf, envir=.GlobalEnv)
         activeDataSet(name)
@@ -156,7 +148,7 @@ onOK <- function(){
                as.logical(as.numeric(tclvalue(replacecbVariable))),", OutDec=", dquote(tclvalue(decimalrbVariable)),")",sep="")
         hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
-            errorCondition(window=topdes2,recall=Menu.ccd, message=gettextRcmdr(hilf))
+            errorCondition(window=topdes2,recall=Menu.Dopt, message=gettextRcmdr(hilf))
              return()
             }
         logger(command)
@@ -184,13 +176,13 @@ onLoad <- function(){
     putRcmdr("lb", variableListBox(deschoose2, variableList=hilf, title="Choose stored design"))
         tkgrid(lb$frame)
     onOK <- function() {
-        putRcmdr(".stored.designccd",get(lb$varlist[as.numeric(tclvalue(tcl(lb$listbox, "curselection")))+1]))
-        if ("design" %in% class(getRcmdr(".stored.designccd"))) 
-            putRcmdr(".stored.designccd", design.info(getRcmdr(".stored.designccd"))$creator)
+        putRcmdr(".stored.designDopt",get(lb$varlist[as.numeric(tclvalue(tcl(lb$listbox, "curselection")))+1]))
+        if ("design" %in% class(getRcmdr(".stored.designDopt"))) 
+            putRcmdr(".stored.designDopt", design.info(getRcmdr(".stored.designDopt"))$creator)
         tkfocus(CommanderWindow())
         tkdestroy(topdes2)
         tkdestroy(deschoose2)
-        Menu.ccd()
+        Menu.Dopt()
     }
     OKCancelHelp(window=deschoose2)
     tkgrid(buttonsFrame, sticky="s")
@@ -215,11 +207,11 @@ onRefresh <- function(){
         ## letzte Position enthaelt tab index (beginnend bei 1)
           tkfocus(CommanderWindow())
           tkdestroy(topdes2)
-          Menu.ccd()
+          Menu.Dopt()
 }
 
 onStore <- function(){
-        ## Speichernamen abfragen und hier ermöglichen (statt stored.designccd)
+        ## Speichernamen abfragen und hier ermöglichen (statt stored.designDopt)
         textentry() ## creates text string stored in savename.RcmdrPlugin.DoE
         if (!is.null(savename.RcmdrPlugin.DoE)){
         if (!is.valid.name(savename.RcmdrPlugin.DoE)){
@@ -235,16 +227,16 @@ onStore <- function(){
              }
           }
         storeRcmdr()
-        assign(savename.RcmdrPlugin.DoE, getRcmdr(".stored.designccd"), envir=.GlobalEnv)
+        assign(savename.RcmdrPlugin.DoE, getRcmdr(".stored.designDopt"), envir=.GlobalEnv)
         message(gettextRcmdr("inputs have been stored"))
         }
 }
 
 onReset <- function(){
-        assign(".stored.designccd",.default.designccd,pos="RcmdrEnv")
+        assign(".stored.designDopt",.default.designDopt,pos="RcmdrEnv")
         tkfocus(CommanderWindow())
   tkdestroy(topdes2)
-  Menu.ccd()
+  Menu.Dopt()
 }
 
      nameenter <- function(){
@@ -273,22 +265,6 @@ onReset <- function(){
         }
  }
 
-newFrF2 <- function(){
-     storeRcmdr()
-     
-     if (!exists(".stored.design2FrF", where="RcmdrEnv")) 
-           hilf <- .default.design2
-           else hilf <- getRcmdr(".stored.design2FrF")
-     hilf$nameVar <- getRcmdr(".stored.designccd")$nameVar
-     hilf$cbInitials[5] <- 0
-     hilf$resVar <- "V+"
-     assign(".stored.design2FrF", hilf,pos="RcmdrEnv")
-     closeDialog(window=topdes2)
-     Menu.FrF2level()
-     tkmessageBox(message="Continue defining the star portion of the design.",
-             icon="info", type="ok", title="Cube portion was created")
-     Menu.ccd()
-}
 
 ######## end define functions                          
 
@@ -312,38 +288,39 @@ tkconfigure(tn, takefocus=0)
 nameFrame <- ttkframe(tab1)
 
 #typeradioFrame <- ttklabelframe(tab1, text=gettextRcmdr("Augment or from scratch ?"))
-#typerbVariable <- tclVar(.stored.designccd$typerbVariable)
+#typerbVariable <- tclVar(.stored.designDopt$typerbVariable)
 #augmentrb <- tkradiobutton(typeradioFrame,text=gettextRcmdr("add star portion to existing design"),variable=typerbVariable, value="augment")
 #fromscratchrb <- tkradiobutton(typeradioFrame,text=gettextRcmdr("create new central composite design"),variable=typerbVariable, value="fromscratch")
 #tkgrid(augmentrb, sticky="w")  ## in this case, leave default option from options
 #tkgrid(fromscratchrb, sticky="w")
 
-    designFrame <- ttklabelframe(tab1, text=gettextRcmdr("Determine the cube portion"))
-    designsBox <- variableListBox(parentWindow=designFrame, designs, title=gettextRcmdr("Pick existing 2-level design"),
-        initialSelection=if (is.null(.activeDataSet) || !.activeDataSet %in% designs) NULL 
-             else which(.activeDataSet == designs) - 1)
-    designButton <- tkbutton(designFrame, text="Create new 2-level design", command=newFrF2)
-    tkgrid(getFrame(designsBox), ttklabel(designFrame, text=" OR "), designButton, sticky="w", padx=10)
-    tkconfigure(designButton, takefocus=0)
+tkgrid(ttklabel(tab1, text=gettextRcmdr("The active data frame is the candidate data set:")), ttklabel(tab1, text=.activeDataSet), sticky="w")
 
-
-baseFrame <- ttklabelframe(tab1,text=gettextRcmdr("Details for star portion"))
+baseFrame <- ttklabelframe(tab1,text=gettextRcmdr("Details for D-optimization"))
 
 ### widgets for tab1 and base frame
-putRcmdr("nameVar", tclVar(.stored.designccd$nameVar))
+putRcmdr("nameVar", tclVar(.stored.designDopt$nameVar))
+if (tclvalue(getRcmdr("nameVar"))=="Design.1.Dopt" & !getRcmdr(".activeDataSet")=="Design.1")
+putRcmdr("nameVar", tclVar(paste(getRcmdr(".activeDataSet"), "Dopt", sep=".")))
+    
 nameEntry <- tkentry(nameFrame, width="20", textvariable=nameVar)
     tkbind(nameEntry, "<FocusIn>", nameenter)
     tkbind(nameEntry, "<FocusOut>", namechange)
 
-ncenterVar <- tclVar(.stored.designccd$ncenterVar)
-ncenterEntry <- tkentry(baseFrame, width="8", textvariable=ncenterVar)
-ncenterHint <- ttklabel(baseFrame, text="(positive integer number)", foreground="#888888")
+nrunsVar <- tclVar(.stored.designDopt$nrunsVar)
+nrunsEntry <- tkentry(tab1, width="8", textvariable=nrunsVar)
 
-alphaVar <- tclVar(.stored.designccd$alphaVar)
-alphaEntry <- tkentry(baseFrame, width="12", textvariable=alphaVar)
-alphaHint <- ttklabel(baseFrame, text="(orthogonal, rotatable, or positive number)", foreground="#888888")
+rhsVariable <- tclVar(.stored.designDopt$rhsVariable)
+formulaEntry <- tkentry(baseFrame, width="80", textvariable=rhsVariable)
 
-randomizecbVariable <- tclVar(.stored.designccd$cbInitials[2])
+putRcmdr("constraintVar", tclVar(.stored.designDopt$constraintVar))
+constraintEntry <- tkentry(baseFrame, width="80", textvariable=constraintVar)
+
+nrepeatVar <- tclVar(.stored.designDopt$nrepeatVar)
+nrepeatEntry <- tkentry(baseFrame, width="12", textvariable=nrepeatVar)
+nrepeatHint <- ttklabel(baseFrame, text="(positive integer number, large=long run time)", foreground="#888888")
+
+randomizecbVariable <- tclVar(.stored.designDopt$cbInitials[2])
 randomizecb <- ttkcheckbutton(baseFrame,text=gettextRcmdr("Randomize design"),variable=randomizecbVariable)
 tkconfigure(randomizecb, takefocus=0)
 seedVar <- tclVar(sample(31999,1))  ## always new
@@ -351,29 +328,34 @@ seedEntry <- tkentry(baseFrame, width="8", textvariable=seedVar)
 tkconfigure(seedEntry, takefocus=0)
 
 
-## preparations for bottom frame
-bottomFrame <- tkframe(topdes2)
-
-## grid base frame
-tkgrid(ncenterlab <- tklabel(baseFrame, text=gettextRcmdr("Number of center points for star portion")), ncenterEntry, ncenterHint, sticky="w")
-tkgrid(alphalab <- tklabel(baseFrame, text=gettextRcmdr("Positioning of star points (alpha)")), alphaEntry, alphaHint, sticky="w", pady=15)
-tkgrid(randlab <- tklabel(baseFrame, text="You normally do not need to change randomization settings"),sticky="w",columnspan=3)
-tkgrid(seedlab <- tklabel(baseFrame, text=gettextRcmdr("Seed for randomization")), seedEntry, 
-       randomizecb, sticky="w")
-
+### Finalize tab1
 helptab1Button <- buttonRcmdr(nameFrame, text = gettextRcmdr("Tab Help"), 
         foreground = "darkgreen", command = onHelpTab1, 
         default = "normal", borderwidth = 3)
+## grid nameFrame
 tkconfigure(helptab1Button, takefocus=0)
-
-### Finalize tab1
 tkgrid(tklabel(nameFrame, text="Name of new design"), nameEntry, helptab1Button, sticky="w")
 tkgrid(nameFrame, sticky="w", columnspan=4, pady=20)
 tkgrid.configure(helptab1Button, sticky="ne", padx=15)
-#tkgrid(typeradioFrame, sticky="w", columnspan=4)
 
-tkgrid(designFrame, sticky="e",pady=15, columnspan=4)
+## grid nruns
+tkgrid(nrunslab <- tklabel(tab1, text=gettextRcmdr("Numer of runs (required)")), nrunsEntry, sticky="w", pady=c(5,10))
 
+## grid formula information
+    ## define variables accessible for the formula
+    Variables(colnames(get(ActiveDataSet())))
+    modelFrame <- ttklabelframe(tab1, text="Specify model for optimization")
+    modelFormulaDoE(hasLhs=FALSE)  ## creates and grids several frames 
+    tkgrid(modelFrame, sticky="w", columnspan="2")
+    subsetBoxDoE()   ## for constraints
+    tkgrid(subsetFrame, sticky="w", columnspan="2", pady=5)
+    
+
+## grid base frame
+tkgrid(nRepeatlab <- tklabel(baseFrame, text=gettextRcmdr("Number of optimization repeats")), nrepeatEntry, nrepeatHint, sticky="w", pady=15)
+tkgrid(randlab <- tklabel(baseFrame, text="You normally do not need to change randomization settings"),sticky="w",columnspan=3)
+tkgrid(seedlab <- tklabel(baseFrame, text=gettextRcmdr("Seed for randomization")), seedEntry, 
+       randomizecb, sticky="w")
 tkgrid(baseFrame, sticky="nw",columnspan=3)
 
 ## tab6 for exporting
@@ -389,7 +371,7 @@ tkgrid.configure(helptab6Button, sticky="ne")
 
 ## radio buttons for choosing export type
 etradioFrame <- ttklabelframe(tab6, text=gettextRcmdr("(How to) Export ?"))
-etyperbVariable <- tclVar(.stored.designccd$etyperbVariable)
+etyperbVariable <- tclVar(.stored.designDopt$etyperbVariable)
 noexprb <- tkradiobutton(etradioFrame,text=gettextRcmdr("no export"),variable=etyperbVariable,value="none")
 allrb <- tkradiobutton(etradioFrame,text=gettextRcmdr("all file types"),variable=etyperbVariable,value="all")
 rdarb <- tkradiobutton(etradioFrame,text=gettextRcmdr("rda only"),variable=etyperbVariable,value="rda")
@@ -403,7 +385,7 @@ tkgrid(csvrb, sticky="w")
 
 ## radio buttons for choosing export decimal separator
 decimalradioFrame <- ttklabelframe(tab6, text=gettextRcmdr("Decimal Separator ?"))
-decimalrbVariable <- tclVar(.stored.designccd$decimalrbVariable)
+decimalrbVariable <- tclVar(.stored.designDopt$decimalrbVariable)
 defaultrb <- tkradiobutton(decimalradioFrame,text=gettextRcmdr("default"),variable=decimalrbVariable, value="default")
 pointrb <- tkradiobutton(decimalradioFrame,text=gettextRcmdr("."),variable=decimalrbVariable, value=".")
 commarb <- tkradiobutton(decimalradioFrame,text=gettextRcmdr(","),variable=decimalrbVariable, value=",")
@@ -413,7 +395,7 @@ tkgrid(commarb, sticky="w")
 
 ## export directory
 dirFrame <- ttklabelframe(tab6, text=gettextRcmdr("Storage Directory"))
-putRcmdr("dirVar", tclVar(.stored.designccd$dirVar))
+putRcmdr("dirVar", tclVar(.stored.designDopt$dirVar))
 dirEntry <- tkentry(dirFrame, width="50", textvariable=dirVar)
 dirButton <- buttonRcmdr(dirFrame, text = gettextRcmdr("Change directory"), 
         foreground = "darkgreen", width = "20", command = onChangeDir, 
@@ -421,10 +403,10 @@ dirButton <- buttonRcmdr(dirFrame, text = gettextRcmdr("Change directory"),
 tkgrid(dirEntry, tklabel(dirFrame, text="   "), dirButton, sticky="w")
 
 ## export file name
-putRcmdr("fileVar", tclVar(.stored.designccd$fileVar))
+putRcmdr("fileVar", tclVar(.stored.designDopt$fileVar))
 fileEntry <- tkentry(tab6, width="20", textvariable=fileVar)
 efnamelabel <- tklabel(tab6,text=gettextRcmdr("Export file names: name below with appropriate endings (html or csv, and rda)"))
-replacecbVariable <- tclVar(.stored.designccd$cbInitials[8])
+replacecbVariable <- tclVar(.stored.designDopt$cbInitials[8])
 replacecb <- ttkcheckbutton(tab6,text=gettextRcmdr("Replace file(s), if exists"),variable=replacecbVariable)
 
 ## always grid details, as otherwise default file name does not work
@@ -466,12 +448,12 @@ tkconfigure(resetButton, takefocus=0)
 ## storage buttons to the right of the notebook
 tkgrid(tn, buttonFrame, sticky="w", columnspan=2)
 
-OKCancelHelp(window=topdes2, helpSubject="Menu.ccd")
+OKCancelHelp(window=topdes2, helpSubject="Menu.Dopt")
 tkconfigure(OKbutton, takefocus=0)
 tkconfigure(cancelButton, takefocus=0)
 tkconfigure(helpButton, takefocus=0)
 
-tkgrid(buttonsFrame, bottomFrame, sticky="ew")
+tkgrid(buttonsFrame, sticky="ew")
 
 ### relations among widgets
 if (exists("activestab.tn", where="RcmdrEnv")){
@@ -483,5 +465,5 @@ dialogSuffix(window=topdes2, rows=2, columns=2, focus=tn, bindReturn=FALSE)
 
 }
 ###
-# End of Menu.ccd
+# End of Menu.Dopt
 ###

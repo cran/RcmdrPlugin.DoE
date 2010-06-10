@@ -24,34 +24,24 @@
     item    designCreateMenu      command    "Screening design ..."                   Menu.pb2level                  ""          ""
     item    designCreateMenu      command    "Regular (Fractional) Factorial ..."     Menu.FrF2level                 ""          ""
     item    designCreateMenu      command      "Experts: load additional catalogue ..."     Menu.loadcatlg  ""          "packageAvailable('FrF2.catlg128')"
-    #item    loadcatlgMenu         command    "Load catalogue from loaded catalogues package ..."            Menu.loadcatlg  "existcatlgPkgs()"          ""
-    ## DesSummary2.design for actual designs ???; 
-    ## DesSummary2.matrix, DesSummary2.data.frame for checking matrices or data frames for being a design and then summarize their properties
-    ## the menu point summarize ... should always be available, once the functions have been programmed
     item    designCreateMenu      command    "----------- General ------------------"                   dc                          "FALSE"          ""
     item    designCreateMenu      command    "General Full Factorial Experiments ..." Menu.fac                          ""          ""
     item    designCreateMenu      command    "General orthogonal arrays ..."          Menu.oa                          ""          ""
- #   item    designCreateMenu      command    "----------- D-optimal ------------------"                   dc                          "FALSE"          ""
-  #  item    designCreateMenu      command    "D-optimal plan ..."                     Menu.Dopt                          ""          ""
-  ##  requires programming for entering candidates, a formula and potential restrictions
+    item    designCreateMenu      command    "----------- D-optimal ------------------"                   dc                          "FALSE"          ""
+    item    designCreateMenu      command    "Candidate design ..."                   Menu.cand                          ""          ""
+    item    designCreateMenu      command    "D-optimal design ..."                   Menu.Dopt                          ""          ""
+          ##  augmentation and blocking are still open
     item    designCreateMenu      command    "----------- Combine ------------------"                   dc                          "FALSE"          ""
     item    designCreateMenu      command    "Taguchi inner-outer array ..."          Menu.param          "exist2Designs()"      ""
-    ## DesSummary.design for actual designs ???; 
-    ## DesSummary.matrix, DesSummary.data.frame for checking matrices or data frames for being a design and then summarize their properties
-    ## the menu point summarize ... should always be available, once the functions have been programmed
     item    designCreateMenu      command    "----------- Quantitative --------------"                   dc                          "FALSE"          ""
     item    designCreateMenu      command    "Central composite ..."                  Menu.ccd                          ""          ""
     item    designCreateMenu      command    "Box-Behnken ..."                        Menu.bbd                          ""          ""
     item    designCreateMenu      command    "Space filling latin hypercube  ..."     Menu.lhs                          ""          ""
-  #  item    designCreateMenu      command    "D-optimal  ..."              dc                          "FALSE"          ""
     item    designCreateMenu      command    "--------------- Info ------------------"                   dc                          "FALSE"          ""
     item    designCreateMenu      command    "Info 2-level designs"                   help2level                   ""          ""
     item    designCreateMenu      command    "Info general designs"                   helpgeneral                          ""          ""
     item    designCreateMenu      command    "Info quantitative designs"              helpquant                          ""          ""
-#    menu    optdesMenu      designCreateMenu    ""              ""                          ""          ""
-#    item    optdesMenu      command    "D-optimal tbd ..."                dc                          "FALSE"          ""
-#    item    optdesMenu      command    "D-optimal tbd2  ..."              dc                          "FALSE"          ""
-#    item    designCreateMenu      cascade    "(Non-orthogonal) optimal designs ..."                  optdesMenu                  "FALSE"               ""
+    item    designCreateMenu      command    "Info D-optimal designs"                 helpDopt                          ""          ""
 
     menu    designInspectMenu designMenu       ""                                              ""                          ""          ""
     item   designMenu          cascade    "Inspect design"                 designInspectMenu               ""                     ""
@@ -84,19 +74,15 @@
     menu    designAnalMenu designMenu       ""                                              ""                          ""          ""
     item   designMenu          cascade    "Analyze design"                 designAnalMenu               ""                     ""
     item    designAnalMenu     command    "Default linear model ..."      Menu.model      "activeDataSetDesignPResp()"      ""
-    item    designAnalMenu      command    "----------------------------------"                   dc                          "FALSE"          ""
-    item    designAnalMenu     command    "Effects (Half) Normal Plots (2-level design) ..."             Menu.EffectPlots           "activeDataSetDesign2PResp()"      ""
-    item    designAnalMenu     command    "Main Effects and Interaction Plots (2-level design) ..."       Menu.IAPlot        "activeDataSetDesign2PResp()"      ""
-#    item    designAnalMenu      command    "----------------------------------"                   dc                          "FALSE"          ""
+    item    designAnalMenu      command    "--------- 2-level designs ---------------"                   dc                          "FALSE"          ""
+    item    designAnalMenu     command    "Effects (Half) Normal Plots ..."             Menu.EffectPlots           "activeDataSetDesign2PResp()"      ""
+    item    designAnalMenu     command    "Main Effects and Interaction Plots ..."       Menu.IAPlot        "activeDataSetDesign2PResp()"      ""
+    item    designAnalMenu      command    "--------- Quantitative factors ----------"                   dc                   "FALSE"          ""
 #    item    designAnalMenu     command    "Info on quantitative analysis tools..."             helpQuantDesignAnalyze      "activeDataSetDesignPResp()"      ""
-#    item    designAnalMenu  command         "Analyze Response Surface Design..."        Menu.rsm              "activeDataSetDesignPResp()"          ""
-    ## requires programming of menu that uses Russ Lenths FO, SO, PQ and/or TWI notation, because otherwise steepest ascent unusable
-#    item    designAnalMenu  command         "Contour plot..."              Menu.contour              "activeDataSetDesignPResp()"          ""
-    ## only usable in case of linear model available
-#    item    designAnalMenu  command         "Steepest ascent..."              Menu.steep              "activeDataSetDesignPResp()"          ""
-    ## only usable in case of rsm object available; steepest itself good for linear model only; canonical.path more interesting for SO models
-#    item    designAnalMenu  command         "Analyze Latin Hypercube Design..."               dc              "activeDataSetDesignPResp()"          ""
-    ## is this really needed?
+    item    designAnalMenu  command         "Response surface model ..."        Menu.rsmmodel              "activeDataSetDesignPResp()"          ""
+    item    designAnalMenu  command         "Steepest slope ..."        Menu.steepest              "activeModelRSM()"          ""
+    item    designAnalMenu  command         "Response surface plots ..."        Menu.contour              "activeModelLM()"          ""
+    item    designAnalMenu      command    "-----------------------------------------"                   dc                   "FALSE"          ""
     item    designAnalMenu     command    "Info ..."             helpAnalyze               ""      ""
 
     menu    sepMenu designMenu ""    ""    ""    ""

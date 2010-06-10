@@ -9,6 +9,8 @@
   \alias{activeDataSetDesignQualP} 
   \alias{activeDataSetDesignRemovableP} 
   \alias{activeDataSetDesignWide}
+  \alias{activeModelRSM}
+  \alias{activeModelLM}
   \alias{dc} 
   \alias{display.design} 
   \alias{displayblock} 
@@ -16,15 +18,17 @@
   \alias{displayGlossary} 
   \alias{displaysplitplot} 
   \alias{exist2Designs} 
+  \alias{existcatlgPkgs} 
   \alias{existDesign2}
   \alias{existDesign2FrF} 
   \alias{existDesign2pb} 
   \alias{existDesigns} 
   \alias{existDesignsWithResp}
-  \alias{existcatlgPkgs} 
+  \alias{existRSMs} 
   \alias{help2level} 
   \alias{helpabout} 
   \alias{helpAnalyze} 
+  \alias{helpDopt} 
   \alias{helpExpImp} 
   \alias{helpgeneral} 
   \alias{helpGeneralAnalyze}
@@ -39,18 +43,23 @@
   \alias{isDesign2FrF} 
   \alias{isDesign2pb} 
   \alias{justDoItDoE} 
+  \alias{listCatlgs} 
   \alias{listDesigns}
   \alias{listDesigns2} 
   \alias{listDesignsWithResp} 
   \alias{listLists} 
   \alias{listObjects} 
-  \alias{listCatlgs} 
+  \alias{listRSMs} 
   \alias{Menu.aggregate}
   \alias{Menu.EffectPlots} 
   \alias{Menu.export} 
   \alias{Menu.wide} 
+  \alias{modelFormulaDoE} 
+  \alias{rsmFormula} 
+  \alias{fpairsc} 
   \alias{summarize.design} 
   \alias{design.info.design} 
+  \alias{subsetBoxDoE} 
   \alias{textcorrect} 
   \alias{textentry}
   
@@ -66,6 +75,8 @@
   activeDataSetDesignP() 
   activeDataSetDesignPResp() 
   activeDataSetDesignWide()
+  activeModelRSM()
+  activeModelLM()
   dc() 
   display.design() 
   displayblock() 
@@ -78,9 +89,11 @@
   existDesign2pb() 
   existDesigns() 
   existDesignsWithResp()
+  existRSMs()
   help2level() 
   helpabout()
   helpAnalyze() 
+  helpDopt() 
   helpExpImp() 
   helpgeneral() 
   helpGeneralAnalyze()
@@ -100,11 +113,16 @@
   listDesignsWithResp(envir = .GlobalEnv, ...) 
   listLists(envir = .GlobalEnv, ...) 
   listObjects(envir = .GlobalEnv, ...) 
+  listRSMs(envir = .GlobalEnv, ...)
   Menu.aggregate()
   Menu.EffectPlots() 
   Menu.export() 
   Menu.responses()
   Menu.wide() 
+  fpairsc(factors, G1, class = 1)
+  modelFormulaDoE(frame = modelFrame, hasLhs = TRUE)
+  rsmFormula(frame = top, hasLhs = TRUE)
+  subsetBoxDoE(window=tab1)
   summarize.design() 
   textcorrect(message) 
   textentry()
@@ -115,6 +133,11 @@
 \item{preventCrisp}{ }
 \item{design}{data frame of S3 class \code{\link[DoE.base:class-design]{design}}}
 \item{message}{message to be displayed (character string)}
+\item{factors}{character vector of factor names for G1 and G2 together}
+\item{G1}{index numbers for G1}
+\item{class}{compromise plan class analogue for creating pairs of variables}
+\item{frame}{frame or window to link the widgets to}
+\item{window}{frame or window to link the widgets to}
 }
 
 

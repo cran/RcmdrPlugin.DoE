@@ -61,3 +61,13 @@ listDesigns2 <- function (envir = .GlobalEnv, type = NULL, ...)
         envir = envir))))]
     aus
 }
+
+listRSMs <- function (envir = .GlobalEnv, ...)
+{
+   Vars <- ls(envir = envir, all.names = TRUE)
+    if (length(Vars) == 0)
+        return(Vars)
+   names(which(sapply(Vars, function(.x) "rsm" %in% class(get(.x,
+        envir = envir)))))
+}
+

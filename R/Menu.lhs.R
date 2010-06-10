@@ -79,7 +79,6 @@ onOK <- function(){
     ## in case of stupid mistakes
     storeRcmdr()
     ## seed is not used from previously stored design
-     closeDialog(window=topdes2)
         name <- tclvalue(nameVar)
         if (!is.valid.name(name)){
             errorCondition(window=topdes2,recall=Menu.lhs, 
@@ -110,6 +109,7 @@ onOK <- function(){
                   ",",textfactornameslist.forcommand,")") 
 
         hilf <- justDoItDoE(command)
+        closeDialog(window=topdes2)
         if (class(hilf)[1]=="try-error") {
             Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
             errorCondition(window=topdes2,recall=Menu.lhs, message=gettextRcmdr(hilf))
@@ -340,6 +340,20 @@ onReset <- function(){
         tkconfigure(facnameListBox, listvariable=facnamlist)
         }
         else tkmessageBox(message="invalid name!",icon="error", type="ok", title="Invalid factor name")
+    }
+     level1enter <- function(){
+              putRcmdr("the.common.level1", tclvalue(getRcmdr("level1Var")))
+        }
+     level1change <- function(){
+        if (identical(getRcmdr("the.common.level1"), tclvalue(getRcmdr("level1Var")))) return()
+        onRefresh()
+    }
+     level2enter <- function(){
+              putRcmdr("the.common.level2", tclvalue(getRcmdr("level2Var")))
+        }
+     level2change <- function(){
+        if (identical(getRcmdr("the.common.level2"), tclvalue(getRcmdr("level2Var")))) return()
+        onRefresh()
     }
     flev1change <- function(){
         ## selpos known from factorsel
@@ -589,13 +603,18 @@ faclevelCommonVariable <- tclVar(.stored.designlhs$cbInitials[4])
 faclevelCommonButton <- ttkcheckbutton(deflevFrame,text=gettextRcmdr("Common factor levels"),
     variable=faclevelCommonVariable,command=onRefresh)
 tkconfigure(faclevelCommonButton,takefocus=0)
-level1Var <- tclVar(.stored.designlhs$level1Var)
-level1Entry <- ttkentry(deflevFrame, width="20", textvariable=level1Var)
+putRcmdr("level1Var", tclVar(.stored.designlhs$level1Var))
+    level1Entry <- ttkentry(deflevFrame, width="20", textvariable=level1Var)
+    tkconfigure(level1Entry,takefocus=0)
+    tkbind(level1Entry, "<FocusIn>", level1enter)
+    tkbind(level1Entry, "<FocusOut>", level1change)
 tkconfigure(level1Entry,takefocus=0)
-level2Var <- tclVar(.stored.designlhs$level2Var)
-level2Entry <- tkentry(deflevFrame, width="20", textvariable=level2Var)
-tkconfigure(level2Entry,takefocus=0)
-tkgrid(faclevelCommonButton,sticky="w",columnspan=3)
+putRcmdr("level2Var", tclVar(.stored.designlhs$level2Var))
+    level2Entry <- tkentry(deflevFrame, width="20", textvariable=level2Var)
+    tkconfigure(level2Entry,takefocus=0)
+    tkbind(level2Entry, "<FocusIn>", level2enter)
+    tkbind(level2Entry, "<FocusOut>", level2change)
+    tkgrid(faclevelCommonButton,sticky="w",columnspan=3)
 faclevCommonLab<-tklabel(deflevFrame,text=gettextRcmdr("CAUTION: Checking this box overwrites all custom factor levels."))
 if (!as.logical(as.numeric(tclvalue(faclevelCommonVariable)))){ 
     tkgrid(faclevCommonLab,sticky="w", columnspan=3)

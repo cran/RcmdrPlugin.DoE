@@ -46,8 +46,28 @@ offered in package \code{\link[BsMD]{BsMD-package}}, which are currently not imp
 in \pkg{RcmdrPlugin.DoE}. 
 
 \bold{Analysis options specific to designs with quantitative factors}\cr
-have not been implemented for the GUI version yet. They are available within R-package 
-\pkg{\link[rsm:rsm-package]{rsm}} for the classical response surface designs.
+are available within R-package \pkg{\link[rsm:rsm-package]{rsm}} 
+and are implemented in particular for response surface designs; they can also 
+be used for other designs with quantitative variables, especially for latin hypercube 
+designs. (However, for the latter, there are often reasons to use nonparametric approaches. 
+
+The menu item \emph{Response surface model ...} creates a response surface 
+analysis with first order (FO) terms, and potentially also two-factor interactions 
+(TWI) and/or pure quadratic (PQ) terms. The resulting object has class \code{\link[rsm]{rsm}} 
+and can be postprocessed with the subsequent menu items.
+
+The menu item \emph{Steepest slope ...} supports moving the experimental range 
+towards a more promising area, based on a first order model or on a second order 
+model with a saddle point.
+
+The menu item \emph{Plot response surface ...} supports creation of contour, 
+perspective or image plots of a response surface model, 
+and can also be used for linear models with quantitative variables.
+
+\bold{General analysis functionality from R Commander }\cr
+It is of course also possible to use other analysis facilities within the R Commander, 
+or to use the command-line facilities offered in package \code{\link[rsm:rsm-package]{rsm}}
+and elsewhere.
 }
 
 

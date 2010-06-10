@@ -2,7 +2,7 @@
 \alias{Menu.Quantitative}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Designs specifically tailored to quantitative factors}
-\description{This menu covers classical response surface designs (central composite 
+\description{This GUI covers classical response surface designs (central composite 
 and Box-Behnken) as well as so-called latin-hypercube samples for 
 factors that can and should be set to many different levels. This 
 help file is about when to apply which of these.}
@@ -20,9 +20,9 @@ an existing design.
 
 Latin hypercube designs - if used with optimization which is strongly recommended - 
 try to fill the experimental space with points in an efficient way. Note that they are 
-NOT trying to optimize the design w.r.t. a specific statistical model. Such optimal plans 
-have not been implemented yet (they are available outside the R-commander with 
-package \code{AlgDesign}).
+NOT trying to optimize the design w.r.t. a specific statistical model. 
+Such optimal plans are available outside the R Commander with package \code{AlgDesign}. 
+Simple versions of these have already been implemented into the R Commander. 
 }
 
 \references{ 

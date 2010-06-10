@@ -52,20 +52,22 @@ the valuable experimental data themselves stored in a safe place.
 \section{Covered methodology and planned extensions}{
 Full factorial designs, orthogonal main effects designs, 
 regular and non-regular 2-level fractional factorial designs, central composite and Box-Behnken 
-designs, and latin hypercube samples can currently be generated from the GUI.
+designs, latin hypercube samples, and simple D-optimal designs can currently be generated from the GUI.
 
-Extensions to cover further latin hypercube designs as well as D-optimal designs are 
-planned for the near future.
+Extensions to cover further latin hypercube designs as well as more advanced 
+D-optimal designs (with blocking) are planned for the future.
 
-\pkg{RcmdrPlugin.DoE} implements much of the functionality in packages \pkg{DoE.base} 
-and \pkg{FrF2} - especially the implementation of function \code{\link[FrF2]{FrF2}} 
-is not always as flexible as the command line approach. Some extensions are intended, 
-but there will always be a difference.
+\pkg{RcmdrPlugin.DoE} implements functionality from packages \pkg{DoE.base}, \pkg{FrF2}, 
+\pkg{DoE.wrapper} (which in turn implements functionality from several other packages), 
+and also from package \pkg{rsm}. All package allow more flexibility through command line 
+programming than through using the GUI. Nevertheless, usage of the GUI should be sufficient 
+for reasonable creation and analysis of results at least in standard situations.
 
-Furthermore, the functionality of package \pkg{DoE.wrapper} is made available. Here, 
-DoE.wrapper itself is going to be extended at least to cover also D-optimal designs. 
-Furthermore, analysis facilities from package \pkg{rsm} are to be implemented into 
-\pkg{RcmdrPlugin.DoE}.
+So far, there is no tutorial available. For experienced users of other DoE Software, 
+the menus may be reasonably self-explanatory. Please feel free to contact me with issues 
+regarding the documentation; it is very informative and will help improve documentation, 
+if I understand where users get stuck. However, I am of course NOT a help desk for experimentation or 
+issues with using R or the R-Commander.
 }
 
 \author{ Ulrike Groemping }

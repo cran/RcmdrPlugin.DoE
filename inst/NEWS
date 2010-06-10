@@ -1,10 +1,28 @@
-Next steps: implement D-optimal designs, and perhaps further types of lhs designs
+Next steps: 
 
-Version 0.6-14, 04 Jun 2010
+10 Aug 2010, Version 0.8
+   - added analysis functionality for response surface designs
+     - response surface model with FO, TWI, PQ, and SO notation
+     - steepest ascent / descent analysis
+     - contour and persp plots that also work for linear models in general
+   - implemented simple version of D-optimal designs (no blocking so far)
+   - improved menu for creation of ccd designs 
+     (better defaults for cube portion, better guidance through menus)
+   - modified NEWS file for better display with function news()
+   Bug fixes
+   - resetting ccd menu would use wrong defaults (from lhs instead of ccd)
+   - star portion of ccd augmentation ignored the specified number of center points 
+     star portion (and always used the default 4); only the center points 
+     specified with the cube portion, if any, were honored
+   - list of 2-level designs did not include 2-level full factorials
+   - current model information was not stored for linear models based on design
+   - a harmless warning was not suppressed in menuLinearModelDesign
+
+04 Jun 2010, Version 0.6-14
    Bug fixes:
    - contrary to documentation, the default linear model tab worked for models with 2-level factors only.
 
-Version 0.6-13, 23 Apr 2010
+23 Apr 2010, Version 0.6-13
    - improved Base Settings tab for regular fractional factorials 
      to allow specification of an extra catalogue without having to specify the design itself
        - fourth radio button for catlg only
@@ -20,11 +38,11 @@ bug fixes:
      work properly in earlier versions
    - corrected an instruction in Menu.import.Rd (regarding loading of R workspace)
 
-Version 0.6-12, 03 Apr 2010
+03 Apr 2010, Version 0.6-12
 bug fix: added requirement for DoE.base version 0.10 
 (new design inspection for creation of general orthogonal arrays did not work for older versions)
 
-Version 0.6-11, 26 Mar 2010
+26 Mar 2010, Version 0.6-11
 - updated resolution information to include newly implemented designs 
   from packages FrF2 and DoE.base 
   (and included bug fix to previous version that was incomplete regarding 64 run designs)
@@ -39,32 +57,32 @@ Version 0.6-11, 26 Mar 2010
 - bug fix: creation of general orthogonal arrays did not work for most recent version 
   of package DoE.base
 
-Version 0.6-10, 03 Jan 2010
+03 Jan 2010, Version 0.6-10
 - added possibility for compromise designs to estimable menu for regular fractional factorials
 - Bugfix: error message for wrong response specigication in add response menu
 
-Version 0.6-9, 18 Dec 2009
+18 Dec 2009, Version 0.6-9
 Created comfort for analysing designs with several response variables:
 - added response selection to the currently available analysis menus
 - removed design selection from linear model menu; this menu now always refers 
   to the design in the active dataset, like the other analysis menus
 
-Version 0.6-8, 10 Dec 2009
+10 Dec 2009, Version 0.6-8
 - added menu for permanently removing columns from the design
 - added menu for modifying factor contrasts
 - bug fix: help button for response selection menu now points to the correct 
   help file
 
-Version 0.6-7, 21 Nov 2009
+21 Nov 2009, Version 0.6-7
 - improved help for manually incorporating blocks into designs with 
   estimable 2-factor interactions 
 - bug fix: directory selection did not work on export tabs of design creation
   menus
 
-Version 0.6-6, 25 Oct 2009
+25 Oct 2009, Version 0.6-6
 - added help button to "Estimable Model" tab for regular 2-level fractional factorials
 
-Version 0.6-5, 25 Oct 2009
+25 Oct 2009, Version 0.6-5
 - a few changes to help files
 - made several menus more comfortable:
   - keep decimal settings between menus and calls in menus (except for export sub 
@@ -80,7 +98,7 @@ Version 0.6-5, 25 Oct 2009
   was not properly implemented (search was always 60 seconds);
   - improvement for this situation: indication that search is in progress in the output window
 
-Version 0.6, 18 Oct 2009
+18 Oct 2009, Version 0.6
 - changed strategy for error messages when generating designs (affects all design 
   generating and design modifying menus):
   After pressing OK with options that lead to an error, instead of closing the 
@@ -98,16 +116,16 @@ Version 0.6, 18 Oct 2009
   eventually, there will be an option for including a dummy
   ...
 
-Version 0.5-6, 17 Oct 2009
+17 Oct 2009, Version 0.5-6
 - made changes to common factor levels for 2-level designs work immediately, not with delay
 - made radio buttons on "Estimable Model" tab for regular 2-level designs bring up the 
   appropriate controls without delay
 
-Version 0.5-5, 08 Oct 2009
+08 Oct 2009, Version 0.5-5
 - corrected various copy-paste errors in titles and descriptions of help files
 - made all Info menu items always visible
 
-Version 0.5-4, 08 Oct 2009
+08 Oct 2009, Version 0.5-4
 - introduced dependence on Rcmdr version at least 1.4-6 
   (because of issues with building menus and displaying messages in earlier versions)
 - added a help topic for choosing between screening and regular fractional factorial designs
@@ -118,19 +136,20 @@ Version 0.5-4, 08 Oct 2009
   calls were awkward before for main effects and interaction plots, and 
   call documentation was incomplete for (half) normal effects plots
 
-Version 0.5-3, 28 Sep 2009
+28 Sep 2009, Version 0.5-3
 - corrected default setting for colnospecifyVariable in menu for 
   general factorial designs
 - corrected behavior of the oa.design menu when switching back 
   from a named design with columns specified to automatic selection
 
-Version 0.5-2, 25 Sep 2009
+25 Sep 2009, Version 0.5-2
 - corrected further links in documentation
 
-Version 0.5-1, 24 Sep 2009
+24 Sep 2009, Version 0.5-1
 - corrected a few links in documentation 
 - added Encoding field to DESCRIPTION
 - added version requirements to packages DoE.base, FrF2 and DoE.wrapper 
   in DESCRIPTION
 
-Version 0.5: Beta version released 24 Sep 2009
+24 Sep 2009, Version 0.5
+First Beta version released to CRAN

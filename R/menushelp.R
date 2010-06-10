@@ -30,6 +30,11 @@ helpquant <- function(){
      print(help("Menu.Quantitative"))
 }
 
+helpDopt <- function(){
+     if (GrabFocus() && .Platform$OS.type != "windows")
+            tkgrab.release(topdes2)
+     print(help("Menu.Optimal"))
+}
 
 helpAnalyze <- function(){
      if (GrabFocus() && .Platform$OS.type != "windows")
