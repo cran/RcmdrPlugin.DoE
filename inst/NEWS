@@ -1,5 +1,9 @@
 Next steps: 
 
+30 Oct 2010, Version 0.9
+   - adapted information on available designs in menu for fractional factorial 
+     2-level designs to extensions in package FrF2 
+
 10 Aug 2010, Version 0.8
    - added analysis functionality for response surface designs
      - response surface model with FO, TWI, PQ, and SO notation
