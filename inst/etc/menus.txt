@@ -29,7 +29,7 @@
     item    designCreateMenu      command    "General orthogonal arrays ..."          Menu.oa                          ""          ""
     item    designCreateMenu      command    "----------- D-optimal ------------------"                   dc                          "FALSE"          ""
     item    designCreateMenu      command    "Candidate design ..."                   Menu.cand                          ""          ""
-    item    designCreateMenu      command    "D-optimal design ..."                   Menu.Dopt                          ""          ""
+    item    designCreateMenu      command    "D-optimal design ..."                   Menu.Dopt                          "!is.null(ActiveDataSet())"          ""
           ##  augmentation and blocking are still open
     item    designCreateMenu      command    "----------- Combine ------------------"                   dc                          "FALSE"          ""
     item    designCreateMenu      command    "Taguchi inner-outer array ..."          Menu.param          "exist2Designs()"      ""

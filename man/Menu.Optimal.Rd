@@ -1,5 +1,5 @@
-\name{Optimal designs}
-\alias{Optimal designs}
+\name{Menu.Optimal}
+\alias{Menu.Optimal}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Optimal designs}
 \description{Optimal designs start from the assumption that a certain 
@@ -30,7 +30,7 @@ As was already mentioned, the implementation of D-optimal designs in this GUI
 requires a candidate design, 
 which can be any data frame, e.g. a full factorial design, an orthogonal array design 
 or a latin hypercube design. The menu item \emph{Candidate design ...} offers shortcuts 
-for creation of candidate designs.
+for selection or creation of candidate designs. 
 
 The menu item \emph{D-optimal design ...} allows creation of a D-optimal design, 
 using the active data set (possibly restricted to exclude inadequate combinations) 

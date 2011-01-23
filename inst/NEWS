@@ -1,4 +1,13 @@
-Next steps: 
+Version history: 
+
+23 Jan 2011, Version 0.9-1
+   - deactivated D-optimal design creation menu for missing candidate designs
+   - made D-optimal candidate design selection more comfortables, 
+     allowing also selection of an existing design from within the candidate 
+     creation menu.
+   - fixed bug which made help for D-optimal designs in the design creation menu 
+     inaccessible
+   - updated a link to Rcmdr installation instructions
 
 30 Oct 2010, Version 0.9
    - adapted information on available designs in menu for fractional factorial 
