@@ -1,22 +1,20 @@
 \name{Menu.Analyze}
 \alias{Menu.Analyze}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Analyze experimental designs}
-\description{This is a brief explanation on the analysis facilities for experimental designs 
-in the Analyze Design menu.}
+\title{Analyze experimental designs }
+\description{This is a brief explanation on the analysis facilities for experimental designs in the Analyze Design menu.}
 %- maybe also 'usage' for other objects documented here.
 
 \section{Available analysis options}{
-
-\bold{Generally applicable analysis options}\cr
-The topmost menu entry \emph{Default linear model} is of interest for all design types 
+\bold{Generally applicable analysis options}
+The topmost menu entry Default linear model is of interest for all design types 
 and is usable whenever the active dataset is a design with response. 
-However, the default linear model analysis does not work 
-for long version designs with repeated measurements or for parameter designs in long format, 
-as it usually does not make sense in such situations. Rather, such designs should be brought into 
-wide format by using the \cr
-\code{Design --> Combine or Modify Designs --> Change from long to wide format}\cr
-menu.
+However, the default linear model analysis does not work for long version designs 
+with repeated measurements or for parameter designs in long format, 
+as it usually does not make sense in such situations. 
+Rather, such designs should be brought into wide format by using the
+Design --> Combine or Modify Designs --> Change from long to wide format
+menu. 
 
 Note that the default linear model analysis is a quick 
 first shot that should often be tuned and sometimes (e.g. in many cases splitplot designs) replaced 
@@ -24,6 +22,11 @@ by a different analysis strategy for serious modelling. Tuning can be
 done by using the built-in linear model functions from the R-Commander Analyze menu. 
 The R-Commander Models menu also offers interesting options for subsequent 
 model diagnostics and graphics.
+
+\bold{Analysis options for general factorial designs}\cr
+For a general factorial design with a response, main effects and interaction plots 
+can be generated (one at a time) by a menu which was slightly from \pkg{Rcmdr}s general 
+menu for graphing arithmetic means.
 
 \bold{Analysis options specific to 2-level designs}\cr
 There are two types of orthogonal 2-level factorial designs, 

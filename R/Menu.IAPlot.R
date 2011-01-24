@@ -39,7 +39,7 @@ Menu.IAPlot <- function(){
      closeDialog(window=top)
     }
    
-   initializeDialog(title=gettextRcmdr("Interaction plots for 2-level factors"))
+   initializeDialog(title=gettextRcmdr("Main Effects and Interaction Plots (2-level factors)"))
    selFrame <- tkframe(top)
    putRcmdr("sel.resps", variableListBox(selFrame, variableList=resp.list, listHeight=10, 
         title="Response to be analysed (select one)",selectmode="single", initialSelection=0))
