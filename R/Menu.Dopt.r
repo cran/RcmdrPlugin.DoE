@@ -168,12 +168,12 @@ onLoad <- function(){
             return()
             }
     putRcmdr("deschoose2",tktoplevel())
-    tkwm.title(deschoose2, gettextRcmdr("Choose stored design"))
+    tkwm.title(deschoose2, gettextRcmdr("Choose stored design form"))
     position <- if (is.SciViews()) 
         -1
     else position <- "+50+50"
     tkwm.geometry(deschoose2, position)
-    putRcmdr("lb", variableListBox(deschoose2, variableList=hilf, title="Choose stored design"))
+    putRcmdr("lb", variableListBox(deschoose2, variableList=hilf, title="Choose stored design form"))
         tkgrid(lb$frame)
     onOK <- function() {
         putRcmdr(".stored.designDopt",get(lb$varlist[as.numeric(tclvalue(tcl(lb$listbox, "curselection")))+1]))
@@ -311,6 +311,7 @@ nrunsVar <- tclVar(.stored.designDopt$nrunsVar)
 nrunsEntry <- tkentry(tab1, width="8", textvariable=nrunsVar)
 
 rhsVariable <- tclVar(.stored.designDopt$rhsVariable)
+## formulaEntry is no longer used, formula is entered in frames created by modelFormulaDoE
 formulaEntry <- tkentry(baseFrame, width="80", textvariable=rhsVariable)
 
 putRcmdr("constraintVar", tclVar(.stored.designDopt$constraintVar))
@@ -345,7 +346,8 @@ tkgrid(nrunslab <- tklabel(tab1, text=gettextRcmdr("Numer of runs (required)")),
     ## define variables accessible for the formula
     Variables(colnames(get(ActiveDataSet())))
     modelFrame <- ttklabelframe(tab1, text="Specify model for optimization")
-    modelFormulaDoE(hasLhs=FALSE)  ## creates and grids several frames 
+    modelFormulaDoE(hasLhs=FALSE, rhschr=tclvalue(rhsVariable))  ## creates and grids several frames 
+    ### does not use rhschr; why? Is correctly available but unused
     tkgrid(modelFrame, sticky="w", columnspan="2")
     subsetBoxDoE()   ## for constraints
     tkgrid(subsetFrame, sticky="w", columnspan="2", pady=5)

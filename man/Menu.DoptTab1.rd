@@ -25,7 +25,10 @@
 \item{Specify model}{formula of the model for which an optimum design is sought}
 \item{Specify constraints}{constraint condition(s) on the design variables; for example, 
      if several factors refer to sizes, it may not be possible to combine 
-     all settings (e.g. under space restrictions)}
+     all settings (e.g. under space restrictions);\cr
+     See \code{\link[base]{Syntax}} and \code{\link[base]{Logic}} 
+        for an explanation of the syntax of general and especially logical 
+        R expressions. }
 \item{nRepeat}{number of independent repeats for optimization; \cr
      increasing this number increases search time, but also the chances to 
      find a global optimum}
@@ -36,7 +39,6 @@
 }
 }
 
-\references{ ~put references to the literature/web site here ~ }
 \author{ Ulrike Groemping }
 \seealso{ See also function \code{\link[DoE.wrapper]{Dopt.design}} for the function 
 from \pkg{DoE.wrapper} that creates the design, which in turn is based on 

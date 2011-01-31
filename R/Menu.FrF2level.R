@@ -132,13 +132,23 @@ onOK <- function(){
           if (tclvalue(resVar)=="V+") resolution <- 5
         }
     
-    if (!as.logical(as.numeric(as.character(tclvalue(specialcbVariable)))))
+    if (!as.logical(as.numeric(as.character(tclvalue(specialcbVariable))))){
+            ### separate statements because of repeat.only replications in blocked designs
+            if (!(as.logical(as.numeric(tclvalue(repeat.onlyVariable))) & as.numeric(tclvalue(nblockVar))>0)) 
             command <- paste("FrF2(nruns=",nrun.forcommand,",nfactors=",tclvalue(nfacVar),", blocks=", tclvalue(nblockVar),
                   ", alias.block.2fis =", alias.block.2fis, 
                   ", ncenter=", tclvalue(ncenterVar), ", MaxC2 =", MaxC2, ", resolution =", resolution,
                   ",replications=",tclvalue(nrepVar),",repeat.only=",as.logical(as.numeric(tclvalue(repeat.onlyVariable))),
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizeVariable))),",seed=",tclvalue(seedVar),
                   ",",textfactornameslist.forcommand,")")
+            else 
+            command <- paste("FrF2(nruns=",nrun.forcommand,",nfactors=",tclvalue(nfacVar),", blocks=", tclvalue(nblockVar),
+                  ", alias.block.2fis =", alias.block.2fis, 
+                  ", ncenter=", tclvalue(ncenterVar), ", MaxC2 =", MaxC2, ", resolution =", resolution,
+                  ",wbreps=",tclvalue(nrepVar),",repeat.only=TRUE, randomize=",
+                  as.logical(as.numeric(tclvalue(randomizeVariable))),",seed=",tclvalue(seedVar),
+                  ",",textfactornameslist.forcommand,")")
+                  }
     else{
                estimable <- "NULL"
           ## only do if special cases present
@@ -281,12 +291,12 @@ onLoad <- function(){
             return()
             }
     putRcmdr("deschoose2",tktoplevel())
-    tkwm.title(deschoose2, gettextRcmdr("Choose stored design"))
+    tkwm.title(deschoose2, gettextRcmdr("Choose stored design form"))
     position <- if (is.SciViews()) 
         -1
     else position <- "+50+50"
     tkwm.geometry(deschoose2, position)
-    putRcmdr("lb", variableListBox(deschoose2, variableList=hilf, title="Choose stored design"))
+    putRcmdr("lb", variableListBox(deschoose2, variableList=hilf, title="Choose stored design form"))
         tkgrid(lb$frame)
     onOK <- function() {
         putRcmdr(".stored.design2FrF",get(lb$varlist[as.numeric(tclvalue(tcl(lb$listbox, "curselection")))+1]))
@@ -945,7 +955,10 @@ MArb <- tkradiobutton(descritFrame,text=gettextRcmdr("MA (Maximum resolution and
 MaxC2rb <- tkradiobutton(descritFrame,text=gettextRcmdr("MaxC2 (Maximum number of clear 2fis)"),variable=qualcritrbVariable,value="MaxC2")
 
 ## grid descritFrame
-tkgrid(tklabel(descritFrame,text=gettextRcmdr("Minimum resolution")), resEntry)
+tkgrid(resEntry, tklabel(descritFrame,text=gettextRcmdr("Minimum resolution\nNOTE: affects design generation\nfor MaxC2 choice\nOR unspecified number of runs only"),justify="left"))
+#tkgrid(tklabel(descritFrame,text=gettextRcmdr("NOTE: affects design generation for MaxC2 choice")), columnspan=2, sticky="w")
+#tkgrid(tklabel(descritFrame,text=gettextRcmdr("OR unspecified number of runs only")), columnspan=2, sticky="w")
+
 tkgrid(MArb, columnspan=2, sticky="w")
 tkgrid(MaxC2rb, columnspan=2, sticky="w")
 tkgrid(tklabel(descritFrame,text=gettextRcmdr("  ")), columnspan=2)

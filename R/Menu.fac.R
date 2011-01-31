@@ -1,5 +1,5 @@
 Menu.fac <- function(){
-initializeDialogDoE(title=gettextRcmdr("Create main effects design from orthogonal array ..."))   
+initializeDialogDoE(title=gettextRcmdr("Create full factorial design ..."))   
      ## function initializeDialogDoE assumes topdes2 as windowname
      ## last stored top left corner for window is stored under topleft2xy
      ## onRefresh still makes window walk a little
@@ -190,12 +190,12 @@ onLoad <- function(){
             return()
             }
     putRcmdr("deschoosefac",tktoplevel())
-    tkwm.title(deschoosefac, gettextRcmdr("Choose stored design"))
+    tkwm.title(deschoosefac, gettextRcmdr("Choose stored design form"))
     position <- if (is.SciViews()) 
         -1
     else position <- "+50+50"
     tkwm.geometry(deschoosefac, position)
-    putRcmdr("lb", variableListBox(deschoosefac, variableList=hilf, title="Choose stored design"))
+    putRcmdr("lb", variableListBox(deschoosefac, variableList=hilf, title="Choose stored design form"))
         tkgrid(lb$frame)
     onOK <- function() {
         putRcmdr(".stored.designfac",get(lb$varlist[as.numeric(tclvalue(tcl(lb$listbox, "curselection")))+1]))

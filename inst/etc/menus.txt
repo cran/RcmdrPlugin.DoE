@@ -1,12 +1,14 @@
 # RcmdrPlugin.DoE Menu Definitions
 
-# last modified 14 Sep 2009 by U. Groemping
+# last modified 29 Jan 2011 by U. Groemping
 
 #   type    menu/item      operation/parent  label                                          command/menu                activation  install?
 
     menu    designMenu        topMenu         ""                                     ""                          ""          ""
     item    topMenu           cascade         "Design"                               designMenu                  ""          ""
     menu    importDoEMenu      designMenu      ""                                   ""                          ""          ""
+    item    importDoEMenu      command     "Change working directory..."         Setwd        ""     ""    
+    item    importDoEMenu      command     "Load R workspace..."                          loadDataSet                 ""      ""
     item    importDoEMenu      command    "Load experiment from R workspace ..."            Menu.import         "existDesigns()"          ""
     ## implement reading of externally stored responses into this design
 #    item    importDoEMenu      command    "How to Re-Import experiment from csv and rda files ..."        HowToReImport          ""          ""
@@ -14,7 +16,7 @@
         ## e.g. 2-level experiment checked with remodel
         ## find ways to allow certain experiments to be diagnosed and made class design
         ## have users choose responses and x's, hopefully using a menu structure that is already there
-    item    designMenu        cascade    "Import ..."                      importDoEMenu                     ""          ""
+    item    designMenu        cascade    "Import"                      importDoEMenu                     ""          ""
     item    designMenu        command    "Export experiment ..."            Menu.export                      "existDesigns()"          ""
 
     menu    designCreateMenu designMenu       ""                                      ""                          ""          ""
@@ -45,7 +47,7 @@
 
     menu    designInspectMenu designMenu       ""                                              ""                          ""          ""
     item   designMenu          cascade    "Inspect design"                 designInspectMenu               ""                     ""
-    item    designInspectMenu      command    "Display active design"        display.design                   "activeDataSetDesignP()"          ""
+    item    designInspectMenu      command    "Display active design ..."        Menu.display                   "activeDataSetDesignP()"          ""
 #    item    designInspectMenu      command    "Summarize active design ..."        Menu.summarize                   "activeDataSetDesignP()"          ""
     item    designInspectMenu      command    "Summarize active design"        summarize.design                   "activeDataSetDesignP()"          ""
     item    designInspectMenu      command    "Plot active design ..."        Menu.plot                   "activeDataSetDesignP()"          ""
@@ -75,7 +77,7 @@
     item   designMenu          cascade    "Analyze design"              designAnalMenu               ""                     ""
     item    designAnalMenu     command    "Default linear model ..."    Menu.model      "activeDataSetDesignPResp()"      ""
     item    designAnalMenu      command    "--------- General factorial designs ---------------"                   dc                          "FALSE"          ""
-    item    designAnalMenu      command         "Main Effects and Interaction Plots ..."        PlotMeansDoE.menu       "numericP() && factorsP() && activeDataSetDesignPResp()"          ""
+    item    designAnalMenu      command         "Main Effects and Interaction Plots ..."        Menu.PlotMeansDoE       "numericP() && factorsP() && activeDataSetDesignPResp()"          ""
     item    designAnalMenu      command    "--------- 2-level designs ---------------"                   dc                          "FALSE"          ""
     item    designAnalMenu     command    "Effects (Half) Normal Plots ..."             Menu.EffectPlots           "activeDataSetDesign2PResp()"      ""
     item    designAnalMenu     command    "Main Effects and Interaction Plots ..."       Menu.IAPlot        "activeDataSetDesign2PResp()"      ""

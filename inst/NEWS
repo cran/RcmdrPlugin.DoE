@@ -1,5 +1,24 @@
 Version history: 
 
+31 Jan 2011, Version 0.10
+   - added the choice between actual and standard run order to the display design 
+     menu item (requires DoE.base version 0.21)
+   - added a check box for Taguchi order for 12 run orthogonal arrays
+   - added change working directory and load R workspace items to the import menu
+     for convenience
+   - added a caution to the new main effects and interaction plot dialog for 
+     general designs
+   - modified behavior of repeat.only checkbox in connection with blocked designs 
+     for FrF2 menu: with the repeat.only checkbox checked, repeats become 
+     within block repeated measurements (option wbreps); 
+     previously, the checkbox was implicitly ignored for blocked designs
+   - fixed degree bug for the default linear model: the degree for pb and oa designs 
+     is now in line with the documentation
+   - fixed minor bug in function PlotMeansDoE.menu (reload of menu suppressed 
+     because of PlotMeans instead of PlotMeansDoE.menu in the recall option)
+   - fixed bug in dialog for creation of full factorial (wrong title text)
+   - fixed bug in D-optimal design menu that always made the RHS formula disappear
+
 24 Jan 2011, Version 0.9-2
    - added main effects and interaction plot menu for general factorial designs
 

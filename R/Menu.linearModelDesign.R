@@ -7,7 +7,10 @@ Menu.linearModelDesign <- function(response=NULL){
     currentModel <- FALSE
     oldwarn <- options("warn")$warn
     options(warn=-1)  ## suppress frequent harmless warning
-    if (is.na(as.numeric(getRcmdr("degree")))) degree <- 2 
+    if (is.na(as.numeric(getRcmdr("degree")))){ 
+             degree <- 2 
+             if (!any(grepl("^",formula(get(ActiveDataSet())), fixed=TRUE))) degree <- 1
+       }
         else degree <- as.numeric(getRcmdr("degree"))
     options(warn=oldwarn)
 

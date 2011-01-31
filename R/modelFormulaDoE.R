@@ -1,8 +1,8 @@
-modelFormulaDoE <- defmacro(frame = modelFrame, hasLhs = TRUE, expr={
-    putRcmdr("currentModel", FALSE)
-    #putRcmdr("rhsVariable", if (currentModel)
-    #        tclVar(currentFields$rhs) else tclVar(""))
-    rhsVariable <- tclVar("")
+modelFormulaDoE <- defmacro(frame = modelFrame, hasLhs = TRUE, rhschr="", expr={
+    currentModel <- FALSE
+    # not for all cases useful to have current model
+    # therefore local false version
+    # rhs can be given to the macro as rhschr
     checkAddOperator <- function(rhs) {
         rhs.chars <- rev(strsplit(rhs, "")[[1]])
         if (length(rhs.chars) < 1)
@@ -238,7 +238,7 @@ modelFormulaDoE <- defmacro(frame = modelFrame, hasLhs = TRUE, expr={
     else {
         rhsVariable <- if (currentModel)
             tclVar(currentFields$rhs)
-        else tclVar("")
+        else tclVar(rhschr)
         rhsEntry <- ttkentry(formulaFrame, width = "50", textvariable = rhsVariable)
         rhsXscroll <- ttkscrollbar(formulaFrame, orient = "horizontal",
             command = function(...) tkxview(rhs, ...))

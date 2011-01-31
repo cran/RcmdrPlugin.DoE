@@ -6,7 +6,7 @@ Menu.model <- function(){
      ### needed (among other things) for correction of automatic formula, 
                           ### if individual response of wide design is to be analyzed
     degreeVar <- tclVar("NULL")
-    initializeDialog(window=top, title=gettextRcmdr("Select Design and Degree"))
+    initializeDialog(window=top, title=gettextRcmdr("Choose Response and Degree"))
     degreeEntry <- ttkentry(top, width=7, textvariable=degreeVar)
     degreelab <- ttklabel(top, text=gettextRcmdr("degree (positive integer)"))
     putRcmdr("sel.resps", variableListBox(top, variableList=resp.list, listHeight=10, 
@@ -41,10 +41,11 @@ Menu.model <- function(){
         if (length(grep("splitplot", di$type))>0) 
           warning("The default analysis can be misleading for splitplot designs!
           Whole-plot factors are often subject to much more variability than split-plot factors.")
+          }
           putRcmdr("degree", tclvalue(degreeVar))
           closeDialog()
           Menu.linearModelDesign(response=resphilf)
-        }
+        
         }
     OKCancelHelp(helpSubject="Menu.model")
     tkgrid(getFrame(sel.resps), degreelab, degreeEntry, sticky="n")

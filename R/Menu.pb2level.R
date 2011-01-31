@@ -19,7 +19,7 @@ if (!exists(".stored.design2pb",where="RcmdrEnv"))
            ## resVar, qualcritrbVariable, facnamlist,faclev1list,faclev2list, faclablist
            ## etyperbVariable, decimalrbVariable, dirVar, fileVar
 
-## MaxC2cbVariable is free again (no. 9 of cbInitials)
+## MaxC2cbVariable is now used for taguchi order checkbox
 
 ## define called functions
  infoClose <- function(){
@@ -57,7 +57,7 @@ storeRcmdr <- function(){
         cbInitials = c(tclvalue(repeat.onlyVariable), tclvalue(randomizeVariable),
                        tclvalue(facnameAutoVariable),tclvalue(faclevelCommonVariable),
                        1,0,
-                       0,tclvalue(replacecbVariable),0,
+                       0,tclvalue(replacecbVariable),tclvalue(taguchicbVariable),
                        0
                        ),
         level1Var=tclvalue(level1Var),level2Var=tclvalue(level2Var),seedVar=tclvalue(seedVar),
@@ -103,7 +103,9 @@ onOK <- function(){
 
     ### not yet perfect, especially NULL entries are not possible
     ### for didactic reasons distinguish between usage of default.levels and other?
-    command <- paste("pb(nruns=",tclvalue(nrunVar),",nfactors=",tclvalue(nrunVar),"-1, ncenter=", 
+    command <- paste("pb(nruns=",tclvalue(nrunVar),",n12.taguchi=",
+                  as.logical(as.numeric(tclvalue(taguchicbVariable))),
+                  ",nfactors=",tclvalue(nrunVar),"-1, ncenter=", 
                   tclvalue(ncenterVar), ", replications=", tclvalue(nrepVar),
                   ",repeat.only=",as.logical(as.numeric(tclvalue(repeat.onlyVariable))),
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizeVariable))),",seed=",tclvalue(seedVar),
@@ -182,12 +184,12 @@ onLoad <- function(){
             return()
             }
     putRcmdr("deschoose2",tktoplevel())
-    tkwm.title(deschoose2, gettextRcmdr("Choose stored design"))
+    tkwm.title(deschoose2, gettextRcmdr("Choose stored design form"))
     position <- if (is.SciViews()) 
         -1
     else position <- "+50+50"
     tkwm.geometry(deschoose2, position)
-    putRcmdr("lb", variableListBox(deschoose2, variableList=hilf, title="Choose stored design"))
+    putRcmdr("lb", variableListBox(deschoose2, variableList=hilf, title="Choose stored design form"))
         tkgrid(lb$frame)
     onOK <- function() {
         putRcmdr(".stored.design2pb",get(lb$varlist[as.numeric(tclvalue(tcl(lb$listbox, "curselection")))+1]))
@@ -553,6 +555,9 @@ nrepEntry <- tkentry(baseFrame, width="8", textvariable=nrepVar)
 randomizeVariable <-  tclVar(.stored.design2pb$cbInitials[2])
 randomizecb <- ttkcheckbutton(baseFrame,text=gettextRcmdr("Randomization"),variable=randomizeVariable)
 tkconfigure(randomizecb, takefocus=0)
+taguchicbVariable <-  tclVar(.stored.design2pb$cbInitials[9])
+taguchicb <- ttkcheckbutton(baseFrame,text=gettextRcmdr("12 run design in Taguchi order"),variable=taguchicbVariable)
+tkconfigure(taguchicb, takefocus=0)
 seedVar <- tclVar(sample(31999,1))  ## always new
 seedEntry <- tkentry(baseFrame, width="8", textvariable=seedVar)
 tkconfigure(seedEntry, takefocus=0)
@@ -565,8 +570,10 @@ bottomFrame <- tkframe(topdes2)
 
 ## grid base frame
 tkgrid(nrunlab <- tklabel(baseFrame, text=gettextRcmdr("Number of runs")), nrunEntry, nrunHint, sticky="w")
+tkgrid(taguchicb, sticky="w")
 ## omitted nfaccb, on form, nfactors must always be specified
 tkgrid(nfaclab <- tklabel(baseFrame, text=gettextRcmdr("Number of factors")), nfacEntry, nfacHint, sticky="w")
+tkgrid.configure(nfaclab, pady=15)
 tkgrid(ncenterlab <- tklabel(baseFrame, text=gettextRcmdr("Number of center points")), ncenterEntry, sticky="w")
 tkgrid.configure(ncenterlab, pady=15)
 tkgrid(nreplab <- tklabel(baseFrame, text=gettextRcmdr("Replications")), nrepEntry, repeat.onlycb, sticky="w")

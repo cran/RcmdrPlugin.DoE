@@ -15,6 +15,10 @@
 \item{name of design}{must be a valid name. The design itself is created under 
      this name in the R workspace. }
 \item{number of runs}{must be provided and must be a multiple of 4.}
+\item{the check box}{below the number of runs is relevant for 12 run designs only: 
+     if checked, the 12 run design is in the arrangement as provided by Taguchi, 
+     otherwise it is a Plackett-Burman design. (The two are equivalent to each 
+     other, but comparison is tedious.)}
 \item{number of factors}{must always be specified. It must be smaller than 
      the number of runs. The function always creates a design with the number 
      of factors one less than the number of runs. Those factors not used in the 

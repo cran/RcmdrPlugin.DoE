@@ -13,6 +13,7 @@
   \alias{activeModelLM}
   \alias{dc} 
   \alias{display.design} 
+  \alias{display.design.std.order} 
   \alias{displayblock} 
   \alias{displayCentralCompositeDesigns}
   \alias{displayGlossary} 
@@ -34,6 +35,7 @@
   \alias{helpGeneralAnalyze}
   \alias{helpInspect}
   \alias{onHelpTabEstimable}
+  \alias{onHelpSyntax}
   \alias{helpMenus}
   \alias{helpModify} 
   \alias{helpquant} 
@@ -52,6 +54,7 @@
   \alias{listRSMs} 
   \alias{Menu.aggregate}
   \alias{Menu.EffectPlots} 
+  \alias{Menu.PlotMeansDoE} 
   \alias{Menu.export} 
   \alias{Menu.wide} 
   \alias{modelFormulaDoE} 
@@ -79,6 +82,7 @@
   activeModelLM()
   dc() 
   display.design() 
+  display.design.std.order() 
   displayblock() 
   displayCentralCompositeDesigns()
   displayGlossary() 
@@ -99,6 +103,7 @@
   helpGeneralAnalyze()
   helpInspect() 
   onHelpTabEstimable()
+  onHelpSyntax()
   helpMenus()
   helpModify() 
   helpquant() 
@@ -116,11 +121,12 @@
   listRSMs(envir = .GlobalEnv, ...)
   Menu.aggregate()
   Menu.EffectPlots() 
+  Menu.PlotMeansDoE() 
   Menu.export() 
   Menu.responses()
   Menu.wide() 
   fpairsc(factors, G1, class = 1)
-  modelFormulaDoE(frame = modelFrame, hasLhs = TRUE)
+  modelFormulaDoE(frame = modelFrame, hasLhs = TRUE, rhschr="")
   rsmFormula(frame = top, hasLhs = TRUE)
   subsetBoxDoE(window=tab1)
   summarize.design() 

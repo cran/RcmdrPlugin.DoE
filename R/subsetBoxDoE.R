@@ -13,7 +13,17 @@ subsetBoxDoE <- defmacro(window = tab1, expr={
     tkgrid(tklabel(subsetFrame, text=gettextRcmdr("type in a logical expression using variable names and constants.")), sticky = "w")
     tkgrid(subsetEntry, sticky = "w")
     tkgrid(subsetScroll, sticky = "ew")
-    tkgrid(tklabel(subsetFrame, text=gettextRcmdr("Syntax reminder: &, |, !, ==, >=, >, <=, <, %in%")), sticky = "w")
+    helpsyntaxButton <- buttonRcmdr(subsetFrame, text = gettextRcmdr("Syntax Help"), 
+        foreground = "darkgreen", command = onHelpSyntax, 
+        default = "normal", borderwidth = 3)
+
+    tkgrid(tklabel(subsetFrame, text=gettextRcmdr("Syntax reminder: &, |, !, ==, >=, >, <=, <, %in%")), helpsyntaxButton, sticky = "w")
     putRcmdr("subsetFrame", subsetFrame)
 }
 )
+onHelpSyntax <- function(){
+     if (GrabFocus() && .Platform$OS.type != "windows") 
+            tkgrab.release(topdes2)     
+     print(help("Syntax"))
+
+}

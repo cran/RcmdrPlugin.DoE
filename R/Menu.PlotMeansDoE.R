@@ -1,6 +1,7 @@
-PlotMeansDoE.menu <- function ()
+Menu.PlotMeansDoE <- function ()
 {
     initializeDialog(title = gettextRcmdr("Main Effects and Interaction Plots (general)"))
+    tkgrid(tklabel(top, text=gettextRcmdr("CAUTION: This dialog plots means only.\nFor unbalanced designs, hidden factors may be responsible for mean differences.\nEffects plots from linear models may be more useful.")),columnspan=2)
     groupBox <- variableListBox(top, Factors(), title = gettextRcmdr("Factors (select one or two)"),
         selectmode = "multiple")
     responseBox <- variableListBox(top, Numeric(), title = gettextRcmdr("Response Variable (select one)"))
@@ -9,15 +10,15 @@ PlotMeansDoE.menu <- function ()
         response <- getSelection(responseBox)
         closeDialog()
         if (0 == length(groups)) {
-            errorCondition(recall = PlotMeans, message = gettextRcmdr("No factors selected."))
+            errorCondition(recall = PlotMeansDoE.menu, message = gettextRcmdr("No factors selected."))
             return()
         }
         if (2 < length(groups)) {
-            errorCondition(recall = PlotMeans, message = gettextRcmdr("More than two factors selected."))
+            errorCondition(recall = PlotMeansDoE.menu, message = gettextRcmdr("More than two factors selected."))
             return()
         }
         if (0 == length(response)) {
-            errorCondition(recall = PlotMeans, message = gettextRcmdr("No response variable selected."))
+            errorCondition(recall = PlotMeansDoE.menu, message = gettextRcmdr("No response variable selected."))
             return()
         }
         .activeDataSet <- ActiveDataSet()

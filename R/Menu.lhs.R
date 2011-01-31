@@ -182,12 +182,12 @@ onLoad <- function(){
             return()
             }
     putRcmdr("deschoose2",tktoplevel())
-    tkwm.title(deschoose2, gettextRcmdr("Choose stored design"))
+    tkwm.title(deschoose2, gettextRcmdr("Choose stored design form"))
     position <- if (is.SciViews()) 
         -1
     else position <- "+50+50"
     tkwm.geometry(deschoose2, position)
-    putRcmdr("lb", variableListBox(deschoose2, variableList=hilf, title="Choose stored design"))
+    putRcmdr("lb", variableListBox(deschoose2, variableList=hilf, title="Choose stored design form"))
         tkgrid(lb$frame)
     onOK <- function() {
         putRcmdr(".stored.designlhs",get(lb$varlist[as.numeric(tclvalue(tcl(lb$listbox, "curselection")))+1]))
