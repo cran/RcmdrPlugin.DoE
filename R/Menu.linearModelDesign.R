@@ -69,6 +69,7 @@ Menu.linearModelDesign <- function(response=NULL){
         assign(modelValue, hilf, envir=.GlobalEnv)
         doItAndPrint(paste("summary(", modelValue, ")", sep=""))
         activeModel(modelValue)
+        putRcmdr("modelWithSubset", FALSE)  ## for avoiding problems with adding observation statistics
           closeDialog()
         tkfocus(CommanderWindow())
         }

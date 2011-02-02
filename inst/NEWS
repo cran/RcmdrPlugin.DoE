@@ -1,5 +1,10 @@
 Version history: 
 
+21 Feb 2011, Version 0.10-2
+   - fixed an issue, which made adding observation statistics from the Models 
+     menu fail with default linear models from the Design menu 
+     (added modelWithSubset variable to Rcmdr namespace on model creation)
+
 04 Feb 2011, Version 0.10-1
    - added more (redundant) possibilities for exporting to the Design menu 
      in order to spare users the necessity to get oriented in the File menu
