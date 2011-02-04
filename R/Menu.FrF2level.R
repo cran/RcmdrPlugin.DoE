@@ -252,11 +252,11 @@ onOK <- function(){
                 stop("file ", paste(filename, "csv", "."), " exists and must not be replaced. Change filename on Export tab or allow replacing of files.")
          }
         if (tclvalue(decimalrbVariable)=="default") command <- paste("export.design(",name,
-               ", type=",dQuote(tclvalue(etyperbVariable)),",path=",dQuote(path),", file=",dQuote(filename),", replace=",
+               ", type=",dquote(tclvalue(etyperbVariable)),",path=",dquote(path),", file=",dquote(filename),", replace=",
                as.logical(as.numeric(tclvalue(replacecbVariable))),")",sep="")
         else command <- paste("export.design(",name, 
-               ", type=",dQuote(tclvalue(etyperbVariable)),",path=",dQuote(path),", file=",dQuote(filename),", replace=",
-               as.logical(as.numeric(tclvalue(replacecbVariable))),", OutDec=", dQuote(tclvalue(decimalrbVariable)),")",sep="")
+               ", type=",dquote(tclvalue(etyperbVariable)),",path=",dquote(path),", file=",dquote(filename),", replace=",
+               as.logical(as.numeric(tclvalue(replacecbVariable))),", OutDec=", dquote(tclvalue(decimalrbVariable)),")",sep="")
         hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
             errorCondition(window=topdes2,recall=Menu.FrF2level, message=gettextRcmdr(hilf))
@@ -720,7 +720,12 @@ dquote <- function(obj){
     aus <- rep("",length(obj))
     wopt <- options("warn")[[1]]
     options(warn=-1)
-    for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) aus[i] <- paste('"',obj[i],'"',sep="") 
+    for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) {
+            if (length(grep('"',obj[i])>0))
+            aus[i] <- paste("'",obj[i],"'",sep="") 
+            else
+            aus[i] <- paste('"',obj[i],'"',sep="") 
+            }
           else aus[i] <- obj[i]
     options(warn=wopt)
     aus

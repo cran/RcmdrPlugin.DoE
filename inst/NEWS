@@ -1,5 +1,13 @@
 Version history: 
 
+04 Feb 2011, Version 0.10-1
+   - added more (redundant) possibilities for exporting to the Design menu 
+     in order to spare users the necessity to get oriented in the File menu
+   - Bug fix: fixed various places where function dQuote was used instead 
+     of function dquote, which led to use of fancy quotes and consequently errors 
+     in commands on systems with option useFancyQuotes set to TRUE.
+     
+
 31 Jan 2011, Version 0.10
    - added the choice between actual and standard run order to the display design 
      menu item (requires DoE.base version 0.21)

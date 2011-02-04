@@ -18,7 +18,7 @@ Menu.param <- function(){
           }
       
       command <- paste("param.design(inner=", inner, 
-            ", outer=", outr, ", direction=", dQuote(direction),")")
+            ", outer=", outr, ", direction=", dquote(direction),")")
       hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
             Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")

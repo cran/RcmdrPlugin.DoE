@@ -69,6 +69,22 @@ storeRcmdr <- function(){
         putRcmdr(".stored.designDopt",hilf)
 }
 
+dquote <- function(obj){
+    ## quote vector elements for use as character vector in a command
+    aus <- rep("",length(obj))
+    wopt <- options("warn")[[1]]
+    options(warn=-1)
+    for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) {
+            if (length(grep('"',obj[i])>0))
+            aus[i] <- paste("'",obj[i],"'",sep="") 
+            else
+            aus[i] <- paste('"',obj[i],'"',sep="") 
+            }
+          else aus[i] <- obj[i]
+    options(warn=wopt)
+    aus
+}
+
 onOK <- function(){
     onRefreshEnd()
     ## store entries so that users do not have to redo everything
@@ -98,12 +114,12 @@ onOK <- function(){
     
     if (!tclvalue(constraintVar) == gettextRcmdr("<all candidate data set rows eligible>"))
     command <- paste("Dopt.design(",tclvalue(nrunsVar), ", data=", getRcmdr(".activeDataSet"),
-                  ", formula=", dQuote(paste("~",tclvalue(rhsVariable),sep="")),", constraint=", dQuote(tclvalue(constraintVar)),
+                  ", formula=", dquote(paste("~",tclvalue(rhsVariable),sep="")),", constraint=", dquote(tclvalue(constraintVar)),
                   ", nRepeat=",tclvalue(nrepeatVar), 
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizecbVariable))),
                   ",seed=",tclvalue(seedVar),")") 
     else     command <- paste("Dopt.design(",tclvalue(nrunsVar), ", data=", getRcmdr(".activeDataSet"),
-                  ", formula=", dQuote(paste("~",tclvalue(rhsVariable),sep="")),
+                  ", formula=", dquote(paste("~",tclvalue(rhsVariable),sep="")),
                   ", nRepeat=",tclvalue(nrepeatVar), 
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizecbVariable))),
                   ",seed=",tclvalue(seedVar),")") 

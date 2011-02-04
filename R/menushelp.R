@@ -99,6 +99,18 @@ helpMenus <- function(){
      print(help("Menus"))
 }
 
+helpImport <- function(){
+     if (GrabFocus() && .Platform$OS.type != "windows")
+            tkgrab.release(topdes2)
+     print(help("Menu.mImport"))
+}
+
+helpExport <- function(){
+     if (GrabFocus() && .Platform$OS.type != "windows")
+            tkgrab.release(topdes2)
+     print(help("Menu.mExport"))
+}
+
 HowToReImport <- function(){
      if (GrabFocus() && .Platform$OS.type != "windows")
             tkgrab.release(topdes2)

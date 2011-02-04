@@ -40,12 +40,12 @@ onOK <- function(){
         name <- tclvalue(nameVar)
         newname <- tclvalue(newnameVar)
               if (tclvalue(decimalrbVariable)=="default") command <- paste("add.response(",name,
-                     ", ",dQuote(csvpath), ", replace=",
+                     ", ",dquote(csvpath), ", replace=",
                      as.logical(as.numeric(tclvalue(replacecbVariable))),")",sep="")
               else command <- paste("add.response(",name,
-                     ", ",dQuote(csvpath), ", replace=",
+                     ", ",dquote(csvpath), ", replace=",
                      as.logical(as.numeric(tclvalue(replacecbVariable))),", InDec=",
-                     dQuote(tclvalue(decimalrbVariable)),")",sep="")
+                     dquote(tclvalue(decimalrbVariable)),")",sep="")
 
       hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
@@ -70,11 +70,17 @@ dquote <- function(obj){
     aus <- rep("",length(obj))
     wopt <- options("warn")[[1]]
     options(warn=-1)
-    for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) aus[i] <- paste('"',obj[i],'"',sep="") 
+    for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) {
+            if (length(grep('"',obj[i])>0))
+            aus[i] <- paste("'",obj[i],"'",sep="") 
+            else
+            aus[i] <- paste('"',obj[i],'"',sep="") 
+            }
           else aus[i] <- obj[i]
     options(warn=wopt)
     aus
 }
+
 
  onChangeDir <- function(){
      putRcmdr("direct",tclvalue(tkchooseDirectory()))

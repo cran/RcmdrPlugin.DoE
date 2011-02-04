@@ -5,22 +5,30 @@
 #   type    menu/item      operation/parent  label                                          command/menu                activation  install?
 
     menu    designMenu        topMenu         ""                                     ""                          ""          ""
-    item    topMenu           cascade         "Design"                               designMenu                  ""          ""
+    item    topMenu           cascade         "Design"                           designMenu                  ""          ""
     menu    importDoEMenu      designMenu      ""                                   ""                          ""          ""
     item    importDoEMenu      command     "Change working directory..."         Setwd        ""     ""    
-    item    importDoEMenu      command     "Load R workspace..."                          loadDataSet                 ""      ""
-    item    importDoEMenu      command    "Load experiment from R workspace ..."            Menu.import         "existDesigns()"          ""
+    item    importDoEMenu      command     "Load R workspace..."                 loadDataSet                 ""      ""
+    item    importDoEMenu      command    "Load experiment from R workspace ..."      Menu.import         "existDesigns()"          ""
     ## implement reading of externally stored responses into this design
 #    item    importDoEMenu      command    "How to Re-Import experiment from csv and rda files ..."        HowToReImport          ""          ""
     item    importDoEMenu       command    "Re-Import experiment from csv and rda files ..."        Menu.importrdacsv          ""          ""
         ## e.g. 2-level experiment checked with remodel
         ## find ways to allow certain experiments to be diagnosed and made class design
         ## have users choose responses and x's, hopefully using a menu structure that is already there
-    item    designMenu        cascade    "Import"                      importDoEMenu                     ""          ""
-    item    designMenu        command    "Export experiment ..."            Menu.export                      "existDesigns()"          ""
+    item    importDoEMenu      command    "Info ..."                    helpImport          ""      ""
+    item    designMenu        cascade         "Import"                      importDoEMenu                     ""          ""
+    menu    exportDoEMenu      designMenu      ""                           ""                          ""          ""
+    item    exportDoEMenu      command     "Change working directory..."    Setwd        ""     ""    
+    item    exportDoEMenu        command    "Save script as ..."            saveLogAs                      ""          ""
+    item    exportDoEMenu        command    "Save output as ..."            saveOutputAs                      ""          ""
+    item    exportDoEMenu        command    "Save R workspace as ..."       saveWorkspaceAs                      ""          ""
+    item    exportDoEMenu        command    "Export experiment ..."         Menu.export                      "existDesigns()"          ""
+    item    exportDoEMenu      command    "Info ..."                    helpExport          ""      ""
+    item    designMenu        cascade    "Export"                           exportDoEMenu                     ""          ""
 
     menu    designCreateMenu designMenu       ""                                      ""                          ""          ""
-    item    designMenu         cascade    "Create design"                 designCreateMenu               ""                     ""
+    item    designMenu         cascade    "Create design"                   designCreateMenu               ""                     ""
     ## 2-level
     item    designCreateMenu      command    "----------- 2-level ------------------"                   dc                          "FALSE"          ""
     item    designCreateMenu      command    "Screening design ..."                   Menu.pb2level                  ""          ""
@@ -31,7 +39,7 @@
     item    designCreateMenu      command    "General orthogonal arrays ..."          Menu.oa                          ""          ""
     item    designCreateMenu      command    "----------- D-optimal ------------------"                   dc                          "FALSE"          ""
     item    designCreateMenu      command    "Candidate design ..."                   Menu.cand                          ""          ""
-    item    designCreateMenu      command    "D-optimal design ..."                   Menu.Dopt                          "!is.null(ActiveDataSet())"          ""
+    item    designCreateMenu      command    "D-optimal design ..."                   Menu.Dopt           "!is.null(ActiveDataSet())"          ""
           ##  augmentation and blocking are still open
     item    designCreateMenu      command    "----------- Combine ------------------"                   dc                          "FALSE"          ""
     item    designCreateMenu      command    "Taguchi inner-outer array ..."          Menu.param          "exist2Designs()"      ""

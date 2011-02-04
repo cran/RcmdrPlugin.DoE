@@ -36,17 +36,6 @@ onOK <- function(){
         tkmessageBox(message="invalid name!",icon="error", type="ok", 
         title="Invalid name for wide design")
     }
-dquote <- function(obj){
-    ## quote vector elements for use as character vector in a command
-    aus <- rep("",length(obj))
-    wopt <- options("warn")[[1]]
-    options(warn=-1)
-    for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) aus[i] <- paste('"',obj[i],'"',sep="") 
-          else aus[i] <- obj[i]
-    options(warn=wopt)
-    aus
-}
-
  ######## end define functions                          
 
 ##### define userform

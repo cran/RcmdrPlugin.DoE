@@ -5,7 +5,9 @@ plugins <- Rcmdr$plugins
 if ((!pkgname %in% plugins) && !getRcmdr("autoRestart")) {
 Rcmdr$plugins <- c(plugins, pkgname)
 options(Rcmdr=Rcmdr)
+
 closeCommander(ask=FALSE, ask.save=FALSE)
+
 cat("\nThis is an EXPERIMENTAL version of package RcmdrPlugin.DoE.\n")
 cat("The workhorse functions it accesses are reasonably well-tested,\n")
 cat("but the GUI-interface can be improved regarding at least\n")

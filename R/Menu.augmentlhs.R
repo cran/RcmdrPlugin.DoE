@@ -89,7 +89,7 @@ onOK <- function(){
 
     ### not yet perfect, especially NULL entries are not possible
     ### for didactic reasons distinguish between usage of default.levels and other?
-    command <- paste("lhs.augment(",ActiveDataSet(),", type=",dQuote(tclvalue(typerbVariable)),
+    command <- paste("lhs.augment(",ActiveDataSet(),", type=",dquote(tclvalue(typerbVariable)),
                   ", m=",tclvalue(mVar), ",seed=",tclvalue(seedVar),")") 
 
                   
@@ -261,6 +261,22 @@ onReset <- function(){
         tkconfigure(dirEntry, textvariable = dirVar)
         }
  }
+
+ dquote <- function(obj){
+    ## quote vector elements for use as character vector in a command
+    aus <- rep("",length(obj))
+    wopt <- options("warn")[[1]]
+    options(warn=-1)
+    for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) {
+            if (length(grep('"',obj[i])>0))
+            aus[i] <- paste("'",obj[i],"'",sep="") 
+            else
+            aus[i] <- paste('"',obj[i],'"',sep="") 
+            }
+          else aus[i] <- obj[i]
+    options(warn=wopt)
+    aus
+}
 
 ######## end define functions                          
 

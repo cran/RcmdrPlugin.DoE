@@ -110,7 +110,7 @@ onOK <- function(){
     else 
     command <- paste("bbd.design(nfactors=",tclvalue(nfacVar),", ncenter=", tclvalue(ncenterVar), ", ",
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizeVariable))),",seed=",tclvalue(seedVar),
-                  ",",textfactornameslist.forcommand,", block.name=",dQuote(tclvalue(blockVar)),")") 
+                  ",",textfactornameslist.forcommand,", block.name=",dquote(tclvalue(blockVar)),")") 
 
         hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
@@ -499,7 +499,12 @@ dquote <- function(obj){
     aus <- rep("",length(obj))
     wopt <- options("warn")[[1]]
     options(warn=-1)
-    for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) aus[i] <- paste('"',obj[i],'"',sep="") 
+    for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) {
+            if (length(grep('"',obj[i])>0))
+            aus[i] <- paste("'",obj[i],"'",sep="") 
+            else
+            aus[i] <- paste('"',obj[i],'"',sep="") 
+            }
           else aus[i] <- obj[i]
     options(warn=wopt)
     aus

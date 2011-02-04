@@ -108,11 +108,11 @@ onOK <- function(){
     
     if (tclvalue(alphaVar) %in% c("orthogonal","rotatable"))
           command <- paste("ccd.augment(",FrF2Var,
-                  ", alpha=",dQuote(tclvalue(alphaVar)), ", ncenter=", tclvalue(ncenterVar),
+                  ", alpha=",dquote(tclvalue(alphaVar)), ", ncenter=", tclvalue(ncenterVar),
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizecbVariable))),
                   ",seed=",tclvalue(seedVar),")") 
     else command <- paste("ccd.augment(",FrF2Var, 
-                  ", alpha=",tclvalue(alphaVar), ", ncenter=", tclvalue(ncenterVar),
+                  ", alpha=",dquote(tclvalue(alphaVar)), ", ncenter=", tclvalue(ncenterVar),
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizecbVariable))),
                   ",seed=",tclvalue(seedVar),")") 
 
@@ -288,6 +288,22 @@ newFrF2 <- function(){
      tkmessageBox(message="Continue defining the star portion of the design.",
              icon="info", type="ok", title="Cube portion was created")
      Menu.ccd()
+}
+
+dquote <- function(obj){
+    ## quote vector elements for use as character vector in a command
+    aus <- rep("",length(obj))
+    wopt <- options("warn")[[1]]
+    options(warn=-1)
+    for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) {
+            if (length(grep('"',obj[i])>0))
+            aus[i] <- paste("'",obj[i],"'",sep="") 
+            else
+            aus[i] <- paste('"',obj[i],'"',sep="") 
+            }
+          else aus[i] <- obj[i]
+    options(warn=wopt)
+    aus
 }
 
 ######## end define functions                          

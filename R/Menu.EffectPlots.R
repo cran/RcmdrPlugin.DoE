@@ -2,6 +2,23 @@ Menu.EffectPlots <- function(){
    .activeDataSet <- ActiveDataSet()
    di <- design.info(eval(parse(text=.activeDataSet)))
     putRcmdr("resp.list", response.names(eval(parse(text=.activeDataSet))))
+
+    dquote <- function(obj){
+        ## quote vector elements for use as character vector in a command
+        aus <- rep("",length(obj))
+        wopt <- options("warn")[[1]]
+        options(warn=-1)
+        for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) {
+                if (length(grep('"',obj[i])>0))
+                aus[i] <- paste("'",obj[i],"'",sep="") 
+                else
+                aus[i] <- paste('"',obj[i],'"',sep="") 
+                }
+              else aus[i] <- obj[i]
+        options(warn=wopt)
+        aus
+    }
+    
    
    onOK <- function(){
       code <- as.logical(as.numeric(tclvalue(codeVar)))
@@ -12,7 +29,7 @@ Menu.EffectPlots <- function(){
 
      ## selected plots
        command <- paste("DanielPlot(", .activeDataSet, ", code=", as.character(code), ", autolab=", as.character(autolab), 
-            ", alpha=", alpha, ", half=", as.character(half),", response=", dQuote(response), ")", sep="")
+            ", alpha=", alpha, ", half=", as.character(half),", response=", dquote(response), ")", sep="")
        logger(command)
        hilf <- justDoItDoE(command)
        if (class(hilf)[1] == "try-error"){

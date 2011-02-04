@@ -3,6 +3,22 @@ Menu.IAPlot <- function(){
    di <- design.info(eval(parse(text=.activeDataSet)))
    factors <- names(di$factor.names)
     putRcmdr("resp.list", response.names(eval(parse(text=.activeDataSet))))
+
+    dquote <- function(obj){
+    ## quote vector elements for use as character vector in a command
+    aus <- rep("",length(obj))
+    wopt <- options("warn")[[1]]
+    options(warn=-1)
+    for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) {
+            if (length(grep('"',obj[i])>0))
+            aus[i] <- paste("'",obj[i],"'",sep="") 
+            else
+            aus[i] <- paste('"',obj[i],'"',sep="") 
+            }
+          else aus[i] <- obj[i]
+    options(warn=wopt)
+    aus
+   }
    
    onOK <- function(){
      select <- which(factors %in% unlist(strsplit(getSelection(factorsBox)," ")))
@@ -17,7 +33,7 @@ Menu.IAPlot <- function(){
      ## eventually provide a method for class design in package FrF2 --> this problem goes away
      ## 
      if (tclvalue(plottyperbVar)=="ME"){ 
-       command <- paste("MEPlot(",.activeDataSet,", abbrev=",abbrev, ", select=c(", paste(select,collapse=","),"), response=", dQuote(response), ")", sep="")
+       command <- paste("MEPlot(",.activeDataSet,", abbrev=",abbrev, ", select=c(", paste(select,collapse=","),"), response=", dquote(response), ")", sep="")
        logger(command)
        hilf <- justDoItDoE(command)
        if (class(hilf)[1] == "try-error"){

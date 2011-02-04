@@ -14,9 +14,9 @@ onOK <- function(){
           }
    ##     if (tclvalue(transfoVar)=="none") transfoVar <- tclVar("NULL")
    ##     command <- paste(tclvalue(nameVar), " <- aggregate(",.activeDataSet, 
-   ##            ", response=",dQuote(tclvalue(respVar)),",transformation=",dQuote(tclvalue(transfoVar)),", FUN=",dQuote(tclvalue(funVar)),")",sep="")
+   ##            ", response=",dquote(tclvalue(respVar)),",transformation=",dquote(tclvalue(transfoVar)),", FUN=",dquote(tclvalue(funVar)),")",sep="")
         command <- paste(tclvalue(nameVar), " <- aggregate(",.activeDataSet, 
-               ", response=",dQuote(tclvalue(respVar)),", FUN=",dQuote(tclvalue(funVar)),")",sep="")
+               ", response=",dquote(tclvalue(respVar)),", FUN=",dquote(tclvalue(funVar)),")",sep="")
         hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
             Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
@@ -40,7 +40,12 @@ dquote <- function(obj){
     aus <- rep("",length(obj))
     wopt <- options("warn")[[1]]
     options(warn=-1)
-    for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) aus[i] <- paste('"',obj[i],'"',sep="") 
+    for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) {
+            if (length(grep('"',obj[i])>0))
+            aus[i] <- paste("'",obj[i],"'",sep="") 
+            else
+            aus[i] <- paste('"',obj[i],'"',sep="") 
+            }
           else aus[i] <- obj[i]
     options(warn=wopt)
     aus

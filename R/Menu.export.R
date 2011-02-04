@@ -16,12 +16,12 @@ onOK <- function(){
         putRcmdr("path", tclvalue(dirVar))
         putRcmdr("filename", tclvalue(fileVar))
         if (tclvalue(decimalrbVariable)=="default") command <- paste("export.design(",name,
-               ", type=",dQuote(tclvalue(etyperbVariable)),",path=",dQuote(path),", file=",dQuote(filename),", replace=",
+               ", type=",dquote(tclvalue(etyperbVariable)),",path=",dquote(path),", file=",dquote(filename),", replace=",
                as.logical(as.numeric(tclvalue(replacecbVariable))),")",sep="")
         else command <- paste("export.design(",name, 
-               ", type=",dQuote(tclvalue(etyperbVariable)),",path=",dQuote(path),", file=",dQuote(filename),", replace=",
+               ", type=",dquote(tclvalue(etyperbVariable)),",path=",dquote(path),", file=",dquote(filename),", replace=",
                as.logical(as.numeric(tclvalue(replacecbVariable))),", OutDec=", 
-               dQuote(tclvalue(decimalrbVariable)),")",sep="")
+               dquote(tclvalue(decimalrbVariable)),")",sep="")
         hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
             Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
@@ -55,7 +55,12 @@ dquote <- function(obj){
     aus <- rep("",length(obj))
     wopt <- options("warn")[[1]]
     options(warn=-1)
-    for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) aus[i] <- paste('"',obj[i],'"',sep="") 
+    for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) {
+            if (length(grep('"',obj[i])>0))
+            aus[i] <- paste("'",obj[i],"'",sep="") 
+            else
+            aus[i] <- paste('"',obj[i],'"',sep="") 
+            }
           else aus[i] <- obj[i]
     options(warn=wopt)
     aus

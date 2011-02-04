@@ -23,14 +23,30 @@ Menu.rsmmodel <- function(){
     putRcmdr("sel.factors", variableListBox(top, variableList=factor.list, listHeight=10, 
         title=gettextRcmdr("Factors for response surface model (select at least two)"), 
         selectmode="multiple", initialSelection=0:(di$nfactors-1)))
+        
+    dquote <- function(obj){
+        ## quote vector elements for use as character vector in a command
+        aus <- rep("",length(obj))
+        wopt <- options("warn")[[1]]
+        options(warn=-1)
+        for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) {
+                if (length(grep('"',obj[i])>0))
+                aus[i] <- paste("'",obj[i],"'",sep="") 
+                else
+                aus[i] <- paste('"',obj[i],'"',sep="") 
+                }
+              else aus[i] <- obj[i]
+        options(warn=wopt)
+        aus
+    }
     onOK <- function(){
         response <- getSelection(sel.resps)
         fn <- getSelection(sel.factors)
         putRcmdr("resphilf", response)
-        putRcmdr("facthilf", paste("c(", paste(dQuote(fn),collapse=","), ")", sep=""))
+        putRcmdr("facthilf", paste("c(", paste(dquote(fn),collapse=","), ")", sep=""))
         putRcmdr("coded", as.numeric(tclvalue(codedcbVariable)))
-        command <- paste("rsmformula(",.activeDataSet,", response=", dQuote(response), 
-              ", factor.names=c(", paste(dQuote(fn),collapse=","), "), degree=", tclvalue(degreeVar), 
+        command <- paste("rsmformula(",.activeDataSet,", response=", dquote(response), 
+              ", factor.names=c(", paste(dquote(fn),collapse=","), "), degree=", tclvalue(degreeVar), 
               ", coded=", as.logical(getRcmdr("coded")), ")")
         hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {

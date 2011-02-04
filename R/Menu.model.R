@@ -11,10 +11,26 @@ Menu.model <- function(){
     degreelab <- ttklabel(top, text=gettextRcmdr("degree (positive integer)"))
     putRcmdr("sel.resps", variableListBox(top, variableList=resp.list, listHeight=10, 
         title=gettextRcmdr("Response to be analysed (select one)"),selectmode="single", initialSelection=0))
+    dquote <- function(obj){
+        ## quote vector elements for use as character vector in a command
+        aus <- rep("",length(obj))
+        wopt <- options("warn")[[1]]
+        options(warn=-1)
+        for (i in 1:length(obj)) if (is.na(as.numeric(obj[i]))) {
+                if (length(grep('"',obj[i])>0))
+                aus[i] <- paste("'",obj[i],"'",sep="") 
+                else
+                aus[i] <- paste('"',obj[i],'"',sep="") 
+                }
+              else aus[i] <- obj[i]
+        options(warn=wopt)
+        aus
+    }
+
     onOK <- function(){
         response <- getSelection(sel.resps)
         putRcmdr("resphilf", response)
-        command <- paste("formula(",.activeDataSet,", response=", dQuote(response), ")")
+        command <- paste("formula(",.activeDataSet,", response=", dquote(response), ")")
         hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
             errorCondition(window=top,recall=Menu.model, message=gettextRcmdr(hilf))

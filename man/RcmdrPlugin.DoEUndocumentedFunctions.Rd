@@ -31,6 +31,8 @@
   \alias{helpAnalyze} 
   \alias{helpDopt} 
   \alias{helpExpImp} 
+  \alias{helpExport} 
+  \alias{helpImport} 
   \alias{helpgeneral} 
   \alias{helpGeneralAnalyze}
   \alias{helpInspect}
@@ -99,6 +101,8 @@
   helpAnalyze() 
   helpDopt() 
   helpExpImp() 
+  helpExport() 
+  helpImport() 
   helpgeneral() 
   helpGeneralAnalyze()
   helpInspect() 
