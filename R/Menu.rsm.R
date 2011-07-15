@@ -21,11 +21,12 @@ Menu.rsm <- function(response=NULL, factor.names=NULL){
         if (!identical(currentFields$data, ActiveDataSet())) currentModel <- FALSE
         }
     if (!currentModel) {
-        hilf <- rsmformula(get(ActiveDataSet(), envir=.GlobalEnv), degree=degree, 
-            response=response, factor.names=factor.names)
         if (!as.logical(getRcmdr("coded"))) 
             hilf <- rsmformula(get(ActiveDataSet(), envir=.GlobalEnv), degree=degree, 
             response=response, factor.names=factor.names, coded=FALSE)
+        else
+        hilf <- rsmformula(get(ActiveDataSet(), envir=.GlobalEnv), degree=degree, 
+            response=response, factor.names=factor.names)
         currentFields <- list(lhs=as.character(hilf[2]), rhs=as.character(hilf[3]), 
            data=ActiveDataSet(), subset="")
         currentModel <- TRUE

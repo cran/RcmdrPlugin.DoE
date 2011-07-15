@@ -8,9 +8,14 @@ Menu.steepest <- function(){
     .activeModel <- ActiveModel()
     degree <- get(.activeModel)$order
     initializeDialog(window=top, title=gettextRcmdr("Steepest slope analysis"))
+    
     if (degree==2) typerbVariable <- tclVar("canonical.path") 
         else typerbVariable <- tclVar("steepest")
     
+    if (tclvalue(typerbVariable)=="steepest") 
+        explainVariable <- tclVar("positive values only, separate by blank\nsteps from all xs at 0")
+    else
+        explainVariable <- tclVar("positive values only, separate by blank\none direction from all xs at 0 or\n+/- directions from stationary point")
     if (degree==2){
        typerbFrame <- ttklabelframe(top,text=gettextRcmdr("Where to start steepest slope ?"))
        midrbButton <- tkradiobutton(typerbFrame, text="steepest slope from all xs at 0",variable=typerbVariable, value="steepest")
@@ -33,7 +38,10 @@ Menu.steepest <- function(){
     distVar <- tclVar(paste(.move.distances, collapse=" "))
     distEntry <- tkentry(top, width="50", textvariable=distVar)
     distlab <- ttklabel(top, text="Step widths for steepest directions")
-    distexplain <- ttklabel(top, text="positive values only, separate by blank\none direction from all xs at 0\n+/- directions from stationary point")
+    #if (!degree==2 || tclvalue(typerbVariable)=="steepest")
+    distexplain <- ttklabel(top, textvariable=explainVariable)
+    #else
+    #distexplain <- ttklabel(top, text="positive values only, separate by blank\n+/- directions from stationary point")
     tkgrid(distlab, distEntry,sticky="w")
     tkgrid(tklabel(top, text="NOTE:"), distexplain,sticky="e")
     tkgrid.configure(distlab, sticky="e")

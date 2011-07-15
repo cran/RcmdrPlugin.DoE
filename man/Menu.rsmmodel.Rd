@@ -17,7 +17,8 @@
   Select the intended response in the menu (it can also be changed afterwards,
   but less conveniently).
   
-  The default NULL for the degree will use degree 2. 
+  The default degree is 2; degree 1.5 means inclusion of interactions but not 
+  of quadratic terms. 
   
   The menu opens a response surface model selection menu, 
   providing a convenient starting formula.

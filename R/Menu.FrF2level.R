@@ -43,7 +43,13 @@ if (!exists(".stored.design2FrF", where="RcmdrEnv"))
             tkgrab.release(topdes2)     
      print(help("Menu.exportTab"))
  }
-  
+ 
+ onHelpTabEstimable <- function(){
+     if (GrabFocus() && .Platform$OS.type != "windows")
+            tkgrab.release(topdes2)
+     print(help("Menu.FrF2levelTabEstimable"))
+ }
+   
  tabpos <- function(){
         ### get 0-based index of currently selected tab
         activestab.tn <- tclvalue(tcl(tn, "select"))

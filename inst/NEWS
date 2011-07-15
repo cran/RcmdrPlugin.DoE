@@ -1,5 +1,21 @@
 Version history: 
 
+21 Jul 2011, Version 0.10-4
+   - allowed lazy loading
+   - added a namespace and changed .First.lib to .onAttach
+   - removed tkgrab.release(topdes2) from those help functions directly 
+     used from within menus (they caused trouble for MacOS)
+   - tidied separation of different help functions (dialogs vs. menus)
+
+04 Jun 2011, Version 0.10-3
+   - clarified steepest ascent dialog
+   - corrected bug in Menu.rsmmodel (led to unusable follow-up dialog 
+     when directly using coded designs)
+   - modified help to show the new ability (from DoE.base 0.21-2, FrF2 1.2-3 
+     and DoE.wrapper 0.8-3) to also treat a fractional factorial with 
+     center points with response surface methods (interesting for 
+     steepest ascent etc.)
+
 21 Feb 2011, Version 0.10-2
    - fixed an issue, which made adding observation statistics from the Models 
      menu fail with default linear models from the Design menu 

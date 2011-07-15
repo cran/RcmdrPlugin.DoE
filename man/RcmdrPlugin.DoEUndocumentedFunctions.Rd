@@ -36,7 +36,6 @@
   \alias{helpgeneral} 
   \alias{helpGeneralAnalyze}
   \alias{helpInspect}
-  \alias{onHelpTabEstimable}
   \alias{onHelpSyntax}
   \alias{helpMenus}
   \alias{helpModify} 
@@ -106,7 +105,6 @@
   helpgeneral() 
   helpGeneralAnalyze()
   helpInspect() 
-  onHelpTabEstimable()
   onHelpSyntax()
   helpMenus()
   helpModify() 
