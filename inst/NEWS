@@ -1,5 +1,10 @@
 Version history: 
 
+29 Jul 2011, Version 0.10-5
+   - fixed bugs in case central composite designs were created after 
+     using 2-level design dialog for a completely different purpose 
+     earlier in the session
+
 21 Jul 2011, Version 0.10-4
    - allowed lazy loading
    - added a namespace and changed .First.lib to .onAttach

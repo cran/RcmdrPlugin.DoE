@@ -1,6 +1,6 @@
 Package: RcmdrPlugin.DoE
-Version: 0.10-4
-Date: 2011-07-15
+Version: 0.10-5
+Date: 2011-07-29
 Title: R Commander Plugin for (industrial) Design of Experiments
 Author: Ulrike Groemping
 Maintainer: Ulrike Groemping <groemping@bht-berlin.de>
@@ -17,6 +17,6 @@ Description: WARNING: This package is currently in beta status! The
 License: GPL (>= 2)
 Encoding: latin1
 URL: http://prof.beuth-hochschule.de/groemping/DoE
-Packaged: 2011-07-21 08:52:01 UTC; Grömping
+Packaged: 2011-07-29 19:21:06 UTC; Grömping
 Repository: CRAN
-Date/Publication: 2011-07-23 13:04:03
+Date/Publication: 2011-07-30 06:31:19

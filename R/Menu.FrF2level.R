@@ -240,7 +240,7 @@ onOK <- function(){
         assign(name, hilf, envir=.GlobalEnv)
         activeDataSet(name)
         ## remove calc.estim
-        if (tclvalue(comprrbVariable)=="compr"){ 
+        if (as.logical(as.numeric(as.character(tclvalue(specialcbVariable)))) & tclvalue(comprrbVariable)=="compr"){ 
             rm(calc.estim, envir=.GlobalEnv)
             logger("rm(calc.estim)")
         }

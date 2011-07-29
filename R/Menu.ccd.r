@@ -281,7 +281,24 @@ newFrF2 <- function(){
            else hilf <- getRcmdr(".stored.design2FrF")
      hilf$nameVar <- getRcmdr(".stored.designccd")$nameVar
      hilf$cbInitials[5] <- 0
+     hilf$cbInitials[6] <- 0
+     hilf$cbInitials[7] <- 0
      hilf$resVar <- "V+"
+     hilf2 <- options("warn")
+     options(warn=-1)
+     ## make all levels numeric
+     ## nonnum are not coercible to numeric, default levels are not coercible to numeric
+     nonnum <- union(which(sapply(hilf$faclev1list, function(obj) is.na(as.numeric(obj)))),
+       which(sapply(hilf$faclev2list, function(obj) is.na(as.numeric(obj)))))
+       hilf$faclev1list[nonnum] <- "-1"
+       hilf$faclev2list[nonnum] <- "1"
+       if (any(is.na(as.numeric(hilf$level1Var)),is.na(as.numeric(hilf$level2Var)))){ 
+          hilf$level1Var <- "-1"
+          hilf$level2Var <- "1"
+          }
+      options(warn=hilf2$warn)
+      rm(hilf2)
+
      assign(".stored.design2FrF", hilf,pos="RcmdrEnv")
      closeDialog(window=topdes2)
      Menu.FrF2level()
