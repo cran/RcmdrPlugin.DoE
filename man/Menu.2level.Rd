@@ -32,6 +32,13 @@ active. Note that interactions between more than two factors are usually conside
 This is usually appropriate, if the experimental region is not too large, since many 
 functions can be approximated well by first- or second-order polynomials over small regions. 
 
+Regular (Fractional) Factorial designs can be run in blocks. This is advisable, whenever the experimental 
+units are not homogeneous, but smaller groups of units (the blocks) can be made 
+reasonably homogeneous (e.g., batches of material, etc.). The number of blocks 
+must be a power of 2. If there are some experimental factors, that can only be varied for 
+a complete block, a so-called splitplot design is needed; this can be accomodated 
+by function \code{\link[FrF2]{FrF2}}, but has not been implemented in this GUI so far.
+
 If package \pkg{\link[FrF2.catlg128:FrF2.catlg128-package]{FrF2.catlg128}} 
 is installed (this will not be necessary for standard use), 
 there is an Expert menu entry for loading catalogues from this package 

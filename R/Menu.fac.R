@@ -12,7 +12,7 @@ if (exists("curindex", where="RcmdrEnv")) rm(curindex, pos="RcmdrEnv")
 
 if (!exists(".stored.designfac",where="RcmdrEnv")) 
            assign(".stored.designfac", .default.designfac,pos="RcmdrEnv")
-           ## nameVar, nrunVar, nfacVar, nrepVar
+           ## nameVar, nrunVar, nfacVar, nrepVar, nblockVar, 
            ## cbInitials containing repeat.onlyVariable, randomizeVariable, 
            ##                       facnamesAutoVariable, faclevelsCommonVariable, 
            ##                       nrunVar, estcbVariable
@@ -22,6 +22,10 @@ if (!exists(".stored.designfac",where="RcmdrEnv"))
            ## catlgVar, designVar, designrbVariable, destyperbVariable
            ## resVar, qualcritrbVariable, facnamlist,nlevlist,faclevlist, faclablist
            ## etyperbVariable, decimalrbVariable, dirVar, fileVar
+## support change o implementing nblockVar
+           if (is.null(getRcmdr(".stored.designfac"))) 
+               putRcmdr(".stored.designfac", 
+               c(list(nblockVar="1"), getRcmdr(".stored.designfac")))
 
 ## MaxC2cbVariable is free again (no. 9 of cbInitials)
 
@@ -57,6 +61,7 @@ if (!exists(".stored.designfac",where="RcmdrEnv"))
 storeRcmdr <- function(){
         hilf <- list(nameVar=tclvalue(nameVar),
         nrunVar=tclvalue(nrunVar),nfacVar=tclvalue(nfacVar),nrepVar=tclvalue(nrepVar), 
+        nblockVar=tclvalue(nblockVar), 
         cbInitials = c(tclvalue(repeat.onlyVariable), tclvalue(randomizeVariable),
                        0,0,
                        1,0,
@@ -117,6 +122,7 @@ onOK <- function(){
     ### not yet perfect, especially NULL entries are not possible
     command <- paste("fac.design(nfactors=",tclvalue(nfacVar),",replications=",
                   tclvalue(nrepVar),",repeat.only=",as.logical(as.numeric(tclvalue(repeat.onlyVariable))),
+                  ",blocks=",tclvalue(nblockVar),
                   ",randomize=",as.logical(as.numeric(tclvalue(randomizeVariable))),",seed=",tclvalue(seedVar),
                   ",nlevels=c(", paste(as.character(tclObj(nlevlist)),collapse=","),
                   "),",textfactornameslist.forcommand,")") 
@@ -198,9 +204,13 @@ onLoad <- function(){
     putRcmdr("lb", variableListBox(deschoosefac, variableList=hilf, title="Choose stored design form"))
         tkgrid(lb$frame)
     onOK <- function() {
-        putRcmdr(".stored.designfac",get(lb$varlist[as.numeric(tclvalue(tcl(lb$listbox, "curselection")))+1]))
+        putRcmdr(".stored.designfac", 
+             get(lb$varlist[as.numeric(tclvalue(tcl(lb$listbox, "curselection")))+1]))
         if ("design" %in% class(getRcmdr(".stored.designfac"))) 
             putRcmdr(".stored.designfac", design.info(getRcmdr(".stored.designfac"))$creator)
+        if (is.null(getRcmdr(".stored.designfac")$nblockVar)) 
+               putRcmdr(".stored.designfac", 
+               c(list(nblockVar="1"), getRcmdr(".stored.designfac")))
         tkfocus(CommanderWindow())
         tkdestroy(topdes2)
         tkdestroy(deschoosefac)
@@ -261,6 +271,7 @@ onReset <- function(){
   tkdestroy(topdes2)
   Menu.fac()
 }
+
 
     nfacchange <- function(){
         nfacold <- length(as.character(tclObj(varlistshort)))
@@ -534,6 +545,7 @@ dquote <- function(obj){
 ##### define userform
 #tn <- ttknotebook(top,height=100, width=500)
 
+
 putRcmdr("tn",ttknotebook(topdes2))
 #tn <- ttknotebook(topdes2)
 
@@ -565,7 +577,9 @@ nfacEntry <- tkentry(baseFrame, width="8", textvariable=nfacVar)
 tkbind(nfacEntry,"<FocusOut>",nfacchange)
 nrepVar <- tclVar(.stored.designfac$nrepVar)
 nrepEntry <- tkentry(baseFrame, width="8", textvariable=nrepVar)
+nblockVar <- tclVar(.stored.designfac$nblockVar)
 randomizeVariable <-  tclVar(.stored.designfac$cbInitials[2])
+nblockEntry <- tkentry(baseFrame, width="8", textvariable=nblockVar)
 randomizecb <- ttkcheckbutton(baseFrame,text=gettextRcmdr("Randomization"),variable=randomizeVariable)
 tkconfigure(randomizecb, takefocus=0)
 seedVar <- tclVar(sample(31999,1))  ## always new
@@ -579,6 +593,7 @@ tkconfigure(repeat.onlycb, takefocus=0)
 tkgrid(nrunlab <- tklabel(baseFrame, text=gettextRcmdr("Number of runs")), nrunShow, nrunHint, sticky="w")
 ## omitted nfaccb, on form, nfactors must always be specified
 tkgrid(nfaclab <- tklabel(baseFrame, text=gettextRcmdr("Number of factors")), nfacEntry, sticky="w")
+tkgrid(nblocklab <- tklabel(baseFrame, text=gettextRcmdr("Number of blocks")), nblockEntry, sticky="w")
 tkgrid(nreplab <- tklabel(baseFrame, text=gettextRcmdr("Replications")), nrepEntry, repeat.onlycb, sticky="w")
 tkgrid.configure(nreplab, pady=15)
 tkgrid(randlab <- tklabel(baseFrame, text="You normally do not need to change randomization settings"),sticky="w",columnspan=3)

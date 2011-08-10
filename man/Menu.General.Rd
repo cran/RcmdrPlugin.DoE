@@ -19,7 +19,10 @@ of levels of all factors. This may be more than is feasible. In such situations,
 orthogonal main effects plans may be helpful. If interactions are also of interest, 
 it may be useful to combine several plans or to pay attention to specific properties of 
 orthogonal arrays (automatic support for such possibilities is currently poor and will be improved 
-in the future). }
+in the future).\cr 
+Full factorial designs can be run in blocks. This is advisable, whenever the experimental 
+units are not homogeneous, but smaller groups of units (the blocks) can be made 
+reasonably homogeneous (e.g., batches of material, etc.). }
 \section{Orthogonal main effects plans}{
 If a full factorial experiment is too large, an orthogonal main effects plan may be useful. 
 As long as there are no interactions between the factors represented by columns of the array, 

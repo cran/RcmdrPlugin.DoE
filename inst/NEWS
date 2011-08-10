@@ -1,5 +1,12 @@
 Version history: 
 
+10 Aug 2011, Version 0.11-1
+   - removed forgotten debugging tags
+
+10 Aug 2011, Version 0.11
+   - added blocked full factorials, based on version 0.22-4 of package 
+     DoE.base 
+
 29 Jul 2011, Version 0.10-5
    - fixed bugs in case central composite designs were created after 
      using 2-level design dialog for a completely different purpose 

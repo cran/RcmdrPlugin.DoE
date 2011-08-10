@@ -34,7 +34,7 @@
     dirVar=getwd(), fileVar=gettextRcmdr("Design.1"), fromVar="", toVar="")
     
 .default.designfac <- list(nameVar=gettextRcmdr("Design.1"),
-    nrunVar="",nfacVar="2",nrepVar="1",
+    nrunVar="",nfacVar="2",nrepVar="1",nblockVar="1",
     cbInitials = as.character(c(0,1,1,1,1,1,0,0,0,0)),
     seedVar=as.character(sample(31999,1)),
     facnamlist=c("A","B"),nlevlist=rep("",2), faclevlist=rep("",2),faclablist=c("",""),

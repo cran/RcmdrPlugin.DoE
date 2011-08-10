@@ -30,6 +30,22 @@ the full factorial design menu}
      the key driver of variability is in the measuring step). If the check box is 
      not checked, the experiment will be randomized separately for each round of 
      replications (first all first runs, then all second runs etc.).}
+\item{number of blocks}{is the number of equally-sized blocks of homogeneous 
+     units into which the overall number of runs is to be subdivided. 
+     Note that the number of blocks must be compatible with the numbers of 
+     levels of the experiment: it must be the product of one or more primes 
+     that the numbers of levels factor into. For example, \cr
+     a design with three factors at 2,5 and 5 levels can have 
+     5 blocks or 10 units each, no other blocking is possible for this design 
+     because it would confound blocks with factor main effects;\cr
+     a design with three factors at 2, 6 and 6 levels can have 2, 3, 6, 4 or 12 blocks, 
+     because all these numbers of blocks can be obtained from the three 2s and two 3s 
+     the numbers of levels factor into without confounding a main effect.\cr
+     An error message will be given whenever an impossible number of 
+     blocks or a number of blocks that would require aliasing of blocks with 
+     main effects is used; the design is generated with a warning message 
+     whenever the block factor is aliased 
+     with any two-factor interaction among the design factors. }
 \item{randomization settings}{should normally not be changed; you can provide a 
      seed if you want to exactly reproduce a randomized design created in the past.
      Unchecking the randomization box will produce a non-randomized experiment. 
@@ -37,7 +53,6 @@ the full factorial design menu}
 }
 }
 
-\references{ ~put references to the literature/web site here ~ }
 \author{ Ulrike Groemping }
 \seealso{ See Also \code{\link[DoE.base]{fac.design}} for the function that does the calculations 
 and \code{\link{Menu.General}} for overall help on the general factorial design menu.}
