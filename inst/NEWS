@@ -1,5 +1,9 @@
 Version history: 
 
+13 Aug 2011, Version 0.11-2
+   - modified loading workspace of design menu to work properly for work spaces 
+     with several objects in them
+
 10 Aug 2011, Version 0.11-1
    - removed forgotten debugging tags
 

@@ -1,4 +1,4 @@
-25c321f1a7fc296e73f219c27828f65e *DESCRIPTION
+44abba7e8d83631050cfe0c7ce17e3f1 *DESCRIPTION
 1136b715fb2abafcb77d0ebaf17126b8 *NAMESPACE
 fa520cc6d1481bc132c593ed29b5f9e8 *R/Menu.Dopt.r
 79cc1679c826eced864f34e93ade27a6 *R/Menu.EffectPlots.R
@@ -46,6 +46,7 @@ b914c22936c06bc9097961272f9c88a2 *R/fpairsc.R
 e21b9945cdf90d9bc44ea2d6ff111e14 *R/initializeDialogDoE.R
 8309dc4855498e8e2cd76e8529ac17cf *R/justDoItDoE.R
 381f527f71309718a33d16b449259eb8 *R/listObjects.R
+e216345837553b59d17db253719fde80 *R/loadworkspace.R
 f2103c0d76611eb007c36ba2b913a5ee *R/menu.defaults.R
 71afb24c7e80110d4000e7aa174dc91e *R/menushelp.R
 815e157abef5b248aa46a41e4661c56e *R/modelFormulaDoE.R
@@ -53,8 +54,8 @@ f2103c0d76611eb007c36ba2b913a5ee *R/menu.defaults.R
 c9feba2a9d276becffe5b3a18dade359 *R/subsetBoxDoE.R
 82a5feba68f02ea0a6c1a13654e374ba *R/summarize.design.R
 cdb7ee09cd729401a729ea14e48dc563 *R/textentry.R
-a035ba77457b9dab8ad366185989805c *inst/NEWS
-f47f97c28458131038ac931fb62dd8d4 *inst/etc/menus.txt
+72dd346825b922dedcd9d92660c731e0 *inst/NEWS
+ca4de5af8508c011c77615854959f0c3 *inst/etc/menus.txt
 f9968be61476d8a0311775aaae94d617 *inst/images/MaxC2res3image.gif
 39a2be0ca9ccb0c8d5e2a61022d18cc0 *inst/images/MaxC2res4image.gif
 346d99cb8f8d4a387332ec48f036a495 *inst/images/resolutionimage.gif
@@ -65,7 +66,7 @@ f5fe7d40e85f592dab9c48a61d6161e9 *man/DoEGlossary.Rd
 76bbf4e6bfe5f984c8ce6b717931b623 *man/Menu.Dopt.Rd
 771a44282933461f98a7672d2254755b *man/Menu.DoptTab1.rd
 289827a88faf7f4b8f98cac31a3087ef *man/Menu.EffectsPlots.Rd
-3534fea530a847a404c830e7bebf0657 *man/Menu.ExpImp.Rd
+fe5271a5baf58215cf320a2d0ff61d6c *man/Menu.ExpImp.Rd
 61981cfcc4bfca1f22ab2c747743547d *man/Menu.FacDetails2Tab.Rd
 014d971c6409e6fe7df18eeb0561961e *man/Menu.FacDetailsGenTab.Rd
 df9de7170ca37bf0c26d66864003cb64 *man/Menu.FrF2level.Rd
@@ -92,7 +93,7 @@ db2cd7860ae6124388e8b512a7896b84 *man/Menu.colremove.Rd
 8193d25729877f048de3544dd1f3dc86 *man/Menu.exportTab.Rd
 a35325b8b408a3bf9336f8532030b48e *man/Menu.fac.Rd
 534e4b9f1e0085cfa96d1c84a26a494c *man/Menu.facTab1.Rd
-7e8f8037ae35f49bae7fce7d10b19467 *man/Menu.import.Rd
+61629957aa1272f474a91dad360b20ef *man/Menu.import.Rd
 d40d9608e838d7ebfc3cc9214317ecd6 *man/Menu.importrdacsv.Rd
 be013de1ead70184c2e09130eca04240 *man/Menu.lhs.Rd
 9aa0117d3fb84638391d3e2dbaa720ec *man/Menu.lhsTab1.Rd
@@ -116,4 +117,4 @@ a2736987d8fcb71d1811c920aaf9f7fb *man/Menu.summarize.Rd
 5c8775c841b194a43ff623bec1d5f2e4 *man/Menus.Rd
 48b92a35bb1dd0ca6803ec26b070b9f2 *man/PlotMeansDoE.menu.Rd
 b1b589761328357dce4049f2740b5525 *man/RcmdrPlugin.DoE-package.Rd
-89e5c16fa02bb14cfd2f214ee16ae054 *man/RcmdrPlugin.DoEUndocumentedFunctions.Rd
+0ef415fb9c39a9901d8730aa39d0cb37 *man/RcmdrPlugin.DoEUndocumentedFunctions.Rd

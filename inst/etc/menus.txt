@@ -1,6 +1,6 @@
 # RcmdrPlugin.DoE Menu Definitions
 
-# last modified 29 Jan 2011 by U. Groemping
+# last modified 13 Aug 2011 by U. Groemping
 
 #   type    menu/item      operation/parent  label                                          command/menu                activation  install?
 
@@ -8,7 +8,7 @@
     item    topMenu           cascade         "Design"                           designMenu                  ""          ""
     menu    importDoEMenu      designMenu      ""                                   ""                          ""          ""
     item    importDoEMenu      command     "Change working directory..."         Setwd        ""     ""    
-    item    importDoEMenu      command     "Load R workspace..."                 loadDataSet                 ""      ""
+    item    importDoEMenu      command     "Load R workspace..."                 loadworkspace                 ""      ""
     item    importDoEMenu      command    "Load experiment from R workspace ..."      Menu.import         "existDesigns()"          ""
     ## implement reading of externally stored responses into this design
 #    item    importDoEMenu      command    "How to Re-Import experiment from csv and rda files ..."        HowToReImport          ""          ""

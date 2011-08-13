@@ -10,19 +10,15 @@
 \details{
   This help file describes importing a design that is already in the R 
   workspace but is not the currently active data set.
-  The menu is only available 
+  The dialog is only available 
   if at least one (object of class) design exists in the R workspace.
   
   Select the design from the drop-down list of available designs, and press OK.
 
-  For importing an unloaded R work space first, use the File menu 
-  (usually the left-most menu) of the R-commander. 
+  For importing an unloaded R work space first, use the 
+  \emph{Load R workspace} menu item. 
   
-  A special routine for importing an experimental design from an Excel or csv file 
-  together with an rda file is also available. 
-  
-  Importing data - of course also experimental data - from other file formats is possible 
-  from R commanders data management menu.
+
 }
 \author{ Ulrike Groemping }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

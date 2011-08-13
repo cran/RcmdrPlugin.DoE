@@ -53,6 +53,7 @@
   \alias{listLists} 
   \alias{listObjects} 
   \alias{listRSMs} 
+  \alias{loadworkspace}
   \alias{Menu.aggregate}
   \alias{Menu.EffectPlots} 
   \alias{Menu.PlotMeansDoE} 
@@ -121,6 +122,7 @@
   listLists(envir = .GlobalEnv, ...) 
   listObjects(envir = .GlobalEnv, ...) 
   listRSMs(envir = .GlobalEnv, ...)
+  loadworkspace()
   Menu.aggregate()
   Menu.EffectPlots() 
   Menu.PlotMeansDoE() 

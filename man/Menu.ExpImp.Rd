@@ -7,9 +7,14 @@
 }
 %- maybe also 'usage' for other objects documented here.
 \details{
-  Importing a design into R-Commander can either mean selecting it as the active 
-  data set from the R-workspace (with the advantage of being offered designs only) 
-  or importing a previously-exported design, using both an edited \code{csv}-file 
+  The \emph{Import} sub menu of the \emph{Design} menu allows to 
+  change the working directory, as a general convenience feature. 
+  Furthermore, it enables importing an R workspace 
+  with more than one object in it - this facility makes the first class \code{design} 
+  object in the work space the active data set, and it allows to import 
+  a design from the R workspace into R-Commander (=make it the active data set). 
+  Furthermore, a previously-exported design can be imported again, 
+  using both an edited \code{csv}-file 
   (created from a stored \code{html}- or \code{csv}-file) and an \code{rda}-file. 
   It is assumed that the \code{csv} file contains new responses, while the 
   \code{rda}-file contains all the structural information on the design. (If the 
@@ -18,7 +23,7 @@
   the rows of the file are correctly assigned to the rows of the design, even if 
   reordered.)
   
-  The Export menu allows to save a complete R workspace or to export an individual 
+  The \emph{Export} menu allows to save a complete R workspace or to export an individual 
   experimental design. Furthermore, it also allows to save the 
   generated code scripts (script window) and output (output window). 
   Exporting an individual experimental design to csv and/or html is often useful, 
@@ -32,17 +37,13 @@
   \code{\link[DoE.base]{add.response}} for the re-importing based on a 
   \code{csv}-file and an \code{rda}-file.
 
-  Some export/import features of the R commander in general are linked from the
-  Import and Export sub menus of the Design menu in 
-  order to save users unfamiliar with R the effort of finding out where to look.
-  
   Other features are not linked from the Design menu: 
   If an experimental design is available in R format (e.g. by exporting it to rda, 
   as mentioned in the previous paragraph) 
   but responses are stored in a format different from \code{csv}, it is 
   also possible to re-import the response data into the design. If the design without 
   responses is the active design (e.g. after loading the \code{rda} file using 
-  the \emph{Load data} menu item from the \emph{Data management} menu), 
+  the \emph{Load R workspace} menu item from the \emph{Import} sub menu of the \emph{Design} menu), 
   the response data can be imported using the appropriate menu item of the 
   \emph{Import data} sub menu of the \emph{Data management} menu. Subsequently, 
   the response data can be added to the design using the \emph{Add response variable(s)...} 
