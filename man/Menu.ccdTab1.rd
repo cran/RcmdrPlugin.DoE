@@ -23,10 +23,15 @@
      for the cube portion can be generated; \cr
      if the number of center points is to be different between cube and star 
      portion of the design, the cube portion must be generated with center points.}
-\item{number of center points}{refers to the center points in the star portion. 
+\item{number of center points}{ 
      The number of center points in the cube portion is ideally defined within the cube itself.
-     (Alternatively, if the cube portion has no center points, it is assigned 
-     the same number of center points as the star portion.)
+     In that case, the number given refers to the center points in the star portion.
+     If the cube portion has no center points, a single number of center points is applied 
+     to both the cube and the star portion. \cr
+     Alternatively, a separate number can be 
+     given to specify different numbers of center points for cube and star portion,
+     e.g. \code{0, 5} for the unfortunate situation where the cube portion has already 
+     been run without any center points (not recommended!).)
      }
 \item{alpha}{determines how far inside (alpha<1) or outside (alpha>1) of the cube 
       the star points are positioned. The special values \code{orthogonal} (default)

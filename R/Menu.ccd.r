@@ -108,12 +108,12 @@ onOK <- function(){
     
     if (tclvalue(alphaVar) %in% c("orthogonal","rotatable"))
           command <- paste("ccd.augment(",FrF2Var,
-                  ", alpha=",dquote(tclvalue(alphaVar)), ", ncenter=", tclvalue(ncenterVar),
-                  ",randomize=",as.logical(as.numeric(tclvalue(randomizecbVariable))),
+                  ", alpha=",dquote(tclvalue(alphaVar)), ", ncenter=c(", tclvalue(ncenterVar),
+                  ") ,randomize=",as.logical(as.numeric(tclvalue(randomizecbVariable))),
                   ",seed=",tclvalue(seedVar),")") 
     else command <- paste("ccd.augment(",FrF2Var, 
-                  ", alpha=",dquote(tclvalue(alphaVar)), ", ncenter=", tclvalue(ncenterVar),
-                  ",randomize=",as.logical(as.numeric(tclvalue(randomizecbVariable))),
+                  ", alpha=",dquote(tclvalue(alphaVar)), ", ncenter=c(", tclvalue(ncenterVar),
+                  ") ,randomize=",as.logical(as.numeric(tclvalue(randomizecbVariable))),
                   ",seed=",tclvalue(seedVar),")") 
 
         hilf <- justDoItDoE(command)
@@ -370,7 +370,7 @@ nameEntry <- tkentry(nameFrame, width="20", textvariable=nameVar)
 
 ncenterVar <- tclVar(.stored.designccd$ncenterVar)
 ncenterEntry <- tkentry(baseFrame, width="8", textvariable=ncenterVar)
-ncenterHint <- ttklabel(baseFrame, text="(positive integer number)", foreground="#888888")
+ncenterHint <- ttklabel(baseFrame, text="(positive integer number, \npossibly preceded by separate positive integer number for cube portion)", foreground="#888888")
 
 alphaVar <- tclVar(.stored.designccd$alphaVar)
 alphaEntry <- tkentry(baseFrame, width="12", textvariable=alphaVar)

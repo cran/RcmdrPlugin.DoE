@@ -74,7 +74,7 @@
     item    designUtilityMenu      command    "----------------------------------"                   dc                          "FALSE"          ""
     #item    designUtilityMenu      command    "Fold design ..."            dc          "FALSE"      ""
        ## will be activeDataSetDesign2P()
-    item    designUtilityMenu      command    "Add center points ..."            Menu.addcenter          "activeDataSetDesign2P()"      ""
+    item    designUtilityMenu      command    "Add center points ..."            Menu.addcenter          "activeDataSetDesign2Pwoc()"      ""
     item    designUtilityMenu      command    "Add star portion for central composite design ..."            Menu.ccd          "activeDataSetDesign2P()"      ""
     item    designUtilityMenu      command    "Augment lhs design ..."            Menu.augmentlhs          "activeDataSetDesignlhs()"      ""
     item    designUtilityMenu      command    "----------------------------------"                   dc                          "FALSE"          ""

@@ -1,4 +1,10 @@
-Version history: 
+Version history for RcmdrPlugin.DoE: 
+
+07 Nov 2011, Version 0.11-3
+   - bug fix: full factorial 2-level designs with center points 
+     could not be augmented with a star portion
+   - feature enhancement: possible to add different number of center points 
+     to cube and star portion central composite designs
 
 13 Aug 2011, Version 0.11-2
    - modified loading workspace of design menu to work properly for work spaces 

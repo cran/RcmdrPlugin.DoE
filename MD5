@@ -1,4 +1,4 @@
-44abba7e8d83631050cfe0c7ce17e3f1 *DESCRIPTION
+8e7293e0d294b7960d398cf0b16f1b0b *DESCRIPTION
 1136b715fb2abafcb77d0ebaf17126b8 *NAMESPACE
 fa520cc6d1481bc132c593ed29b5f9e8 *R/Menu.Dopt.r
 79cc1679c826eced864f34e93ade27a6 *R/Menu.EffectPlots.R
@@ -11,7 +11,7 @@ eb702f9aa2e811e18e21408290ec3001 *R/Menu.aggregate.R
 644fda8c8a336ee645e7a7942a3dfbb5 *R/Menu.augmentlhs.R
 e9b3983a56105846c993f1916f79dd3f *R/Menu.bbd.r
 bb220da08768b7639fec24c99de0d3f8 *R/Menu.cand.r
-f7da0a7b48ca72b3a5655be5077d6f1b *R/Menu.ccd.r
+1b24aafd7ee46bba49c97a4131a832cc *R/Menu.ccd.r
 c120671211d8783332340f27ce49ee8f *R/Menu.changecontr.R
 76cc5ee25ec8f0a038ea87f7cd73b3b1 *R/Menu.colremove.R
 db2b54886bf788190777af105c414587 *R/Menu.contour.R
@@ -36,8 +36,8 @@ b7d20f4823936553d304ac476ac7869f *R/Menu.plot.R
 8df064dfdfe57c14ef67f9b563b40b2a *R/Menu.summarize.R
 287e24f071fa8a1734491d64760f2b92 *R/Menu.tab.R
 11f2eadeaf309a6607aef6f02d54266f *R/Menu.wide.R
-179cf5ebe3d06d236d880a8364ef847d *R/aaa.R
-4f91bcd7533b7199215b98ed15eda5a6 *R/checkers.R
+028a79a07511663f4858052040b40339 *R/aaa.R
+9a80e70ce48c281f9c54fc7faf12ccc1 *R/checkers.R
 a4c260ad216ad730986dbfeb4931fdfd *R/dc.R
 f55f13332a0fc5ebec3a9935052f4e04 *R/design.info.design.R
 f7488030a7d3117a65de359983f0385c *R/display.design.R
@@ -54,8 +54,8 @@ f2103c0d76611eb007c36ba2b913a5ee *R/menu.defaults.R
 c9feba2a9d276becffe5b3a18dade359 *R/subsetBoxDoE.R
 82a5feba68f02ea0a6c1a13654e374ba *R/summarize.design.R
 cdb7ee09cd729401a729ea14e48dc563 *R/textentry.R
-72dd346825b922dedcd9d92660c731e0 *inst/NEWS
-ca4de5af8508c011c77615854959f0c3 *inst/etc/menus.txt
+f866f5f4f1e49f576c686fe3765dbba6 *inst/NEWS
+98f39443e7b6ff8d7b7590cb2f84b1a4 *inst/etc/menus.txt
 f9968be61476d8a0311775aaae94d617 *inst/images/MaxC2res3image.gif
 39a2be0ca9ccb0c8d5e2a61022d18cc0 *inst/images/MaxC2res4image.gif
 346d99cb8f8d4a387332ec48f036a495 *inst/images/resolutionimage.gif
@@ -85,7 +85,7 @@ c788db204c0255c88322ac72fafaf35d *man/Menu.augmentlhs.Rd
 1422dceec4cc580286c4f51a1ff2594d *man/Menu.bbd.rd
 d76009495a520e852831710e49590bd1 *man/Menu.bbdTab1.rd
 726d3baeb7fc396295527136bed47e27 *man/Menu.ccd.Rd
-55c61a3a4c32cf0affe36ec12ef8b993 *man/Menu.ccdTab1.rd
+c1a206e2bdb66953a8e4734efd09563b *man/Menu.ccdTab1.rd
 d03815ba84cecbec9f094b1d59bfde07 *man/Menu.changecontr.Rd
 db2cd7860ae6124388e8b512a7896b84 *man/Menu.colremove.Rd
 4a0ce39219114b76aeb9f19cce968b3e *man/Menu.contour.Rd
@@ -117,4 +117,4 @@ a2736987d8fcb71d1811c920aaf9f7fb *man/Menu.summarize.Rd
 5c8775c841b194a43ff623bec1d5f2e4 *man/Menus.Rd
 48b92a35bb1dd0ca6803ec26b070b9f2 *man/PlotMeansDoE.menu.Rd
 b1b589761328357dce4049f2740b5525 *man/RcmdrPlugin.DoE-package.Rd
-0ef415fb9c39a9901d8730aa39d0cb37 *man/RcmdrPlugin.DoEUndocumentedFunctions.Rd
+5e735b275e0ef53857050ace31407eff *man/RcmdrPlugin.DoEUndocumentedFunctions.Rd

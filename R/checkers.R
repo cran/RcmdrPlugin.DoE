@@ -51,6 +51,13 @@ activeDataSetDesign2P <- function (){
   aus
 }
 
+activeDataSetDesign2Pwoc <- function (){
+  aus <- FALSE
+  if (activeDataSetDesignP())
+     aus <- design.info(eval(parse(text=ActiveDataSet())))$ncenter == 0
+  aus
+}
+
 activeDataSetDesign2PResp <- function (){
   aus <- FALSE
   if (activeDataSetDesign2P())
@@ -120,7 +127,7 @@ isDesign2FrF <- function(design){
         if (substr(design.info(design)$type,1,4) == "FrF2"){ 
            aus <- TRUE 
            return(aus)}
-        if (design.info(design)$type == "full factorial"){ 
+        if (substr(design.info(design)$type,1,14) == "full factorial"){ 
            nlevels <- design.info(design)$nlevels
            if (all(nlevels==2)) aus <- TRUE}
         aus

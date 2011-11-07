@@ -1,6 +1,7 @@
 \name{RcmdrPlugin.DoEUndocumentedFunctions}
   \alias{RcmdrPlugin.DoEUndocumentedFunctions}
   \alias{activeDataSetDesign2P} 
+  \alias{activeDataSetDesign2Pwoc} 
   \alias{activeDataSetDesign2PResp}
   \alias{activeDataSetDesignlhs} 
   \alias{activeDataSetDesignLongToWide}
@@ -74,6 +75,7 @@
 %- maybe also 'usage' for other objects documented here.
 \usage{
   activeDataSetDesign2P() 
+  activeDataSetDesign2Pwoc() 
   activeDataSetDesign2PResp()
   activeDataSetDesignlhs() 
   activeDataSetDesignLongToWide()
