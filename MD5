@@ -1,4 +1,4 @@
-8e7293e0d294b7960d398cf0b16f1b0b *DESCRIPTION
+32fcaee2f3f064259cd7bd7c07957e5d *DESCRIPTION
 1136b715fb2abafcb77d0ebaf17126b8 *NAMESPACE
 fa520cc6d1481bc132c593ed29b5f9e8 *R/Menu.Dopt.r
 79cc1679c826eced864f34e93ade27a6 *R/Menu.EffectPlots.R
@@ -37,7 +37,7 @@ b7d20f4823936553d304ac476ac7869f *R/Menu.plot.R
 287e24f071fa8a1734491d64760f2b92 *R/Menu.tab.R
 11f2eadeaf309a6607aef6f02d54266f *R/Menu.wide.R
 028a79a07511663f4858052040b40339 *R/aaa.R
-9a80e70ce48c281f9c54fc7faf12ccc1 *R/checkers.R
+1f1092843e7f9aa9e33c249d6661f7e4 *R/checkers.R
 a4c260ad216ad730986dbfeb4931fdfd *R/dc.R
 f55f13332a0fc5ebec3a9935052f4e04 *R/design.info.design.R
 f7488030a7d3117a65de359983f0385c *R/display.design.R
@@ -54,7 +54,7 @@ f2103c0d76611eb007c36ba2b913a5ee *R/menu.defaults.R
 c9feba2a9d276becffe5b3a18dade359 *R/subsetBoxDoE.R
 82a5feba68f02ea0a6c1a13654e374ba *R/summarize.design.R
 cdb7ee09cd729401a729ea14e48dc563 *R/textentry.R
-f866f5f4f1e49f576c686fe3765dbba6 *inst/NEWS
+ad12ad9895b9a974c3789c1a0d4fce14 *inst/NEWS
 98f39443e7b6ff8d7b7590cb2f84b1a4 *inst/etc/menus.txt
 f9968be61476d8a0311775aaae94d617 *inst/images/MaxC2res3image.gif
 39a2be0ca9ccb0c8d5e2a61022d18cc0 *inst/images/MaxC2res4image.gif

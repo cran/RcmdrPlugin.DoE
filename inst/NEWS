@@ -1,5 +1,9 @@
 Version history for RcmdrPlugin.DoE: 
 
+08 Nov 2011, Version 0.11-4
+   - bug fix: activation filter for adding center points menu items caused 
+     trouble 
+
 07 Nov 2011, Version 0.11-3
    - bug fix: full factorial 2-level designs with center points 
      could not be augmented with a star portion

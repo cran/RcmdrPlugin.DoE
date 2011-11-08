@@ -54,7 +54,7 @@ activeDataSetDesign2P <- function (){
 activeDataSetDesign2Pwoc <- function (){
   aus <- FALSE
   if (activeDataSetDesignP())
-     aus <- design.info(eval(parse(text=ActiveDataSet())))$ncenter == 0
+     aus <- is.null(design.info(eval(parse(text=ActiveDataSet())))$ncenter)
   aus
 }
 
