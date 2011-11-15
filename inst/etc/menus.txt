@@ -76,6 +76,7 @@
        ## will be activeDataSetDesign2P()
     item    designUtilityMenu      command    "Add center points ..."            Menu.addcenter          "activeDataSetDesign2Pwoc()"      ""
     item    designUtilityMenu      command    "Add star portion for central composite design ..."            Menu.ccd          "activeDataSetDesign2P()"      ""
+    item    designUtilityMenu      command    "Remove star portion from central composite design ..."        Menu.pickcube     "activeDataSetDesignccd()"      ""
     item    designUtilityMenu      command    "Augment lhs design ..."            Menu.augmentlhs          "activeDataSetDesignlhs()"      ""
     item    designUtilityMenu      command    "----------------------------------"                   dc                          "FALSE"          ""
     item    designUtilityMenu      command    "Info ..."                helpModify          ""      ""
@@ -83,7 +84,7 @@
 
     menu    designAnalMenu designMenu       ""                    ""          ""          ""
     item   designMenu          cascade    "Analyze design"              designAnalMenu               ""                     ""
-    item    designAnalMenu     command    "Default linear model ..."    Menu.model      "activeDataSetDesignPResp()"      ""
+    item    designAnalMenu     command    "Default linear model ..."    Menu.model      "activeDataSetDesignPResp() & !activeDataSetDesignparamlong()"      ""
     item    designAnalMenu      command    "--------- General factorial designs ---------------"                   dc                          "FALSE"          ""
     item    designAnalMenu      command         "Main Effects and Interaction Plots ..."        Menu.PlotMeansDoE       "numericP() && factorsP() && activeDataSetDesignPResp()"          ""
     item    designAnalMenu      command    "--------- 2-level designs ---------------"                   dc                          "FALSE"          ""
@@ -91,7 +92,7 @@
     item    designAnalMenu     command    "Main Effects and Interaction Plots ..."       Menu.IAPlot        "activeDataSetDesign2PResp()"      ""
     item    designAnalMenu      command    "--------- Quantitative factors ----------"                   dc                   "FALSE"          ""
 #    item    designAnalMenu     command    "Info on quantitative analysis tools..."             helpQuantDesignAnalyze      "activeDataSetDesignPResp()"      ""
-    item    designAnalMenu  command         "Response surface model ..."        Menu.rsmmodel              "activeDataSetDesignPResp()"          ""
+    item    designAnalMenu  command         "Response surface model ..."        Menu.rsmmodel              "activeDataSetDesignPResp() & !activeDataSetDesignparamlong()"          ""
     item    designAnalMenu  command         "Steepest slope ..."                Menu.steepest              "activeModelRSM()"          ""
     item    designAnalMenu  command         "Response surface plots ..."        Menu.contour              "activeModelLM()"          ""
     item    designAnalMenu      command    "-----------------------------------------"                   dc                   "FALSE"          ""

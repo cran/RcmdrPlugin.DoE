@@ -1,3 +1,13 @@
+activeDataSetDesignccd <- function (){
+  aus <- FALSE
+  if (activeDataSetDesignP()){
+     di <- design.info(eval(parse(text=ActiveDataSet())))
+     if (length(grep("ccd",di$type))>0)
+        aus <- TRUE
+     }
+  aus
+}
+
 activeDataSetDesignlhs <- function (){
   aus <- FALSE
   if (activeDataSetDesignP()){
@@ -8,6 +18,18 @@ activeDataSetDesignlhs <- function (){
   aus
 }
 
+
+activeDataSetDesignparam <- function (){
+  aus <- FALSE
+  if (activeDataSetDesignP()){
+     di <- design.info(eval(parse(text=ActiveDataSet())))
+     aus <- length(grep("param",di$type))>0
+     }
+  aus
+}
+
+activeDataSetDesignparamlong <- function ()
+  activeDataSetDesignparam() & activeDataSetDesignLongToWide()
 
 activeDataSetDesignLongToWide <- function (){
   aus <- FALSE

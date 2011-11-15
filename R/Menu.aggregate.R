@@ -8,7 +8,7 @@ onOK <- function(){
   ### capture error messages from export function
         name <- tclvalue(nameVar)
         if (!is.valid.name(name)) {
-            errorCondition(window=tab6,recall=Menu.export, 
+            errorCondition(window=tab6,recall=Menu.aggregate, 
                     message=paste('"', name, '" ', gettextRcmdr("is not a valid name."), sep=""))
             return()
           }

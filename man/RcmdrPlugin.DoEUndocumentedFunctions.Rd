@@ -3,8 +3,11 @@
   \alias{activeDataSetDesign2P} 
   \alias{activeDataSetDesign2Pwoc} 
   \alias{activeDataSetDesign2PResp}
+  \alias{activeDataSetDesignccd} 
   \alias{activeDataSetDesignlhs} 
   \alias{activeDataSetDesignLongToWide}
+  \alias{activeDataSetDesignparam}
+  \alias{activeDataSetDesignparamlong}
   \alias{activeDataSetDesignP} 
   \alias{activeDataSetDesignPResp} 
   \alias{activeDataSetDesignQualP} 
@@ -78,7 +81,10 @@
   activeDataSetDesign2Pwoc() 
   activeDataSetDesign2PResp()
   activeDataSetDesignlhs() 
+  activeDataSetDesignccd() 
   activeDataSetDesignLongToWide()
+  activeDataSetDesignparam()
+  activeDataSetDesignparamlong()
   activeDataSetDesignP() 
   activeDataSetDesignPResp() 
   activeDataSetDesignWide()

@@ -1,5 +1,12 @@
 Version history for RcmdrPlugin.DoE: 
 
+15 Nov 2011, Version 0.11-5
+   - bug fix: creation of long version parameter designs did not work
+   - bug fix: Menu.aggregate returned to wrong dialog (Menu.export) on name specification error
+   - Too many analysis facilities were on offer (but not functional) for long version parameter design 
+   - added possibility to remove star portion from ccd design (Menu.pickcube) 
+     in order to support interim analysis, if cube has been run but stars haven't
+
 08 Nov 2011, Version 0.11-4
    - bug fix: activation filter for adding center points menu items caused 
      trouble 

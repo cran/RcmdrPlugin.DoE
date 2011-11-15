@@ -1,13 +1,13 @@
-32fcaee2f3f064259cd7bd7c07957e5d *DESCRIPTION
+5a8389ac8dec926c0f54cd98a6db688a *DESCRIPTION
 1136b715fb2abafcb77d0ebaf17126b8 *NAMESPACE
-fa520cc6d1481bc132c593ed29b5f9e8 *R/Menu.Dopt.r
+0abd9fa4e3b761c4d4cfc7a7a13a6af5 *R/Menu.Dopt.r
 79cc1679c826eced864f34e93ade27a6 *R/Menu.EffectPlots.R
 71fc523ba5b3660a975e715034255bb7 *R/Menu.FrF2level.R
 4e294cb13d704ef94c47144e90770f9e *R/Menu.IAPlot.R
 f6bd933a4b3bb2f17cfcae3774cddc54 *R/Menu.PlotMeansDoE.R
 d3652b10e627f92b4f660c44351362fa *R/Menu.addcenter.R
 ecee11ebcc19b0c77455b2209ec6dc0e *R/Menu.addresponse.R
-eb702f9aa2e811e18e21408290ec3001 *R/Menu.aggregate.R
+8bb6b2fc086dfe8a39cd1dacee8bf487 *R/Menu.aggregate.R
 644fda8c8a336ee645e7a7942a3dfbb5 *R/Menu.augmentlhs.R
 e9b3983a56105846c993f1916f79dd3f *R/Menu.bbd.r
 bb220da08768b7639fec24c99de0d3f8 *R/Menu.cand.r
@@ -26,8 +26,9 @@ bfc0ebe1f33c595b271820ec3caa5eee *R/Menu.importrdacsv.R
 0cd9c9322d2a015cc2773a3fdfeed891 *R/Menu.loadcatlg.R
 6f0656bb0eeb2502a0328ed80f5b341d *R/Menu.model.R
 50e67c923a9dae8d5ed1d699314c1f3b *R/Menu.oa.R
-b8dd6d2017df05b605edbcfaf55e93d8 *R/Menu.param.R
+e573d7e0babcf50a09f55b6846633550 *R/Menu.param.R
 b731d0f61b8429f8eb69a57b1774e9d4 *R/Menu.pb2level.R
+97e1f4bbcd6bb118f618e1cfe16f0437 *R/Menu.pickcube.r
 b7d20f4823936553d304ac476ac7869f *R/Menu.plot.R
 63c7eacaf9dadab3aca13b970a06da5b *R/Menu.responses.R
 027243a590e115ee063df2c20f1a6c7b *R/Menu.rsm.R
@@ -37,7 +38,7 @@ b7d20f4823936553d304ac476ac7869f *R/Menu.plot.R
 287e24f071fa8a1734491d64760f2b92 *R/Menu.tab.R
 11f2eadeaf309a6607aef6f02d54266f *R/Menu.wide.R
 028a79a07511663f4858052040b40339 *R/aaa.R
-1f1092843e7f9aa9e33c249d6661f7e4 *R/checkers.R
+211ec31cd44f4345b17a51d1d6a08ea1 *R/checkers.R
 a4c260ad216ad730986dbfeb4931fdfd *R/dc.R
 f55f13332a0fc5ebec3a9935052f4e04 *R/design.info.design.R
 f7488030a7d3117a65de359983f0385c *R/display.design.R
@@ -54,8 +55,8 @@ f2103c0d76611eb007c36ba2b913a5ee *R/menu.defaults.R
 c9feba2a9d276becffe5b3a18dade359 *R/subsetBoxDoE.R
 82a5feba68f02ea0a6c1a13654e374ba *R/summarize.design.R
 cdb7ee09cd729401a729ea14e48dc563 *R/textentry.R
-ad12ad9895b9a974c3789c1a0d4fce14 *inst/NEWS
-98f39443e7b6ff8d7b7590cb2f84b1a4 *inst/etc/menus.txt
+ccc639843c7d9a0ea9ba15dc3adfd881 *inst/NEWS
+ba4e3cca60d438929ba545e9eb749a6e *inst/etc/menus.txt
 f9968be61476d8a0311775aaae94d617 *inst/images/MaxC2res3image.gif
 39a2be0ca9ccb0c8d5e2a61022d18cc0 *inst/images/MaxC2res4image.gif
 346d99cb8f8d4a387332ec48f036a495 *inst/images/resolutionimage.gif
@@ -107,6 +108,7 @@ ca8f498e94112606eaf3ca97dcb2e870 *man/Menu.oa.Rd
 080d21aa517816f21471b90ac5c87677 *man/Menu.param.Rd
 474d86443be127d67529fa513452361c *man/Menu.pb2level.Rd
 5a1858cbb3efbbd7ae349488ecdcc541 *man/Menu.pb2levelTab1.Rd
+edd9f1e262982b8ad4a910c329e04497 *man/Menu.pickcube.Rd
 1e19a50f151632adf1593ff89667ff57 *man/Menu.plot.Rd
 18655213dc6e1655b0289a841d359d60 *man/Menu.responses.Rd
 bbdad6817b633ca9c32171b55b2191bf *man/Menu.rsm.Rd
@@ -117,4 +119,4 @@ a2736987d8fcb71d1811c920aaf9f7fb *man/Menu.summarize.Rd
 5c8775c841b194a43ff623bec1d5f2e4 *man/Menus.Rd
 48b92a35bb1dd0ca6803ec26b070b9f2 *man/PlotMeansDoE.menu.Rd
 b1b589761328357dce4049f2740b5525 *man/RcmdrPlugin.DoE-package.Rd
-5e735b275e0ef53857050ace31407eff *man/RcmdrPlugin.DoEUndocumentedFunctions.Rd
+8dbf2bd8536ae9ba58ce251cccddaa3e *man/RcmdrPlugin.DoEUndocumentedFunctions.Rd

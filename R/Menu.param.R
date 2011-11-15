@@ -1,6 +1,7 @@
 Menu.param <- function(){
    designs <- listDesigns()
    
+   
    onOK <- function(){
       newname <- tclvalue(nameVar)
       inner <- getSelection(innerBox)
@@ -18,7 +19,7 @@ Menu.param <- function(){
           }
       
       command <- paste("param.design(inner=", inner, 
-            ", outer=", outr, ", direction=", dquote(direction),")")
+            ", outer=", outr, ", direction=\"",direction,"\")",sep="")
       hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
             Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")

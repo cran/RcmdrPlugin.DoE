@@ -111,7 +111,6 @@ onOK <- function(){
 
     ### not yet perfect, especially NULL entries are not possible
     ### for didactic reasons distinguish between usage of default.levels and other?
-    
     if (!tclvalue(constraintVar) == gettextRcmdr("<all candidate data set rows eligible>"))
     command <- paste("Dopt.design(",tclvalue(nrunsVar), ", data=", getRcmdr(".activeDataSet"),
                   ", formula=", dquote(paste("~",tclvalue(rhsVariable),sep="")),", constraint=", dquote(tclvalue(constraintVar)),
@@ -125,6 +124,7 @@ onOK <- function(){
                   ",seed=",tclvalue(seedVar),")") 
 
         hilf <- justDoItDoE(command)
+print(hilf)
         if (class(hilf)[1]=="try-error") {
             Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
             errorCondition(window=topdes2,recall=Menu.Dopt, message=gettextRcmdr(hilf))
