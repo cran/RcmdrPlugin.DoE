@@ -1,5 +1,14 @@
 Version history for RcmdrPlugin.DoE: 
 
+19 Jul 2012, Version 0.11-6
+   - I followed advice by John Fox and added globalVariables command
+     for getting rid of the notes in R CMD check.
+   - bug fix: After upgrading package FrF2 to version 1.5+ (29 Jun 2012), 
+     the menu for Fractional factorial 2-level designs did not work any more 
+     (thanks to Gilles Le Pape for alerting me).
+   - bug fix: Under a certain error constellation, 
+     adding a response could not be reset from external file to R object.
+
 15 Nov 2011, Version 0.11-5
    - bug fix: creation of long version parameter designs did not work
    - bug fix: Menu.aggregate returned to wrong dialog (Menu.export) on name specification error

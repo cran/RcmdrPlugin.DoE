@@ -1,12 +1,12 @@
-5a8389ac8dec926c0f54cd98a6db688a *DESCRIPTION
+116c2c724d91aa6c9b84dd1a1dc77c5c *DESCRIPTION
 1136b715fb2abafcb77d0ebaf17126b8 *NAMESPACE
 0abd9fa4e3b761c4d4cfc7a7a13a6af5 *R/Menu.Dopt.r
 79cc1679c826eced864f34e93ade27a6 *R/Menu.EffectPlots.R
-71fc523ba5b3660a975e715034255bb7 *R/Menu.FrF2level.R
+79d55854283db8e28df4e6cd60a5378c *R/Menu.FrF2level.R
 4e294cb13d704ef94c47144e90770f9e *R/Menu.IAPlot.R
 f6bd933a4b3bb2f17cfcae3774cddc54 *R/Menu.PlotMeansDoE.R
 d3652b10e627f92b4f660c44351362fa *R/Menu.addcenter.R
-ecee11ebcc19b0c77455b2209ec6dc0e *R/Menu.addresponse.R
+b9dead4b685c977b3e8c08a7b5a566ac *R/Menu.addresponse.R
 8bb6b2fc086dfe8a39cd1dacee8bf487 *R/Menu.aggregate.R
 644fda8c8a336ee645e7a7942a3dfbb5 *R/Menu.augmentlhs.R
 e9b3983a56105846c993f1916f79dd3f *R/Menu.bbd.r
@@ -37,7 +37,7 @@ b7d20f4823936553d304ac476ac7869f *R/Menu.plot.R
 8df064dfdfe57c14ef67f9b563b40b2a *R/Menu.summarize.R
 287e24f071fa8a1734491d64760f2b92 *R/Menu.tab.R
 11f2eadeaf309a6607aef6f02d54266f *R/Menu.wide.R
-028a79a07511663f4858052040b40339 *R/aaa.R
+9dda04e153cb8ae20c94fc850054b17b *R/aaa.R
 211ec31cd44f4345b17a51d1d6a08ea1 *R/checkers.R
 a4c260ad216ad730986dbfeb4931fdfd *R/dc.R
 f55f13332a0fc5ebec3a9935052f4e04 *R/design.info.design.R
@@ -55,7 +55,7 @@ f2103c0d76611eb007c36ba2b913a5ee *R/menu.defaults.R
 c9feba2a9d276becffe5b3a18dade359 *R/subsetBoxDoE.R
 82a5feba68f02ea0a6c1a13654e374ba *R/summarize.design.R
 cdb7ee09cd729401a729ea14e48dc563 *R/textentry.R
-ccc639843c7d9a0ea9ba15dc3adfd881 *inst/NEWS
+fc783fa4863c64aa270c5b9a0b25d5d4 *inst/NEWS
 ba4e3cca60d438929ba545e9eb749a6e *inst/etc/menus.txt
 f9968be61476d8a0311775aaae94d617 *inst/images/MaxC2res3image.gif
 39a2be0ca9ccb0c8d5e2a61022d18cc0 *inst/images/MaxC2res4image.gif

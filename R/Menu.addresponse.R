@@ -15,6 +15,8 @@ onOK <- function(){
         newname <- tclvalue(newnameVar)
         putRcmdr("csvpath", tclvalue(fileVar))
         putRcmdr("respname", tclvalue(respVar))
+        putRcmdr("decimal.setting", tclvalue(decimalrbVariable))
+        putRcmdr("responseQuelle", tclvalue(etyperbVariable))
         if (!identical(respname,"")){
               hilf <- try(eval(parse(text=tclvalue(respVar))))
               if (class(hilf)[1]=="try-error"){ 
@@ -24,8 +26,6 @@ onOK <- function(){
                   }
               putRcmdr(respname, hilf)
               }
-        putRcmdr("decimal.setting", tclvalue(decimalrbVariable))
-        putRcmdr("responseQuelle", tclvalue(etyperbVariable))
         if (is.element(newname, listObjects()))
           {
           if ("no" == tclvalue(checkReplace(newname, gettextRcmdr("Object"))))

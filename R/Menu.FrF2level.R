@@ -511,10 +511,10 @@ onReset <- function(){
               if (!"catlg" %in% class(get(tclvalue(catlgVar)))) 
                   tkmessageBox(message="is not a design catalogue of class catlg",icon="error", type="ok", title="invalid catalogue specified")
               else onRefresh()
-#              else { pick <- nfac.catlg(get(tclvalue(catlgVar)))==as.numeric(tclvalue(nfacVar))
-#                    if (tclvalue(resVar)=="IV") pick <- pick & res.catlg(get(tclvalue(catlgVar))) > 3 else
-#                    if (tclvalue(resVar)=="V+") pick <- pick & res.catlg(get(tclvalue(catlgVar))) > 4
-#                    if (tclvalue(nrunEntryVariable)=="1") pick <- pick & nruns.catlg(get(tclvalue(catlgVar))) == as.numeric(tclvalue(nrunVar))
+#              else { pick <- nfac(get(tclvalue(catlgVar)))==as.numeric(tclvalue(nfacVar))
+#                    if (tclvalue(resVar)=="IV") pick <- pick & res(get(tclvalue(catlgVar))) > 3 else
+#                    if (tclvalue(resVar)=="V+") pick <- pick & res(get(tclvalue(catlgVar))) > 4
+#                    if (tclvalue(nrunEntryVariable)=="1") pick <- pick & nruns(get(tclvalue(catlgVar))) == as.numeric(tclvalue(nrunVar))
 #                    if (any(pick)) putRcmdr("catlgliste", names(get(tclvalue(catlgVar)))[pick])
 #                    else putRcmdr("catlgliste", "")
 #                    tkconfigure(designEntry, values=catlgliste)
@@ -1047,10 +1047,10 @@ tkgrid(descritFrame, desinfoFrame, sticky="w", columnspan=3)
   
   
   ## prepare list of design names, based on current setting for the catalogue
-        pick <- nfac.catlg(get(tclvalue(catlgVar)))==as.numeric(tclvalue(nfacVar))
-        if (tclvalue(resVar)=="IV") pick <- pick & res.catlg(get(tclvalue(catlgVar))) > 3 else
-        if (tclvalue(resVar)=="V+") pick <- pick & res.catlg(get(tclvalue(catlgVar))) > 4
-        if (tclvalue(nrunEntryVariable)=="1") pick <- pick & nruns.catlg(get(tclvalue(catlgVar))) == as.numeric(tclvalue(nrunVar))
+        pick <- nfac(get(tclvalue(catlgVar)))==as.numeric(tclvalue(nfacVar))
+        if (tclvalue(resVar)=="IV") pick <- pick & res(get(tclvalue(catlgVar))) > 3 else
+        if (tclvalue(resVar)=="V+") pick <- pick & res(get(tclvalue(catlgVar))) > 4
+        if (tclvalue(nrunEntryVariable)=="1") pick <- pick & nruns(get(tclvalue(catlgVar))) == as.numeric(tclvalue(nrunVar))
         if (any(pick)) putRcmdr("catlgliste", names(get(tclvalue(catlgVar)))[pick])
         else putRcmdr("catlgliste", "")
         if (!tclvalue(designVar) %in% catlgliste & length(catlgliste) > 0) designVar <- tclVar(catlgliste[1])
