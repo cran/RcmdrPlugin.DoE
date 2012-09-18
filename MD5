@@ -1,4 +1,4 @@
-116c2c724d91aa6c9b84dd1a1dc77c5c *DESCRIPTION
+c1addf017b9aec2fba1d549953bed514 *DESCRIPTION
 1136b715fb2abafcb77d0ebaf17126b8 *NAMESPACE
 0abd9fa4e3b761c4d4cfc7a7a13a6af5 *R/Menu.Dopt.r
 79cc1679c826eced864f34e93ade27a6 *R/Menu.EffectPlots.R
@@ -16,7 +16,7 @@ c120671211d8783332340f27ce49ee8f *R/Menu.changecontr.R
 76cc5ee25ec8f0a038ea87f7cd73b3b1 *R/Menu.colremove.R
 db2b54886bf788190777af105c414587 *R/Menu.contour.R
 d6e85cd0376b3ae6c279178efd06e4cc *R/Menu.display.R
-d56ffa44cc227b99bc729cab3a526d68 *R/Menu.export.R
+8068762184490be8a048449d304dad84 *R/Menu.export.R
 ce9a7baf755694c5754d2aae88947547 *R/Menu.fac.R
 849345407adf8dac6e7f5c72acc5f484 *R/Menu.import.R
 8d5034075fb0c288bf5ef9898bb58a19 *R/Menu.importrda.R
@@ -55,7 +55,7 @@ f2103c0d76611eb007c36ba2b913a5ee *R/menu.defaults.R
 c9feba2a9d276becffe5b3a18dade359 *R/subsetBoxDoE.R
 82a5feba68f02ea0a6c1a13654e374ba *R/summarize.design.R
 cdb7ee09cd729401a729ea14e48dc563 *R/textentry.R
-fc783fa4863c64aa270c5b9a0b25d5d4 *inst/NEWS
+39397e985623880f869100064eb6264b *inst/NEWS
 ba4e3cca60d438929ba545e9eb749a6e *inst/etc/menus.txt
 f9968be61476d8a0311775aaae94d617 *inst/images/MaxC2res3image.gif
 39a2be0ca9ccb0c8d5e2a61022d18cc0 *inst/images/MaxC2res4image.gif

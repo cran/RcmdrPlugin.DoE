@@ -16,10 +16,10 @@ onOK <- function(){
         putRcmdr("path", tclvalue(dirVar))
         putRcmdr("filename", tclvalue(fileVar))
         if (tclvalue(decimalrbVariable)=="default") command <- paste("export.design(",name,
-               ", type=",dquote(tclvalue(etyperbVariable)),",path=",dquote(path),", file=",dquote(filename),", replace=",
+               ", type=",dquote(tclvalue(etyperbVariable)),",path=",dquote(getRcmdr("path")),", file=",dquote(getRcmdr("filename")),", replace=",
                as.logical(as.numeric(tclvalue(replacecbVariable))),")",sep="")
         else command <- paste("export.design(",name, 
-               ", type=",dquote(tclvalue(etyperbVariable)),",path=",dquote(path),", file=",dquote(filename),", replace=",
+               ", type=",dquote(tclvalue(etyperbVariable)),",path=",dquote(getRcmdr("path")),", file=",dquote(getRcmdr("filename")),", replace=",
                as.logical(as.numeric(tclvalue(replacecbVariable))),", OutDec=", 
                dquote(tclvalue(decimalrbVariable)),")",sep="")
         hilf <- justDoItDoE(command)
@@ -115,7 +115,7 @@ tkgrid(csvrb, sticky="w")
 ## radio buttons for choosing export decimal separator
 decimalradioFrame <- ttklabelframe(topdes2, text=gettextRcmdr("Decimal Separator ?"))
 decimalrbVariable <- tclVar("default")
-if (exists("decimal.setting")) decimalrbVariable <- tclVar(decimal.setting)
+if (exists("decimal.setting", mode="character")) decimalrbVariable <- tclVar(decimal.setting)
 defaultrb <- tkradiobutton(decimalradioFrame,text=gettextRcmdr("default"),variable=decimalrbVariable, value="default")
 pointrb <- tkradiobutton(decimalradioFrame,text=gettextRcmdr("."),variable=decimalrbVariable, value=".")
 commarb <- tkradiobutton(decimalradioFrame,text=gettextRcmdr(","),variable=decimalrbVariable, value=",")

@@ -1,5 +1,9 @@
 Version history for RcmdrPlugin.DoE: 
 
+18 Sep 2012, Version 0.11-7
+   - Bug fix: because of a name clash with function path from package igraph, 
+     the "Export experiment" menu didn't work any more.
+
 19 Jul 2012, Version 0.11-6
    - I followed advice by John Fox and added globalVariables command
      for getting rid of the notes in R CMD check.
