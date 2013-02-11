@@ -1,5 +1,20 @@
 Version history for RcmdrPlugin.DoE: 
 
+11 Feb 2013, Version 0.12
+   - adapted to new Rcmdr possibility of including plugin without closing 
+     Commander window
+   - adapted to new Rcmdr option regarding the Rcmdr search path in 
+     order to make the package work in R 3.0.0
+   - removed assignments to global environment via assign in order to conform with 
+     new CRAN policy, 
+     either by using Rcmdr-specific commmands or by moving object to RcmdrEnv
+     (savename.RcmdrPlugin.DoE)
+   - modified the description and the startup message to more adequately 
+     reflect the current status of the package
+   - moved functions fix, fix.default and fix.design to here 
+     instead of DoE.base, in order to have all GUI-related stuff in 
+     the same place
+
 18 Sep 2012, Version 0.11-7
    - Bug fix: because of a name clash with function path from package igraph, 
      the "Export experiment" menu didn't work any more.

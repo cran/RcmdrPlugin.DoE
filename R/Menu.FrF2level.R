@@ -1,6 +1,9 @@
+## two instances of assign replaced by justDoItDoE with modified command and justDoIt("design.info(name) <- hilfatt")
+## one instance of assign replaced by justDoIt
+
 Menu.FrF2level <- function(){
 
-initializeDialogDoE(title=gettextRcmdr("Create regular 2-level design ..."))   
+initializeDialogDoE(title=gettext("Create regular 2-level design ..."))   
      ## function initializeDialogDoE assumes topdes2 as windowname
      ## last stored top left corner for window is stored under topleft2xy
      ## onRefresh still makes window walk a little
@@ -99,15 +102,15 @@ onOK <- function(){
         name <- tclvalue(nameVar)
         if (!is.valid.name(name)) {
             errorCondition(window=topdes2,recall=Menu.FrF2level, 
-                    message=paste('"', name, '" ', gettextRcmdr("is not a valid name."), sep=""))
+                    message=paste('"', name, '" ', gettext("is not a valid name."), sep=""))
             return()
           }
         if (is.element(name, listObjects()))
           {
-          if ("no" == tclvalue(checkReplace(name, gettextRcmdr("Object"))))
+          if ("no" == tclvalue(checkReplace(name, gettext("Object"))))
             {
               errorCondition(window=topdes2,recall=Menu.FrF2level, 
-              message=gettextRcmdr("Introduce another name for the new data.frame, or allow replacing."))
+              message=gettext("Introduce another name for the new data.frame, or allow replacing."))
               return()
              }
           }
@@ -168,11 +171,14 @@ onOK <- function(){
                        "), ",substr(tclvalue(comprclassVar),1,1),")")
                     hilf <- justDoItDoE(command)
                     if (class(hilf)[1]=="try-error") {
-                          Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
-                          errorCondition(window=topdes2,recall=Menu.FrF2level, message=gettextRcmdr(hilf))
+                          Message(paste(gettext("Offending command:"), "\n", command), type="error")
+                          errorCondition(window=topdes2,recall=Menu.FrF2level, message=gettext(hilf))
                           return()
                     }
-                    assign("calc.estim", hilf, envir=.GlobalEnv)
+                    ## replace assign by justDoIt; assign("calc.estim", hilf, envir=.GlobalEnv)
+                    putRcmdr("hilf", hilf)
+                    justDoIt("calc.estim <- getRcmdr(\"hilf\")")
+                    rm("hilf", pos="RcmdrEnv")
 
                     #compromise(as.numeric(tclvalue(nfacVar)), which(Letters  %in% notest2fislist), 
                     #        as.numeric(substr(tclvalue(comprclassVar),1,1))))
@@ -183,7 +189,7 @@ onOK <- function(){
                 else estimable <- paste("c(",paste(dquote(est2fislist),collapse=","),")")
                 
                 if (!(tclvalue(hardVar)=="0" & tclvalue(designrbVariable)=="default" & tclvalue(nblockVar)=="1"))
-                    tk_messageBox(message=gettextRcmdr("estimable has taken precedence, not all other requests have been granted!"),type="ok")
+                    tk_messageBox(message=gettext("estimable has taken precedence, not all other requests have been granted!"),type="ok")
                clear <- "TRUE"
                if (tclvalue(estrbVariable)=="distinct") clear <- "FALSE"
                res3 <- as.logical(as.numeric(as.character(tclvalue(res3cbVariable))))
@@ -214,18 +220,18 @@ onOK <- function(){
         }       ## end of special           
         hilf <- justDoItDoE(command)
         if (tclvalue(estrbVariable)=="distinct" & length(est2fislist)>0){
-                 diagcommand <- paste("print(",dQuote(paste(gettextRcmdr("Design search in progress: you allowed up to"), 
-                        tclvalue(maxtimeVar), gettextRcmdr("seconds"))), ")")
+                 diagcommand <- paste("print(",dQuote(paste(gettext("Design search in progress: you allowed up to"), 
+                        tclvalue(maxtimeVar), gettext("seconds"))), ")")
                  doItAndPrint(diagcommand, log=FALSE)
                  }
         if (class(hilf)[1]=="try-error") {
-            Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
-            errorCondition(window=topdes2,recall=Menu.FrF2level, message=gettextRcmdr(hilf))
+            Message(paste(gettext("Offending command:"), "\n", command), type="error")
+            errorCondition(window=topdes2,recall=Menu.FrF2level, message=gettext(hilf))
 #            if (tclvalue(estrbVariable)=="distinct" & length(est2fislist)>0){
-#                 diagcommand <- paste("print(",dQuote(paste(gettextRcmdr("No design found in"), 
-#                       tclvalue(maxtimeVar), gettextRcmdr("seconds"))), ")")
+#                 diagcommand <- paste("print(",dQuote(paste(gettext("No design found in"), 
+#                       tclvalue(maxtimeVar), gettext("seconds"))), ")")
 #                 doItAndPrint(diagcommand, log=FALSE)
-#                 diagcommand <- paste("print(",dQuote(gettextRcmdr("Experts may try to speed up the search using command line programming (?estimable.2fis).")), ")")
+#                 diagcommand <- paste("print(",dQuote(gettext("Experts may try to speed up the search using command line programming (?estimable.2fis).")), ")")
 #                 doItAndPrint(diagcommand, log=FALSE)
 #                 }
              return()
@@ -236,8 +242,12 @@ onOK <- function(){
         hilfatt <- design.info(hilf)
         hilfatt$creator <- .stored.design2FrF
         class(hilfatt$creator) <- c("menu.design2FrF", "list")
+        
         attr(hilf, "design.info") <- hilfatt
-        assign(name, hilf, envir=.GlobalEnv)
+        ## replace assign by justDoIt; assign(name, hilf, envir=.GlobalEnv)
+        putRcmdr("hilf", hilf)
+        justDoIt(paste(name, "<- getRcmdr(\"hilf\")"))
+        rm("hilf", pos="RcmdrEnv")
         activeDataSet(name)
         ## remove calc.estim
         if (as.logical(as.numeric(as.character(tclvalue(specialcbVariable)))) & tclvalue(comprrbVariable)=="compr"){ 
@@ -265,7 +275,7 @@ onOK <- function(){
                as.logical(as.numeric(tclvalue(replacecbVariable))),", OutDec=", dquote(tclvalue(decimalrbVariable)),")",sep="")
         hilf <- justDoItDoE(command)
         if (class(hilf)[1]=="try-error") {
-            errorCondition(window=topdes2,recall=Menu.FrF2level, message=gettextRcmdr(hilf))
+            errorCondition(window=topdes2,recall=Menu.FrF2level, message=gettext(hilf))
              return()
             }
         logger(command)
@@ -293,11 +303,11 @@ onLoad <- function(){
     ## seems to work now, needs to be tested!
         hilf <- listDesign2()
         if (length(hilf)==0) {
-            tkmessageBox(message=gettextRcmdr("There are no stored design inputs in this session."),icon="error", type="ok", title="no stored design inputs")
+            tkmessageBox(message=gettext("There are no stored design inputs in this session."),icon="error", type="ok", title="no stored design inputs")
             return()
             }
     putRcmdr("deschoose2",tktoplevel())
-    tkwm.title(deschoose2, gettextRcmdr("Choose stored design form"))
+    tkwm.title(deschoose2, gettext("Choose stored design form"))
     position <- if (is.SciViews()) 
         -1
     else position <- "+50+50"
@@ -408,20 +418,21 @@ onStore <- function(){
         textentry() ## creates text string stored in savename.RcmdrPlugin.DoE
         if (!is.null(savename.RcmdrPlugin.DoE)){
         if (!is.valid.name(savename.RcmdrPlugin.DoE)) {
-            textcorrect(gettextRcmdr("This is not a valid name. Please correct:"))
+            textcorrect(gettext("This is not a valid name. Please correct:"))
             return()
           }
         if (is.element(savename.RcmdrPlugin.DoE, listObjects()))
           {
-          if ("no" == tclvalue(checkReplace(savename.RcmdrPlugin.DoE, gettextRcmdr("Object"))))
+          if ("no" == tclvalue(checkReplace(savename.RcmdrPlugin.DoE, gettext("Object"))))
             {
-              textcorrect(gettextRcmdr("Please enter a new name:"))
+              textcorrect(gettext("Please enter a new name:"))
               return()
              }
           }
         storeRcmdr()
-        assign(savename.RcmdrPlugin.DoE, getRcmdr(".stored.design2FrF"), envir=.GlobalEnv)
-        message(gettextRcmdr("inputs have been stored"))
+        ## replace assign by justDoIt; assign(savename.RcmdrPlugin.DoE, getRcmdr(".stored.design2FrF"), envir=.GlobalEnv)
+        justDoIt(paste(savename.RcmdrPlugin.DoE, "<- getRcmdr(\".stored.design2FrF\")"))
+        message(gettext("inputs have been stored"))
         }
 }
 
@@ -437,11 +448,11 @@ onReset <- function(){
         nfacnew <- as.numeric(tclvalue(nfacVar))
         if (nfacold==nfacnew) return()
         if (as.logical(as.numeric(as.character(tclvalue(nrunEntryVariable)))))
-        putRcmdr("infoknopftext", tclVar(paste(gettextRcmdr("Show best 10 designs for"), tclvalue(nfacVar), 
-          gettextRcmdr("factors in"), tclvalue(nrunVar), gettextRcmdr("runs\n     The menu remains open, \n     fetch it back after looking at designs"),sep=" ")))
+        putRcmdr("infoknopftext", tclVar(paste(gettext("Show best 10 designs for"), tclvalue(nfacVar), 
+          gettext("factors in"), tclvalue(nrunVar), gettext("runs\n     The menu remains open, \n     fetch it back after looking at designs"),sep=" ")))
         else 
-        putRcmdr("infoknopftext", tclVar(paste(gettextRcmdr("Show best 10 designs for"), tclvalue(nfacVar), 
-          gettextRcmdr("factors\n     The menu remains open, \n     fetch it back after looking at designs"),sep=" ")))
+        putRcmdr("infoknopftext", tclVar(paste(gettext("Show best 10 designs for"), tclvalue(nfacVar), 
+          gettext("factors\n     The menu remains open, \n     fetch it back after looking at designs"),sep=" ")))
         tkconfigure(infoButton1, textvariable=infoknopftext)
         if (nfacnew < nfacold){
            varlistshortt <- if (nfacnew<=50) 
@@ -530,14 +541,14 @@ onReset <- function(){
      nrunchange <- function(){
         if (!tclvalue(nrunVar)==nrunOld){
             if(!2^round(log2(as.numeric(tclvalue(nrunVar))))==as.numeric(tclvalue(nrunVar))){
-                 tk_messageBox(caption="invalid run number",message = gettextRcmdr("invalid run number, must be power of 2"), type = "ok")
+                 tk_messageBox(caption="invalid run number",message = gettext("invalid run number, must be power of 2"), type = "ok")
                  return()}
         if (as.logical(as.numeric(as.character(tclvalue(nrunEntryVariable)))))
-        putRcmdr("infoknopftext", tclVar(paste(gettextRcmdr("Show best 10 designs for"), tclvalue(nfacVar), 
-          gettextRcmdr("factors in"), tclvalue(nrunVar), gettextRcmdr("runs\n     The menu remains open, \n     fetch it back after looking at designs"),sep=" ")))
+        putRcmdr("infoknopftext", tclVar(paste(gettext("Show best 10 designs for"), tclvalue(nfacVar), 
+          gettext("factors in"), tclvalue(nrunVar), gettext("runs\n     The menu remains open, \n     fetch it back after looking at designs"),sep=" ")))
         else 
-        putRcmdr("infoknopftext", tclVar(paste(gettextRcmdr("Show best 10 designs for"), tclvalue(nfacVar), 
-          gettextRcmdr("factors\n     The menu remains open, \n     fetch it back after looking at designs"),sep=" ")))
+        putRcmdr("infoknopftext", tclVar(paste(gettext("Show best 10 designs for"), tclvalue(nfacVar), 
+          gettext("factors\n     The menu remains open, \n     fetch it back after looking at designs"),sep=" ")))
         tkconfigure(infoButton1, textvariable=infoknopftext)
             #onRefresh()
           }
@@ -790,7 +801,7 @@ curdes <- function(){
 
 onMAinfo <- function(){
     putRcmdr("info.window",tktoplevel())
-    tkwm.title(info.window, gettextRcmdr("Requested information"))
+    tkwm.title(info.window, gettext("Requested information"))
     position <- if (is.SciViews()) 
         -1
     else position <- "+50+50"
@@ -827,7 +838,7 @@ onMaxC2info <- function(){
     else {tkmessageBox(message="All 2fis are clear for designs of resolution V or more.")
           return()}
     putRcmdr("info.window",tktoplevel())
-    tkwm.title(info.window, gettextRcmdr("Requested information"))
+    tkwm.title(info.window, gettext("Requested information"))
     position <- if (is.SciViews()) 
         -1
     else position <- "+50+50"
@@ -840,9 +851,9 @@ onMaxC2info <- function(){
     if (tclvalue(resVar)=="IV") tkgrid(ttklabel(info.window,text="NOTE: yellow: resolution IV, green: resolution V+"))
     tc <- tklabel(info.window, image="MaxC2.image")
     tkgrid(tc)
-    if (tclvalue(resVar)=="III") catlginfo <- ttklabel(info.window,text=gettextRcmdr("Cell entries for resolution III and IV designs:"))
-    else catlginfo <- ttklabel(info.window,text=gettextRcmdr("Cell entries for resolution IV designs:"))
-    catlginfo2 <- ttklabel(info.window,text=gettextRcmdr("maximum number of clear 2fis and maximum number of factors with all 2fis clear."))
+    if (tclvalue(resVar)=="III") catlginfo <- ttklabel(info.window,text=gettext("Cell entries for resolution III and IV designs:"))
+    else catlginfo <- ttklabel(info.window,text=gettext("Cell entries for resolution IV designs:"))
+    catlginfo2 <- ttklabel(info.window,text=gettext("maximum number of clear 2fis and maximum number of factors with all 2fis clear."))
     tkgrid(catlginfo)
     tkgrid(catlginfo2)
 
@@ -919,9 +930,9 @@ nameEntry <- tkentry(tab1, width="20", textvariable=nameVar)
     tkbind(nameEntry, "<FocusOut>", namechange)
 ### wird pbcbVariable noch gebraucht ?
 ##pbcbVariable <- tclVar(.stored.design2FrF$cbInitials[8])
-#pbcb <- ttkcheckbutton(desinfoFrame,text=gettextRcmdr("Screening design (Plackett-Burman)"),variable=pbcbVariable)
+#pbcb <- ttkcheckbutton(desinfoFrame,text=gettext("Screening design (Plackett-Burman)"),variable=pbcbVariable)
 
-baseFrame <- ttklabelframe(tab1,text=gettextRcmdr("Size and randomization"))
+baseFrame <- ttklabelframe(tab1,text=gettext("Size and randomization"))
 
 nrunVar <- tclVar(.stored.design2FrF$nrunVar)
 nrunEntry <- tkentry(baseFrame, width="8", textvariable=nrunVar)
@@ -935,21 +946,21 @@ ncenterEntry <- tkentry(baseFrame, width="8", textvariable=ncenterVar)
 nblockVar <- tclVar(.stored.design2FrF$nblockVar)
 nblockEntry <- tkentry(baseFrame, width="8", textvariable=nblockVar)
 aliasblock2fiVariable <- tclVar(.stored.design2FrF$cbInitials[3])
-aliasblock2fi <- ttkcheckbutton(baseFrame,text=gettextRcmdr("blocks may be \naliased with 2fis"),variable=aliasblock2fiVariable)
+aliasblock2fi <- ttkcheckbutton(baseFrame,text=gettext("blocks may be \naliased with 2fis"),variable=aliasblock2fiVariable)
 tkconfigure(aliasblock2fi, takefocus=0)
 nrepVar <- tclVar(.stored.design2FrF$nrepVar)
 nrepEntry <- tkentry(baseFrame, width="8", textvariable=nrepVar)
 randomizeVariable <-  tclVar(.stored.design2FrF$cbInitials[2])
-randomizecb <- ttkcheckbutton(baseFrame,text=gettextRcmdr("Randomization"),variable=randomizeVariable)
+randomizecb <- ttkcheckbutton(baseFrame,text=gettext("Randomization"),variable=randomizeVariable)
 tkconfigure(randomizecb, takefocus=0)
 seedVar <- tclVar(sample(31999,1))  ## always new
 seedEntry <- tkentry(baseFrame, width="8", textvariable=seedVar)
 tkconfigure(seedEntry, takefocus=0)
 nrunEntryVariable <- tclVar(.stored.design2FrF$cbInitials[5])
-nruncb <- ttkcheckbutton(baseFrame,text=gettextRcmdr("Specify nruns"),variable=nrunEntryVariable, command=onRefresh)
+nruncb <- ttkcheckbutton(baseFrame,text=gettext("Specify nruns"),variable=nrunEntryVariable, command=onRefresh)
 tkconfigure(nruncb, takefocus=0)
 repeat.onlyVariable <- tclVar(.stored.design2FrF$cbInitials[1])
-repeat.onlycb <- ttkcheckbutton(baseFrame,text=gettextRcmdr("Repeat only"),variable=repeat.onlyVariable)
+repeat.onlycb <- ttkcheckbutton(baseFrame,text=gettext("Repeat only"),variable=repeat.onlyVariable)
 tkconfigure(repeat.onlycb, takefocus=0)
 
 despropFrame <- ttklabelframe(tab1,text="Design properties")
@@ -962,35 +973,35 @@ resVar <- tclVar(.stored.design2FrF$resVar)
     tkbind(resEntry, "<<ComboboxSelected>>", onRefresh)
  
 qualcritrbVariable <- tclVar(.stored.design2FrF$qualcritrbVariable)
-MArb <- tkradiobutton(descritFrame,text=gettextRcmdr("MA (Maximum resolution and minimum aberration)"),variable=qualcritrbVariable,value="MA")
-MaxC2rb <- tkradiobutton(descritFrame,text=gettextRcmdr("MaxC2 (Maximum number of clear 2fis)"),variable=qualcritrbVariable,value="MaxC2")
+MArb <- tkradiobutton(descritFrame,text=gettext("MA (Maximum resolution and minimum aberration)"),variable=qualcritrbVariable,value="MA")
+MaxC2rb <- tkradiobutton(descritFrame,text=gettext("MaxC2 (Maximum number of clear 2fis)"),variable=qualcritrbVariable,value="MaxC2")
 
 ## grid descritFrame
-tkgrid(resEntry, tklabel(descritFrame,text=gettextRcmdr("Minimum resolution\nNOTE: affects design generation\nfor MaxC2 choice\nOR unspecified number of runs only"),justify="left"))
-#tkgrid(tklabel(descritFrame,text=gettextRcmdr("NOTE: affects design generation for MaxC2 choice")), columnspan=2, sticky="w")
-#tkgrid(tklabel(descritFrame,text=gettextRcmdr("OR unspecified number of runs only")), columnspan=2, sticky="w")
+tkgrid(resEntry, tklabel(descritFrame,text=gettext("Minimum resolution\nNOTE: affects design generation\nfor MaxC2 choice\nOR unspecified number of runs only"),justify="left"))
+#tkgrid(tklabel(descritFrame,text=gettext("NOTE: affects design generation for MaxC2 choice")), columnspan=2, sticky="w")
+#tkgrid(tklabel(descritFrame,text=gettext("OR unspecified number of runs only")), columnspan=2, sticky="w")
 
 tkgrid(MArb, columnspan=2, sticky="w")
 tkgrid(MaxC2rb, columnspan=2, sticky="w")
-tkgrid(tklabel(descritFrame,text=gettextRcmdr("  ")), columnspan=2)
+tkgrid(tklabel(descritFrame,text=gettext("  ")), columnspan=2)
 
         if (as.logical(as.numeric(as.character(tclvalue(nrunEntryVariable)))))
-        putRcmdr("infoknopftext", tclVar(paste(gettextRcmdr("Show best 10 designs for"), tclvalue(nfacVar), 
-          gettextRcmdr("factors in"), tclvalue(nrunVar), gettextRcmdr("runs\n     The menu remains open, \n     fetch it back after looking at designs"),sep=" ")))
+        putRcmdr("infoknopftext", tclVar(paste(gettext("Show best 10 designs for"), tclvalue(nfacVar), 
+          gettext("factors in"), tclvalue(nrunVar), gettext("runs\n     The menu remains open, \n     fetch it back after looking at designs"),sep=" ")))
         else 
-        putRcmdr("infoknopftext", tclVar(paste(gettextRcmdr("Show best 10 designs for"), tclvalue(nfacVar), 
-          gettextRcmdr("factors\n     The menu remains open, \n     fetch it back after looking at designs"),sep=" ")))
+        putRcmdr("infoknopftext", tclVar(paste(gettext("Show best 10 designs for"), tclvalue(nfacVar), 
+          gettext("factors\n     The menu remains open, \n     fetch it back after looking at designs"),sep=" ")))
 
-infoButton <- buttonRcmdr(desinfoFrame, text = gettextRcmdr("Show available designs"), 
+infoButton <- buttonRcmdr(desinfoFrame, text = gettext("Show available designs"), 
         foreground = "darkgreen", command = onInfo, 
         default = "normal", borderwidth = 3)
 infoButton1 <- buttonRcmdr(desinfoFrame, textvariable = infoknopftext, 
         foreground = "darkgreen", command = onInfo1, 
         default = "normal", borderwidth = 3)
-infoButton2 <- buttonRcmdr(desinfoFrame, text = gettextRcmdr("Show generators for current design"), 
+infoButton2 <- buttonRcmdr(desinfoFrame, text = gettext("Show generators for current design"), 
         foreground = "darkgreen", command = onInfo2, 
         default = "normal", borderwidth = 3)
-infoButton3 <- buttonRcmdr(desinfoFrame, text = gettextRcmdr("Show alias pattern for current design"), 
+infoButton3 <- buttonRcmdr(desinfoFrame, text = gettext("Show alias pattern for current design"), 
         foreground = "darkgreen", command = onInfo3, 
         default = "normal", borderwidth = 3)
 
@@ -1005,10 +1016,10 @@ tkgrid(descritFrame, desinfoFrame, sticky="w", columnspan=3)
 
 ## grid design frame
 ## (for expert choices)
-    designFrame <- ttklabelframe(tab1,text=gettextRcmdr("Expert choices"))
+    designFrame <- ttklabelframe(tab1,text=gettext("Expert choices"))
   ### widgets for design frame
 
-  catlab <- tklabel(designFrame, text=gettextRcmdr("Catalogue of designs:"))
+  catlab <- tklabel(designFrame, text=gettext("Catalogue of designs:"))
   putRcmdr("catlgVar", tclVar(.stored.design2FrF$catlgVar))
   ## set to valid default, if invalid entry
   if (!exists(tclvalue(catlgVar))){ 
@@ -1023,10 +1034,10 @@ tkgrid(descritFrame, desinfoFrame, sticky="w", columnspan=3)
   }
   designrbVariable <- tclVar(.stored.design2FrF$designrbVariable) 
   designrbFrame <- ttkframe(designFrame)
-  defaultrb <- tkradiobutton(designrbFrame,text=gettextRcmdr("None"),variable=designrbVariable,value="default", command=onRefresh)
-  genrb <- tkradiobutton(designrbFrame,text=gettextRcmdr("Specify Generators (generators option)"),variable=designrbVariable,value="gen", command=onRefresh)
-  catlgrb <- tkradiobutton(designrbFrame,text=gettextRcmdr("Specify catalogue name (select.catlg option)"),variable=designrbVariable,value="catlg", command=onRefresh)
-  designrb <- tkradiobutton(designrbFrame,text=gettextRcmdr("Specify Design name (design option)"),variable=designrbVariable,value="design", command=onRefresh)
+  defaultrb <- tkradiobutton(designrbFrame,text=gettext("None"),variable=designrbVariable,value="default", command=onRefresh)
+  genrb <- tkradiobutton(designrbFrame,text=gettext("Specify Generators (generators option)"),variable=designrbVariable,value="gen", command=onRefresh)
+  catlgrb <- tkradiobutton(designrbFrame,text=gettext("Specify catalogue name (select.catlg option)"),variable=designrbVariable,value="catlg", command=onRefresh)
+  designrb <- tkradiobutton(designrbFrame,text=gettext("Specify Design name (design option)"),variable=designrbVariable,value="design", command=onRefresh)
   tkgrid(defaultrb,sticky="w")
   tkgrid(genrb,sticky="w")
   tkgrid(catlgrb,sticky="w")
@@ -1059,27 +1070,27 @@ tkgrid(descritFrame, desinfoFrame, sticky="w", columnspan=3)
   designEntry <- ttkcombobox(designFrame, textvariable=designVar, values=catlgliste, width=24, state="readonly")
   
   if (tclvalue(designrbVariable)=="gen") 
-  {   tkgrid(tklabel(designFrame,text=gettextRcmdr("Type in generators")), columnspan=2, sticky="w")
+  {   tkgrid(tklabel(designFrame,text=gettext("Type in generators")), columnspan=2, sticky="w")
       tkgrid(genEntry, columnspan=2)
-      tkgrid(tklabel(designFrame,text=gettextRcmdr("comma-separated column numbers of Yates matrix (e.g. 7, 13, 11)\nor comma-separated interaction columns (e.g. ABC, ACD, ABD)"), wraplength=500),columnspan=2)
+      tkgrid(tklabel(designFrame,text=gettext("comma-separated column numbers of Yates matrix (e.g. 7, 13, 11)\nor comma-separated interaction columns (e.g. ABC, ACD, ABD)"), wraplength=500),columnspan=2)
   }
   if (tclvalue(designrbVariable)=="catlg") 
   {  tkgrid(catlab,catlgEntry,sticky="nw")
   }
   if (tclvalue(designrbVariable)=="design") 
   {  tkgrid(catlab,catlgEntry,sticky="nw")
-     tkgrid(tklabel(designFrame,text=gettextRcmdr("Select design\n(preselected according to numbers of runs and factors and resolution):"), wraplength=500, justify="left"),columnspan=2, sticky="w")
+     tkgrid(tklabel(designFrame,text=gettext("Select design\n(preselected according to numbers of runs and factors and resolution):"), wraplength=500, justify="left"),columnspan=2, sticky="w")
       tkgrid(designEntry, sticky="w", padx=15)
   }
 
 ## preparations for bottom frame
 bottomFrame <- tkframe(topdes2)
 specialcbVariable <- tclVar(.stored.design2FrF$cbInitials[7])
-specialcb <- ttkcheckbutton(bottomFrame,text=gettextRcmdr("Activate Special Choices"),
+specialcb <- ttkcheckbutton(bottomFrame,text=gettext("Activate Special Choices"),
     variable=specialcbVariable, command = onSpecialcb)
 
 
-helptab1Button <- buttonRcmdr(tab1, text = gettextRcmdr("Tab Help"), 
+helptab1Button <- buttonRcmdr(tab1, text = gettext("Tab Help"), 
         foreground = "darkgreen", command = onHelpTab1, 
         default = "normal", borderwidth = 3)
 tkconfigure(helptab1Button, takefocus=0)
@@ -1090,15 +1101,15 @@ tkgrid(tklabel(tab1, text="Name of new design"), nameEntry, helptab1Button, stic
 tkgrid.configure(helptab1Button, sticky="e")
 
 ## grid base frame
-tkgrid(nrunlab <- tklabel(baseFrame, text=gettextRcmdr("Number of runs")), nrunEntry, nruncb, sticky="w")
+tkgrid(nrunlab <- tklabel(baseFrame, text=gettext("Number of runs")), nrunEntry, nruncb, sticky="w")
 ## omitted nfaccb, on form, nfactors must always be specified
-tkgrid(nfaclab <- tklabel(baseFrame, text=gettextRcmdr("Number of factors")), nfacEntry, sticky="w")
-tkgrid(ncenterlab <- tklabel(baseFrame, text=gettextRcmdr("Number of center points")), ncenterEntry, sticky="w")
+tkgrid(nfaclab <- tklabel(baseFrame, text=gettext("Number of factors")), nfacEntry, sticky="w")
+tkgrid(ncenterlab <- tklabel(baseFrame, text=gettext("Number of center points")), ncenterEntry, sticky="w")
 tkgrid.configure(ncenterlab, pady=10)
-tkgrid(tklabel(baseFrame, text=gettextRcmdr("Number of blocks")), nblockEntry, aliasblock2fi, sticky="w")
-tkgrid(tklabel(baseFrame, text=gettextRcmdr("Replications")), nrepEntry, repeat.onlycb, sticky="w",pady=5)
+tkgrid(tklabel(baseFrame, text=gettext("Number of blocks")), nblockEntry, aliasblock2fi, sticky="w")
+tkgrid(tklabel(baseFrame, text=gettext("Replications")), nrepEntry, repeat.onlycb, sticky="w",pady=5)
 tkgrid(tklabel(baseFrame, text="You normally do not need to change randomization settings"),sticky="w",columnspan=3)
-tkgrid(seedlab <- tklabel(baseFrame, text=gettextRcmdr("Seed for randomization")), seedEntry, 
+tkgrid(seedlab <- tklabel(baseFrame, text=gettext("Seed for randomization")), seedEntry, 
        randomizecb, sticky="w")
 
 
@@ -1120,7 +1131,7 @@ tkgrid(despropFrame, sticky="w",columnspan=3, pady=10)
 ## default levels frame
 deflevFrame <- ttklabelframe(tab2,text="Default levels")
 faclevelCommonVariable <- tclVar(.stored.design2FrF$cbInitials[4])
-faclevelCommonButton <- ttkcheckbutton(deflevFrame,text=gettextRcmdr("Common factor levels"),
+faclevelCommonButton <- ttkcheckbutton(deflevFrame,text=gettext("Common factor levels"),
     variable=faclevelCommonVariable,command=onRefresh)
 tkconfigure(faclevelCommonButton,takefocus=0)
 putRcmdr("level1Var", tclVar(.stored.design2FrF$level1Var))
@@ -1135,9 +1146,9 @@ level2Entry <- tkentry(deflevFrame, width="20", textvariable=level2Var)
     tkbind(level2Entry, "<FocusIn>", level2enter)
     tkbind(level2Entry, "<FocusOut>", level2change)
 tkgrid(faclevelCommonButton,sticky="w",columnspan=3, padx=15)
-faclevCommonLab<-tklabel(deflevFrame,text=gettextRcmdr("CAUTION: Checking this box overwrites all custom factor levels."))
+faclevCommonLab<-tklabel(deflevFrame,text=gettext("CAUTION: Checking this box overwrites all custom factor levels."))
 if (!as.logical(as.numeric(tclvalue(faclevelCommonVariable)))) tkgrid(faclevCommonLab,sticky="w", columnspan=3,pady=5)
-tkgrid(tklabel(deflevFrame, text=gettextRcmdr("First Level")),tklabel(deflevFrame, text=gettextRcmdr("Second Level")),sticky="e",padx=15)
+tkgrid(tklabel(deflevFrame, text=gettext("First Level")),tklabel(deflevFrame, text=gettext("Second Level")),sticky="e",padx=15)
 tkgrid(level1Entry, level2Entry, sticky="e",padx=15)
 
 ## factor details
@@ -1175,7 +1186,7 @@ varlistshortt <- if (as.numeric(tclvalue(nfacVar))<=50)
         ## fsel must select the right factor
     ## this should be highlighted in factor lists
     ##    and all related entries shown for changing in text boxes fnam etc.
-    enterFrame <- ttklabelframe(enterlistFrame, text=gettextRcmdr("Modify factor details for selected factor"))
+    enterFrame <- ttklabelframe(enterlistFrame, text=gettext("Modify factor details for selected factor"))
     fsel <- ttkcombobox(enterFrame, textvariable=curfac, width=5, values=varlistshortt, state="readonly")
     tkbind(fsel, "<<ComboboxSelected>>", factorsel)
     #fnam <- ttkentry(listFrame, textvariable=curfnam, width=20,validate="focusout", validatecommand=fnamchange)
@@ -1194,11 +1205,11 @@ varlistshortt <- if (as.numeric(tclvalue(nfacVar))<=50)
     flab <- ttkentry(enterFrame, textvariable=curflab, width=20)
     tkbind(flab, "<FocusOut>", flabchange)
     tkbind(flab, "<Key-Tab>", tabflab)
-    tkgrid(tklabel(enterFrame,text=gettextRcmdr("Select"),width=6),
-           tklabel(enterFrame,text=gettextRcmdr("Factor name"), width=15),
-           tklabel(enterFrame,text=gettextRcmdr("First level"), width=15),
-           tklabel(enterFrame,text=gettextRcmdr("Second level"), width=15),
-           tklabel(enterFrame,text=gettextRcmdr("Comment or label \n(for html export only)"), width=20),
+    tkgrid(tklabel(enterFrame,text=gettext("Select"),width=6),
+           tklabel(enterFrame,text=gettext("Factor name"), width=15),
+           tklabel(enterFrame,text=gettext("First level"), width=15),
+           tklabel(enterFrame,text=gettext("Second level"), width=15),
+           tklabel(enterFrame,text=gettext("Comment or label \n(for html export only)"), width=20),
            sticky="w")
     tkgrid(fsel,fnam, flev1, flev2, flab, sticky="w")
     
@@ -1248,10 +1259,10 @@ varlistshortt <- if (as.numeric(tclvalue(nfacVar))<=50)
     ## Hoch-/Runterschieben von Einträgen ermöglichen
 
     downupFrame <- ttkframe(listFrame)
-    moveDownButton <- buttonRcmdr(downupFrame, text = gettextRcmdr("Move Down"), 
+    moveDownButton <- buttonRcmdr(downupFrame, text = gettext("Move Down"), 
         foreground = "darkgreen", command = onDown, 
         default = "normal", borderwidth = 3, width=12)
-    moveUpButton <- buttonRcmdr(downupFrame, text = gettextRcmdr("Move Up"), 
+    moveUpButton <- buttonRcmdr(downupFrame, text = gettext("Move Up"), 
         foreground = "darkgreen", command = onUp, 
         default = "normal", borderwidth = 3, width=12)
     tkgrid(moveDownButton, sticky="w")
@@ -1263,18 +1274,18 @@ varlistshortt <- if (as.numeric(tclvalue(nfacVar))<=50)
 
     ## hard frame, to be displayed if special choices are activated
    putRcmdr("hardVar", tclVar(.stored.design2FrF$hardVar))
-   hardFrame <- ttklabelframe(tab2, text=gettextRcmdr("How many factors are hard to change ?"))
+   hardFrame <- ttklabelframe(tab2, text=gettext("How many factors are hard to change ?"))
    hardEntry <- tkentry(hardFrame, width="3", textvariable=hardVar)
    tkconfigure(hardEntry,takefocus=0)
    
-   hardlabelFrame <- ttklabelframe(hardFrame, text=gettextRcmdr("WARNING"))
+   hardlabelFrame <- ttklabelframe(hardFrame, text=gettext("WARNING"))
 
    tkgrid(tklabel(hardFrame,text="The first "),hardEntry,tklabel(hardFrame,text=" factors are hard to change."))
    tkgrid(tklabel(hardFrame,text="If necessary, modify the factor order on the Factor Details tab!"),columnspan=3)
-   tkgrid(tklabel(hardlabelFrame,text=gettextRcmdr("Only specify this, if some factors are   r e a l l y   hard to change.\nThe hard-to-change factors arrangement of experimental runs bears the risk of misjudging effects of these factors!"),wraplength=300))
+   tkgrid(tklabel(hardlabelFrame,text=gettext("Only specify this, if some factors are   r e a l l y   hard to change.\nThe hard-to-change factors arrangement of experimental runs bears the risk of misjudging effects of these factors!"),wraplength=300))
    tkgrid(hardlabelFrame, sticky="w",columnspan=3)
 
-helptab2Button <- buttonRcmdr(tab2, text = gettextRcmdr("Tab Help"), 
+helptab2Button <- buttonRcmdr(tab2, text = gettext("Tab Help"), 
         foreground = "darkgreen", command = onHelpTab2, 
         default = "normal", borderwidth = 3)
 tkconfigure(helptab2Button, takefocus=0)
@@ -1289,29 +1300,29 @@ tkconfigure(helptab2Button, takefocus=0)
     tkgrid(enterlistFrame, columnspan=6,sticky="w")
 
 ## tab3
-helptab3Button <- buttonRcmdr(tab3, text = gettextRcmdr("Tab Help"), 
+helptab3Button <- buttonRcmdr(tab3, text = gettext("Tab Help"), 
         foreground = "darkgreen", command = onHelpTabEstimable, 
         default = "normal", borderwidth = 3)
 tkconfigure(helptab3Button, takefocus=0)
 tkgrid(helptab3Button, sticky="e", columnspan=6)
 
-estradioFrame <- ttklabelframe(tab3, text=gettextRcmdr("Mode of requesting estimable 2-factor interactions"))
+estradioFrame <- ttklabelframe(tab3, text=gettext("Mode of requesting estimable 2-factor interactions"))
 putRcmdr("estrbVariable", tclVar(.stored.design2FrF$estrbVariable))
-noestrb <- tkradiobutton(estradioFrame,text=gettextRcmdr("None"),variable=estrbVariable,value="none",command=onestrb)
-clearrb <- tkradiobutton(estradioFrame,text=gettextRcmdr("Selected interactions must be clear of aliasing with ANY 2-factor interactions"),variable=estrbVariable,value="clear",wraplength="500",justify="left",command=onestrb)
-distinctrb <- tkradiobutton(estradioFrame,text=gettextRcmdr("Selected interactions must be clear of aliasing with EACH OTHER"),variable=estrbVariable,value="distinct",wraplength="500",justify="left",command=onestrb)
+noestrb <- tkradiobutton(estradioFrame,text=gettext("None"),variable=estrbVariable,value="none",command=onestrb)
+clearrb <- tkradiobutton(estradioFrame,text=gettext("Selected interactions must be clear of aliasing with ANY 2-factor interactions"),variable=estrbVariable,value="clear",wraplength="500",justify="left",command=onestrb)
+distinctrb <- tkradiobutton(estradioFrame,text=gettext("Selected interactions must be clear of aliasing with EACH OTHER"),variable=estrbVariable,value="distinct",wraplength="500",justify="left",command=onestrb)
 ## deactivate all fields on this tab, if this box is not checked
-estlabel <- tklabel(estradioFrame, text=gettextRcmdr("NOTE: Resolution entry on tab Base Settings is ignored, if choice is not None"))
+estlabel <- tklabel(estradioFrame, text=gettext("NOTE: Resolution entry on tab Base Settings is ignored, if choice is not None"))
 tkgrid(noestrb, sticky="w")
 tkgrid(clearrb, sticky="w")
 tkgrid(distinctrb, sticky="w")
 tkgrid(estlabel, sticky="w")
 
-resoFrame <- ttklabelframe(tab3,text=gettextRcmdr("Minimum Resolution"))
-resolabel <- tklabel(resoFrame, text=gettextRcmdr("Per default, at least resolution IV is required. \nThis is natural for most applications."),
+resoFrame <- ttklabelframe(tab3,text=gettext("Minimum Resolution"))
+resolabel <- tklabel(resoFrame, text=gettext("Per default, at least resolution IV is required. \nThis is natural for most applications."),
                     justify="left")
 res3cbVariable <- tclVar(.stored.design2FrF$cbInitials[10])
-res3cb <- ttkcheckbutton(resoFrame,text=gettextRcmdr("Permit a resolution III design"),variable=res3cbVariable)
+res3cb <- ttkcheckbutton(resoFrame,text=gettext("Permit a resolution III design"),variable=res3cbVariable)
 tkgrid(resolabel, sticky="w", columnspan=5)
 tkgrid(res3cb, sticky="w", columnspan=5)
 
@@ -1320,16 +1331,16 @@ else tkgrid(estradioFrame, resoFrame, sticky="w", columnspan=5)
 
 ## create empty row
 tkgrid(tklabel(tab3,text="   "))
-selFrame <- ttklabelframe(tab3, text=gettextRcmdr("Select 2-factor interactions"))
-comprradioFrame <- ttklabelframe(selFrame, text=gettextRcmdr("Type of specification"))
+selFrame <- ttklabelframe(tab3, text=gettext("Select 2-factor interactions"))
+comprradioFrame <- ttklabelframe(selFrame, text=gettext("Type of specification"))
 
 ## design from older version of RcmdrPlugin.DoE
 if (is.null(.stored.design2FrF$comprrbVariable)) 
          .stored.design2FrF$comprrbVariable <- "manual"
 putRcmdr("comprrbVariable", tclVar(.stored.design2FrF$comprrbVariable))
-manualestrb <- tkradiobutton(comprradioFrame,text=gettextRcmdr("Select manually"),
+manualestrb <- tkradiobutton(comprradioFrame,text=gettext("Select manually"),
       variable=comprrbVariable,value="manual",command=oncomprestrb)
-comprestrb <- tkradiobutton(comprradioFrame,text=gettextRcmdr("Pre-specified structure from two groups of factors"),
+comprestrb <- tkradiobutton(comprradioFrame,text=gettext("Pre-specified structure from two groups of factors"),
       variable=comprrbVariable,value="compr",wraplength="500",justify="left",command=oncomprestrb)
 
 varlistshortt=(strsplit(tclvalue(varlistshort)," ")[[1]])
@@ -1364,11 +1375,11 @@ tkgrid(comprradioFrame, sticky="w", columnspan=6)
 if (!tclvalue(comprrbVariable)=="compr") tkconfigure(comprclassEntry, state="disabled")
 
 estbuttonFrame <- ttkframe(selFrame)
-selectButton <- buttonRcmdr(estbuttonFrame, text = gettextRcmdr(">"), 
+selectButton <- buttonRcmdr(estbuttonFrame, text = gettext(">"), 
         foreground = "darkgreen", command = onSelect, 
         default = "normal", borderwidth = 3)
 tkgrid(selectButton)
-deselectButton <- buttonRcmdr(estbuttonFrame, text = gettextRcmdr("<"), 
+deselectButton <- buttonRcmdr(estbuttonFrame, text = gettext("<"), 
         foreground = "darkgreen", command = onDeselect, 
         default = "normal", borderwidth = 3)
 tkgrid(deselectButton)
@@ -1399,11 +1410,11 @@ putRcmdr("notest2fis", variableListBox(selFrame, variableList=intaclistt, listHe
      est2fis$varlist <- est2fislist
 
 
-maxtimeFrame <- ttklabelframe(selFrame, text=gettextRcmdr("Limit search time"))
+maxtimeFrame <- ttklabelframe(selFrame, text=gettext("Limit search time"))
 maxtimelabel <- tklabel(maxtimeFrame, 
-    text=gettextRcmdr("The search can take very long.\nIf it times out unsuccessfully, \nexpert users may try the command line mode of function FrF2 that allows more control options."),
+    text=gettext("The search can take very long.\nIf it times out unsuccessfully, \nexpert users may try the command line mode of function FrF2 that allows more control options."),
     justify="left", wraplength="280")
-maxtimeentrylabel <- tklabel(maxtimeFrame, text=gettextRcmdr("Maximum search time in seconds"))
+maxtimeentrylabel <- tklabel(maxtimeFrame, text=gettext("Maximum search time in seconds"))
 maxtimeVar <- tclVar(.stored.design2FrF$maxtimeVar)
 maxtimeEntry <- tkentry(maxtimeFrame, textvariable=maxtimeVar)
 tkgrid(maxtimeentrylabel, sticky="w")
@@ -1445,19 +1456,19 @@ tkgrid(selFrame, sticky="ew", columnspan=6)
 #        }
 #}
 
-tkgrid(tklabel(tab4, text=gettextRcmdr("This tab will accomodate block or split-plot functionality.")), sticky="n")
+tkgrid(tklabel(tab4, text=gettext("This tab will accomodate block or split-plot functionality.")), sticky="n")
 
 ### tab5
 ## define frames for special activities on specials tab
-specialFrame <- ttklabelframe(tab5,text=gettextRcmdr("Any special non-standard requirements ?"))
+specialFrame <- ttklabelframe(tab5,text=gettext("Any special non-standard requirements ?"))
 
 ### widgets for special frame
 putRcmdr("specialrbVariable", tclVar(.stored.design2FrF$specialrbVariable) )
 ## for some reason, doesn't work with initialValue directly as text string
   specialrbFrame <- ttkframe(specialFrame)
-  nonerb <- tkradiobutton(specialrbFrame,text=gettextRcmdr("None"),variable=specialrbVariable,value="none", command=onRefresh)
-  hardrb <- tkradiobutton(specialrbFrame,text=gettextRcmdr("(Some) Hard to change factor(s)"),variable=specialrbVariable,value="hard", command=onRefresh)
-  debarrb <- tkradiobutton(specialrbFrame,text=gettextRcmdr("Some combinations impossible"),variable=specialrbVariable,value="debar", command=onRefresh)
+  nonerb <- tkradiobutton(specialrbFrame,text=gettext("None"),variable=specialrbVariable,value="none", command=onRefresh)
+  hardrb <- tkradiobutton(specialrbFrame,text=gettext("(Some) Hard to change factor(s)"),variable=specialrbVariable,value="hard", command=onRefresh)
+  debarrb <- tkradiobutton(specialrbFrame,text=gettext("Some combinations impossible"),variable=specialrbVariable,value="debar", command=onRefresh)
   tkgrid(nonerb,sticky="w")
   tkgrid(hardrb,sticky="w")
   tkgrid(debarrb,sticky="w")
@@ -1472,17 +1483,17 @@ if (tclvalue(specialrbVariable)=="none") tkgrid(specialFrame, sticky="nw",column
 #}
 
 if (tclvalue(specialrbVariable)=="debar"){
-   debarlabelFrame <- ttklabelframe(tab5,text=gettextRcmdr("WARNING"))
+   debarlabelFrame <- ttklabelframe(tab5,text=gettext("WARNING"))
    
    nrunEntryDebar <- ttkentry(tab5, textvariable=nrunVar)
-   debarFrame <- ttklabelframe(tab5, text=gettextRcmdr("Conditions for excluding combinations"))
+   debarFrame <- ttklabelframe(tab5, text=gettext("Conditions for excluding combinations"))
    tkgrid(tklabel(debarFrame,text="must think of a simple way of specifying conditions with clicking them together (or typing at users choice)",wraplength=500))
    tkgrid(tklabel(debarlabelFrame,text="If some experimental combinations are impossible, standard designs cannot be used. Please try to avoid this.\n\nIf it is unavoidable, estimable effects must be specified on the Estimable Model tab, with the third radio button in the top left frame activated.", wraplength=500, justify="left"),sticky="w") 
    tkgrid(specialFrame, debarlabelFrame, sticky="w")
 
    tkgrid(ttklabel(tab5,text="  "),sticky="w")
-   tkgrid(ttklabel(tab5,text=gettextRcmdr("Number of runs: ")),nrunEntryDebar,sticky="w")
-   tkgrid(ttklabel(tab5,text=gettextRcmdr("The number of runs need not be a power of 2 any more, as the design is determined as a non-orthogonal D-optimal design."), justify="left", wraplength=500),sticky="w",columnspan=2)
+   tkgrid(ttklabel(tab5,text=gettext("Number of runs: ")),nrunEntryDebar,sticky="w")
+   tkgrid(ttklabel(tab5,text=gettext("The number of runs need not be a power of 2 any more, as the design is determined as a non-orthogonal D-optimal design."), justify="left", wraplength=500),sticky="w",columnspan=2)
    tkgrid(ttklabel(tab5,text="  "),sticky="w")
       
    tkgrid(debarFrame, columnspan=2,sticky="w")
@@ -1493,7 +1504,7 @@ if (tclvalue(specialrbVariable)=="debar"){
 
 
 ## tab6 for exporting
-helptab6Button <- buttonRcmdr(tab6, text = gettextRcmdr("Tab Help"), 
+helptab6Button <- buttonRcmdr(tab6, text = gettext("Tab Help"), 
         foreground = "darkgreen", command = onHelpTab6, 
         default = "normal", borderwidth = 3)
 
@@ -1502,13 +1513,13 @@ exportlab <- ttklabel(tab6, textvariable=exportlabVar)
 tkgrid(ttklabel(tab6,text="Current design to be saved:"),exportlab,helptab6Button,sticky="w", pady=10) 
 
 ## radio buttons for choosing export type
-etradioFrame <- ttklabelframe(tab6, text=gettextRcmdr("(How to) Export ?"))
+etradioFrame <- ttklabelframe(tab6, text=gettext("(How to) Export ?"))
 etyperbVariable <- tclVar(.stored.design2FrF$etyperbVariable)
-noexprb <- tkradiobutton(etradioFrame,text=gettextRcmdr("no export"),variable=etyperbVariable,value="none")
-allrb <- tkradiobutton(etradioFrame,text=gettextRcmdr("all file types"),variable=etyperbVariable,value="all")
-rdarb <- tkradiobutton(etradioFrame,text=gettextRcmdr("rda only"),variable=etyperbVariable,value="rda")
-htmlrb <- tkradiobutton(etradioFrame,text=gettextRcmdr("html and rda"),variable=etyperbVariable,value="html")
-csvrb <- tkradiobutton(etradioFrame,text=gettextRcmdr("csv and rda"),variable=etyperbVariable,value="csv")
+noexprb <- tkradiobutton(etradioFrame,text=gettext("no export"),variable=etyperbVariable,value="none")
+allrb <- tkradiobutton(etradioFrame,text=gettext("all file types"),variable=etyperbVariable,value="all")
+rdarb <- tkradiobutton(etradioFrame,text=gettext("rda only"),variable=etyperbVariable,value="rda")
+htmlrb <- tkradiobutton(etradioFrame,text=gettext("html and rda"),variable=etyperbVariable,value="html")
+csvrb <- tkradiobutton(etradioFrame,text=gettext("csv and rda"),variable=etyperbVariable,value="csv")
 tkgrid(noexprb, sticky="w")
 tkgrid(allrb, sticky="w")
 tkgrid(rdarb, sticky="w")
@@ -1516,20 +1527,20 @@ tkgrid(htmlrb, sticky="w")
 tkgrid(csvrb, sticky="w")
 
 ## radio buttons for choosing export decimal separator
-decimalradioFrame <- ttklabelframe(tab6, text=gettextRcmdr("Decimal Separator ?"))
+decimalradioFrame <- ttklabelframe(tab6, text=gettext("Decimal Separator ?"))
 decimalrbVariable <- tclVar(.stored.design2FrF$decimalrbVariable)
-defaultrb <- tkradiobutton(decimalradioFrame,text=gettextRcmdr("default"),variable=decimalrbVariable, value="default")
-pointrb <- tkradiobutton(decimalradioFrame,text=gettextRcmdr("."),variable=decimalrbVariable, value=".")
-commarb <- tkradiobutton(decimalradioFrame,text=gettextRcmdr(","),variable=decimalrbVariable, value=",")
+defaultrb <- tkradiobutton(decimalradioFrame,text=gettext("default"),variable=decimalrbVariable, value="default")
+pointrb <- tkradiobutton(decimalradioFrame,text=gettext("."),variable=decimalrbVariable, value=".")
+commarb <- tkradiobutton(decimalradioFrame,text=gettext(","),variable=decimalrbVariable, value=",")
 tkgrid(defaultrb, sticky="w")  ## in this case, leave default option from options
 tkgrid(pointrb, sticky="w")
 tkgrid(commarb, sticky="w")
 
 ## export directory
-dirFrame <- ttklabelframe(tab6, text=gettextRcmdr("Storage Directory"))
+dirFrame <- ttklabelframe(tab6, text=gettext("Storage Directory"))
 putRcmdr("dirVar", tclVar(.stored.design2FrF$dirVar))
 dirEntry <- tkentry(dirFrame, width="50", textvariable=dirVar)
-dirButton <- buttonRcmdr(dirFrame, text = gettextRcmdr("Change directory"), 
+dirButton <- buttonRcmdr(dirFrame, text = gettext("Change directory"), 
         foreground = "darkgreen", width = "20", command = onChangeDir, 
         default = "normal", borderwidth = 3)
 tkgrid(dirEntry, dirButton, sticky="w")
@@ -1538,9 +1549,9 @@ tkgrid.configure(dirEntry,padx=15)
 ## export file name
 putRcmdr("fileVar", tclVar(.stored.design2FrF$fileVar))
 fileEntry <- tkentry(tab6, width="20", textvariable=fileVar)
-efnamelabel <- tklabel(tab6,text=gettextRcmdr("Export file names: name below with appropriate endings (html or csv, and rda)"))
+efnamelabel <- tklabel(tab6,text=gettext("Export file names: name below with appropriate endings (html or csv, and rda)"))
 putRcmdr("replacecbVariable", tclVar(.stored.design2FrF$cbInitials[8]))
-replacecb <- ttkcheckbutton(tab6,text=gettextRcmdr("Replace file(s), if exists"),variable=replacecbVariable)
+replacecb <- ttkcheckbutton(tab6,text=gettext("Replace file(s), if exists"),variable=replacecbVariable)
 
 ## always grid details, as otherwise default file name does not work
 ## design name info and help button have already been gridded above
@@ -1555,16 +1566,16 @@ tkgrid(replacecb, sticky="w", columnspan=5)
 ## add buttons outside the notebook
 buttonFrame <- tkframe(topdes2)
 ## die sind aber nicht dunkelgruen ...
-refreshButton <- buttonRcmdr(buttonFrame, text = gettextRcmdr("Refresh form"), 
+refreshButton <- buttonRcmdr(buttonFrame, text = gettext("Refresh form"), 
         foreground = "darkgreen", width = "12", command = onRefresh, 
         default = "normal", borderwidth = 3)
-storeButton <- buttonRcmdr(buttonFrame, text = gettextRcmdr("Store form"), 
+storeButton <- buttonRcmdr(buttonFrame, text = gettext("Store form"), 
         foreground = "darkgreen", width = "12", command = onStore, 
         default = "normal", borderwidth = 3)
-loadButton <- buttonRcmdr(buttonFrame, text = gettextRcmdr("Load form"), 
+loadButton <- buttonRcmdr(buttonFrame, text = gettext("Load form"), 
         foreground = "darkgreen", width = "12", command = onLoad, 
         default = "normal", borderwidth = 3)
-resetButton <- buttonRcmdr(buttonFrame, text = gettextRcmdr("Reset form"), 
+resetButton <- buttonRcmdr(buttonFrame, text = gettext("Reset form"), 
         foreground = "darkgreen", width = "12", command = onReset, 
         default = "normal", borderwidth = 3)
 #        tkgrid(refreshButton,sticky="w")
@@ -1635,11 +1646,11 @@ else {
 ## have others disable special again
 #if (as.logical(as.numeric(tclvalue(specialcbVariable)))){
 #if (tclvalue(specialrbVariable) == "block" || tclvalue(specialrbVariable) == "splitplot")
-#RcmdrTkmessageBox(gettextRcmdr("You cannot declare impossible combinations for blocked or split-plot designs. Please resolve."), 
+#RcmdrTkmessageBox(gettext("You cannot declare impossible combinations for blocked or split-plot designs. Please resolve."), 
 #     icon="error", type="ok", title="Conflict")
 #  tcl(tn, "tab", 4, state="normal")
 #if (!tclvalue(hardVar) == "0")
-#     RcmdrTkmessageBox(gettextRcmdr("You cannot declare impossible combinations for designs with hard-to-change factors. Please resolve."), 
+#     RcmdrTkmessageBox(gettext("You cannot declare impossible combinations for designs with hard-to-change factors. Please resolve."), 
 #     icon="error", type="ok", title="Conflict")
 #  tcl(tn, "tab", 4, state="normal")
 #}else {
@@ -1648,10 +1659,10 @@ else {
 
 #if (as.numeric(tclvalue(hardVar))>0){
 #if (tclvalue(specialrbVariable) == "block" || tclvalue(specialrbVariable) == "splitplot")
-#RcmdrTkmessageBox(gettextRcmdr("You cannot combine hard-to-change variables with blocked or split-plot designs. (A split-plot design in itself can often take care of hard-to-change variables.) Please resolve."), 
+#RcmdrTkmessageBox(gettext("You cannot combine hard-to-change variables with blocked or split-plot designs. (A split-plot design in itself can often take care of hard-to-change variables.) Please resolve."), 
 #     icon="error", type="ok", title="Conflict")
 #if (tclvalue(specialrbVariable) == "estimable")
-#RcmdrTkmessageBox(gettextRcmdr("You cannot combine hard-to-change variables with estimable models. Please resolve."), 
+#RcmdrTkmessageBox(gettext("You cannot combine hard-to-change variables with estimable models. Please resolve."), 
 #     icon="error", type="ok", title="Conflict")
 #}
 if (exists("activestab.tn", where="RcmdrEnv")){

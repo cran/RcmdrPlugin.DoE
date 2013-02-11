@@ -1,3 +1,6 @@
+## one instance of assign replaced by justDoIt(have to intermediately store hilf in RcmdrEnv)
+## one instance of assign replaced by justDoIt
+
 Menu.pb2level <- function(){
 initializeDialogDoE(title=gettextRcmdr("Create 2-level screening design ..."))   
      ## function initializeDialogDoE assumes topdes2 as windowname
@@ -116,6 +119,7 @@ onOK <- function(){
         if (class(hilf)[1]=="try-error") {
             Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
             errorCondition(window=topdes2,recall=Menu.pb2level, message=gettextRcmdr(hilf))
+            rm(list=name, envir = .GlobalEnv)
              return()
             }
         logger(paste(name, "<-", command))
@@ -124,8 +128,10 @@ onOK <- function(){
         hilfatt <- design.info(hilf)
         hilfatt$creator <- .stored.design2pb
         class(hilfatt$creator) <- c("menu.design2pb", "list")
-        attr(hilf, "design.info") <- hilfatt
-        assign(name, hilf, envir=.GlobalEnv)
+        design.info(hilf) <- hilfatt
+        putRcmdr("hilf", hilf)
+        justDoIt(paste(name, "<- getRcmdr(\"hilf\")"))
+        rm("hilf", pos="RcmdrEnv")
         activeDataSet(name)
     ### exporting
     if (!tclvalue(etyperbVariable)=="none"){
@@ -244,7 +250,8 @@ onStore <- function(){
              }
           }
         storeRcmdr()
-        assign(savename.RcmdrPlugin.DoE, getRcmdr(".stored.design2pb"), envir=.GlobalEnv)
+        ## replace assign by justDoIt; assign(savename.RcmdrPlugin.DoE, getRcmdr(".stored.design2pb"), envir=.GlobalEnv)
+        justDoIt(paste(savename.RcmdrPlugin.DoE, "<- getRcmdr(\".stored.design2pb\")"))
         message(gettextRcmdr("inputs have been stored"))
         }
 }

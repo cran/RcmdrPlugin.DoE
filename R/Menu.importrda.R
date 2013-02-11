@@ -1,3 +1,5 @@
+## one instance of assign replaced by justDoIt
+
 Menu.importrdacsv <- function(){
 ## Aktualisierung des neuen Namens bei Änderung in designsel funktioniert noch nicht
 ## tkbind event vermutlich nicht gut gewählt!
@@ -54,7 +56,10 @@ onOK <- function(){
              return()
             }
 
-        assign(newname, hilf, envir=.GlobalEnv)
+        putRcmdr("hilf", hilf)
+        ## replace assign by justDoIt; assign(newname, hilf, envir=.GlobalEnv)
+        justDoIt(paste(newname, "<- getRcmdr(\"hilf\")"))
+        rm("hilf", pos="RcmdrEnv")
         logger(paste(newname, "<-", command))
         activeDataSet(newname)
         putRcmdr("fileVar", tclVar(""))

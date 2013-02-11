@@ -1,3 +1,5 @@
+## two instances of assign replaced by justDoIt
+
 Menu.oa <- function(){
 initializeDialogDoE(title=gettextRcmdr("Create main effects design from orthogonal array ..."))   
      ## function initializeDialogDoE assumes topdes2 as windowname
@@ -182,7 +184,10 @@ onOK <- function(){
         hilfatt$creator <- .stored.designoa
         class(hilfatt$creator) <- c("menu.designoa", "list")
         attr(hilf, "design.info") <- hilfatt
-        assign(name, hilf, envir=.GlobalEnv)
+        putRcmdr("hilf", hilf)
+        ## replace assign by justDoIt; assign(name, hilf, envir=.GlobalEnv)
+        justDoIt(paste(name, "<- getRcmdr(\"hilf\")"))
+        rm("hilf", pos="RcmdrEnv")
         activeDataSet(name)
     ### exporting
     if (!tclvalue(etyperbVariable)=="none"){
@@ -298,7 +303,8 @@ onStore <- function(){
              }
           }
         storeRcmdr()
-        assign(savename.RcmdrPlugin.DoE, getRcmdr(".stored.designoa"), envir=.GlobalEnv)
+        ## replace assign by justDoIt; assign(savename.RcmdrPlugin.DoE, getRcmdr(".stored.designoa"), envir=.GlobalEnv)
+        justDoIt(paste(savename.RcmdrPlugin.DoE, "<- getRcmdr(\".stored.designoa\")"))
         message(gettextRcmdr("inputs have been stored"))
         }
 }

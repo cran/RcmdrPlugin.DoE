@@ -1,3 +1,4 @@
+## two instances of assign replaced by justDoIt
 Menu.rsm <- function(response=NULL, factor.names=NULL){
     initializeDialog(title=gettextRcmdr("Response surface model"))
     .activeModel <- ActiveModel()
@@ -63,15 +64,17 @@ Menu.rsm <- function(response=NULL, factor.names=NULL){
 #            }
         formula <- paste(tclvalue(lhsVariable), tclvalue(rhsVariable), sep=" ~ ")
         if (as.logical(getRcmdr("coded"))) {
-            hilfnam <- paste(.activeDataSet, "coded",sep=".")
+            hilfnam <- paste(getRcmdr(".activeDataSet"), "coded",sep=".")
             if (exists(hilfnam, , envir=.GlobalEnv)){
               if ("no" == tclvalue(checkReplace(hilfnam, gettextRcmdr("Object")))){
                  errorCondition(window=top,recall=Menu.rsm, 
                      message=gettextRcmdr("Execution stopped by user:\ncoded design would have overwritten existing design"))
                      return()}
             }
-            assign(hilfnam, code.design(get(ActiveDataSet())), envir=.GlobalEnv)
-            logger(paste(hilfnam, " <- code.design(", getRcmdr(".activeDataSet"), ")"))
+            ## replace assign with justDoIt; assign(hilfnam, code.design(get(ActiveDataSet())), envir=.GlobalEnv)
+            cmd <- paste(hilfnam, " <- code.design(", getRcmdr(".activeDataSet"), ")")
+            justDoIt(cmd)
+            logger(cmd)
             putRcmdr(".activeDataSet", hilfnam)
             ## refresh active data set
             ActiveDataSet(hilfnam)
@@ -88,7 +91,11 @@ Menu.rsm <- function(response=NULL, factor.names=NULL){
             }
         
         logger(paste(modelValue, " <- ", command, sep=""))
-        assign(modelValue, hilf, envir=.GlobalEnv)
+        ## replacel assign with justDoIt; assign(modelValue, hilf, envir=.GlobalEnv)
+        putRcmdr("hilf", hilf)
+        ## replace assign by justDoIt; assign(modelValue, hilf, envir=.GlobalEnv)
+        justDoIt(paste(modelValue, "<- getRcmdr(\"hilf\")"))
+        rm("hilf", pos="RcmdrEnv")
         doItAndPrint(paste("summary(", modelValue, ")", sep=""))
         activeModel(modelValue)
         tkfocus(CommanderWindow())

@@ -1,3 +1,5 @@
+## two instances of assign replaced by justDoIt
+
 Menu.fac <- function(){
 initializeDialogDoE(title=gettextRcmdr("Create full factorial design ..."))   
      ## function initializeDialogDoE assumes topdes2 as windowname
@@ -141,7 +143,10 @@ onOK <- function(){
         hilfatt$creator <- .stored.designfac
         class(hilfatt$creator) <- c("menu.designfac", "list")
         attr(hilf, "design.info") <- hilfatt
-        assign(name, hilf, envir=.GlobalEnv)
+        putRcmdr("hilf", hilf)
+        ## replace assign by justDoIt; assign(name, hilf, envir=.GlobalEnv)
+        justDoIt(paste(name, "<- getRcmdr(\"hilf\")"))
+        rm("hilf", pos="RcmdrEnv")
         activeDataSet(name)
     ### exporting
     if (!tclvalue(etyperbVariable)=="none"){
@@ -260,7 +265,8 @@ onStore <- function(){
              }
           }
         storeRcmdr()
-        assign(savename.RcmdrPlugin.DoE, getRcmdr(".stored.designfac"), envir=.GlobalEnv)
+        ## replace assign by justDoIt; assign(savename.RcmdrPlugin.DoE, getRcmdr(".stored.designfac"), envir=.GlobalEnv)
+        justDoIt(paste(savename.RcmdrPlugin.DoE, "<- getRcmdr(\".stored.designfac\")"))
         message(gettextRcmdr("inputs have been stored"))
         }
 }

@@ -1,3 +1,4 @@
+## two instances of assign replaced by justDoIt
 Menu.lhs <- function(){
 initializeDialogDoE(title=gettextRcmdr("Create latin hypercube sample ..."))   
      ## function initializeDialogDoE assumes topdes2 as windowname
@@ -123,7 +124,10 @@ onOK <- function(){
         hilfatt$creator <- .stored.designlhs
         class(hilfatt$creator) <- c("menu.designlhs", "list")
         attr(hilf, "design.info") <- hilfatt
-        assign(name, hilf, envir=.GlobalEnv)
+        putRcmdr("hilf", hilf)
+        ## replace assign by justDoIt; assign(name, hilf, envir=.GlobalEnv)
+        justDoIt(paste(name, "<- getRcmdr(\"hilf\")"))
+        rm("hilf", pos="RcmdrEnv")
         activeDataSet(name)
     ### exporting
     if (!tclvalue(etyperbVariable)=="none"){
@@ -242,7 +246,8 @@ onStore <- function(){
              }
           }
         storeRcmdr()
-        assign(savename.RcmdrPlugin.DoE, getRcmdr(".stored.designlhs"), envir=.GlobalEnv)
+        ## replace assign by justDoIt; assign(savename.RcmdrPlugin.DoE, getRcmdr(".stored.designlhs"), envir=.GlobalEnv)
+        justDoIt(paste(savename.RcmdrPlugin.DoE, "<- getRcmdr(\".stored.designlhs\")"))
         message(gettextRcmdr("inputs have been stored"))
         }
 }

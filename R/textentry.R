@@ -1,3 +1,5 @@
+## four replacements of assign
+
 textentry <- function(){
    ## function returns FALSE
    ## but that doesn't matter
@@ -5,7 +7,8 @@ textentry <- function(){
    initializeDialog(title=gettextRcmdr("Enter the storage name ..."))
    
    ## make sure that R knows that user cancelled
-   assign("savename.RcmdrPlugin.DoE",NULL,envir=.GlobalEnv)
+   ## replace assign by justDoIt; assign("savename.RcmdrPlugin.DoE",NULL,envir=.GlobalEnv)
+   putRcmdr("savename.RcmdrPlugin.DoE", NULL)
    textVar <- tclVar(gettextRcmdr("stored.design.inputs"))
    textEntry <- tkentry(top, width="20", textvariable=textVar)
    tkgrid(textEntry)
@@ -13,7 +16,8 @@ textentry <- function(){
     onOK <- function(){
         text <- tclvalue(textVar)
         closeDialog()
-        assign("savename.RcmdrPlugin.DoE", text, envir=.GlobalEnv)
+        ## replace assign by justDoIt; assign("savename.RcmdrPlugin.DoE", text, envir=.GlobalEnv)
+        putRcmdr("savename.RcmdrPlugin.DoE", text)
   }
 
    OKCancelHelp()
@@ -31,7 +35,9 @@ textcorrect <- function(message){
    ## make sure that R knows that user cancelled
    
    textVar <- tclVar(gettextRcmdr(savename.RcmdrPlugin.DoE))
-   assign("savename.RcmdrPlugin.DoE",NULL,envir=.GlobalEnv)
+   ## replace assign by justDoIt; assign("savename.RcmdrPlugin.DoE",NULL,envir=.GlobalEnv)
+   putRcmdr("savename.RcmdrPlugin.DoE", NULL)
+   
    textEntry <- tkentry(top, width="20", textvariable=textVar)
    tkgrid(tklabel(top,text=message))
    tkgrid(textEntry)
@@ -39,7 +45,8 @@ textcorrect <- function(message){
     onOK <- function(){
         text <- tclvalue(textVar)
         closeDialog()
-        assign("savename.RcmdrPlugin.DoE", text, envir=.GlobalEnv)
+        ## replace assign by justDoIt; assign("savename.RcmdrPlugin.DoE", text, envir=.GlobalEnv)
+        putRcmdr("savename.RcmdrPlugin.DoE", text)
    }
 
    OKCancelHelp()

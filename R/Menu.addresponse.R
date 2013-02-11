@@ -1,3 +1,5 @@
+## one instance of assign replaced by justDoIt
+
 Menu.addresponse <- function(){
 initializeDialogDoE(title=gettextRcmdr("Add response ..."))   
        ## refresh bei Nutzung der radiobuttons
@@ -65,7 +67,11 @@ onOK <- function(){
              errorCondition(window=topdes2, recall=Menu.addresponse, message=gettextRcmdr(hilf))
              return()
             }
-        assign(newname, hilf, envir=.GlobalEnv)
+        ## replace assign by justDoIt; assign(newname, hilf, envir=.GlobalEnv)
+        putRcmdr("hilf", hilf)
+        ## replace assign by justDoIt; assign(newname, hilf, envir=.GlobalEnv)
+        justDoIt(paste(newname, "<- getRcmdr(\"hilf\")"))
+        rm("hilf", pos="RcmdrEnv")
         logger(paste(newname, "<-", command))
         activeDataSet(newname)
         putRcmdr("nameVar", tclVar(""))

@@ -1,3 +1,5 @@
+## one instance of assign replaced by justDoIt
+
 Menu.linearModelDesign <- function(response=NULL){
     initializeDialog(title=gettextRcmdr("Linear model for experimental designs"))
     .activeModel <- ActiveModel()
@@ -64,9 +66,12 @@ Menu.linearModelDesign <- function(response=NULL){
             errorCondition(window=topdes2,recall=Menu.linearModelDesign, message=gettextRcmdr(hilf))
              return()
             }
-        
-        logger(paste(modelValue, " <- ", command, sep=""))
-        assign(modelValue, hilf, envir=.GlobalEnv)
+        cmd <- paste(modelValue, " <- ", command, sep="")
+        logger(cmd)
+        ## replace assign by justDoIt; assign(modelValue, hilf, envir=.GlobalEnv)
+        putRcmdr("hilf", hilf)
+        justDoIt(paste(modelValue, "<- getRcmdr(\"hilf\")"))
+        rm("hilf", pos="RcmdrEnv")
         doItAndPrint(paste("summary(", modelValue, ")", sep=""))
         activeModel(modelValue)
         putRcmdr("modelWithSubset", FALSE)  ## for avoiding problems with adding observation statistics

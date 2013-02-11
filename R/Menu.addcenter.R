@@ -1,3 +1,5 @@
+## one instance of assign replaced by justDoIt
+
 Menu.addcenter <- function(){
    .activeDataSet <- ActiveDataSet()
    di <- design.info(eval(parse(text=.activeDataSet)))
@@ -31,7 +33,10 @@ Menu.addcenter <- function(){
              return()
             }
       logger(paste(newname, "<-", command))
-      assign(newname, hilf, envir=.GlobalEnv)
+      ## replace assign by justDoIt; assign(newname, hilf, envir=.GlobalEnv)
+      putRcmdr("hilf", hilf)
+      justDoIt(paste(newname, "<- getRcmdr(\"hilf\")"))
+        rm("hilf", pos="RcmdrEnv")
      closeDialog(window=top)
      activeDataSet(newname)
      tkfocus(CommanderWindow())

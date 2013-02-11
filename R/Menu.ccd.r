@@ -1,3 +1,5 @@
+## two instances of assign replaced by justDoIt
+
 Menu.ccd <- function(){
     putRcmdr("designs", listDesigns2(type="FrF2"))
 ## the next three rows should be omittable
@@ -130,7 +132,10 @@ onOK <- function(){
         hilfatt$creator <- .stored.designccd
         class(hilfatt$creator) <- c("menu.designccd", "list")
         attr(hilf, "design.info") <- hilfatt
-        assign(name, hilf, envir=.GlobalEnv)
+        putRcmdr("hilf", hilf)
+        ## replace assign by justDoIt; assign(name, hilf, envir=.GlobalEnv)
+        justDoIt(paste(name, "<- getRcmdr(\"hilf\")"))
+        rm("hilf", pos="RcmdrEnv")
         activeDataSet(name)
     ### exporting
     if (!tclvalue(etyperbVariable)=="none"){
@@ -235,7 +240,8 @@ onStore <- function(){
              }
           }
         storeRcmdr()
-        assign(savename.RcmdrPlugin.DoE, getRcmdr(".stored.designccd"), envir=.GlobalEnv)
+        ## replace assign by justDoIt; assign(savename.RcmdrPlugin.DoE, getRcmdr(".stored.designccd"), envir=.GlobalEnv)
+        justDoIt(paste(savename.RcmdrPlugin.DoE, "<- getRcmdr(\".stored.designccd\")"))
         message(gettextRcmdr("inputs have been stored"))
         }
 }
@@ -353,8 +359,8 @@ nameFrame <- ttkframe(tab1)
 
     designFrame <- ttklabelframe(tab1, text=gettextRcmdr("Determine the cube portion"))
     designsBox <- variableListBox(parentWindow=designFrame, designs, title=gettextRcmdr("Pick existing 2-level design"),
-        initialSelection=if (is.null(.activeDataSet) || !.activeDataSet %in% designs) NULL 
-             else which(.activeDataSet == designs) - 1)
+        initialSelection=if (is.null(getRcmdr(".activeDataSet")) || !getRcmdr(".activeDataSet") %in% designs) NULL 
+             else which(getRcmdr(".activeDataSet") == designs) - 1)
     designButton <- tkbutton(designFrame, text="Create new 2-level design", command=newFrF2)
     tkgrid(getFrame(designsBox), ttklabel(designFrame, text=" OR "), designButton, sticky="w", padx=10)
     tkconfigure(designButton, takefocus=0)

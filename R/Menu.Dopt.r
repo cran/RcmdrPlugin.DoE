@@ -1,6 +1,9 @@
+## one instance of assign replaced by justDoItDoE with modified command and justDoIt("design.info(name) <- hilfatt")
+## one instance of assign replaced by justDoIt
+
 Menu.Dopt <- function(){
     putRcmdr(".activeDataSet", ActiveDataSet())
-    putRcmdr("variables", colnames(get(.activeDataSet)))
+    putRcmdr("variables", colnames(get(getRcmdr(".activeDataSet"))))
 #candidate set is the active data set
 
 initializeDialogDoE(title=gettextRcmdr("D-optimal design ..."))   
@@ -124,7 +127,6 @@ onOK <- function(){
                   ",seed=",tclvalue(seedVar),")") 
 
         hilf <- justDoItDoE(command)
-print(hilf)
         if (class(hilf)[1]=="try-error") {
             Message(paste(gettextRcmdr("Offending command:"), "\n", command), type="error")
             errorCondition(window=topdes2,recall=Menu.Dopt, message=gettextRcmdr(hilf))
@@ -137,8 +139,11 @@ print(hilf)
         hilfatt <- design.info(hilf)
         hilfatt$creator <- .stored.designDopt
         class(hilfatt$creator) <- c("menu.designDopt", "list")
-        attr(hilf, "design.info") <- hilfatt
-        assign(name, hilf, envir=.GlobalEnv)
+        ## replace assign by justDoIt; assign(name, hilf, envir=.GlobalEnv)
+        design.info(hilf) <- hilfatt
+        putRcmdr("hilf", hilf)
+        justDoIt(paste(name, "<- getRcmdr(\"hilf\")"))
+        rm("hilf", pos="RcmdrEnv")
         activeDataSet(name)
     ### exporting
     if (!tclvalue(etyperbVariable)=="none"){
@@ -243,7 +248,8 @@ onStore <- function(){
              }
           }
         storeRcmdr()
-        assign(savename.RcmdrPlugin.DoE, getRcmdr(".stored.designDopt"), envir=.GlobalEnv)
+        ## replace assign by justDoIt; assign(savename.RcmdrPlugin.DoE, getRcmdr(".stored.designDopt"), envir=.GlobalEnv)
+        justDoIt(paste(savename.RcmdrPlugin.DoE, "<- getRcmdr(\".stored.designDopt\")"))
         message(gettextRcmdr("inputs have been stored"))
         }
 }
@@ -310,7 +316,7 @@ nameFrame <- ttkframe(tab1)
 #tkgrid(augmentrb, sticky="w")  ## in this case, leave default option from options
 #tkgrid(fromscratchrb, sticky="w")
 
-tkgrid(ttklabel(tab1, text=gettextRcmdr("The active data frame is the candidate data set:")), ttklabel(tab1, text=.activeDataSet), sticky="w")
+tkgrid(ttklabel(tab1, text=gettextRcmdr("The active data frame is the candidate data set:")), ttklabel(tab1, text=getRcmdr(".activeDataSet")), sticky="w")
 
 baseFrame <- ttklabelframe(tab1,text=gettextRcmdr("Details for D-optimization"))
 

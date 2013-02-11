@@ -1,3 +1,5 @@
+## one instance of assign replaced by justDoIt
+
 Menu.param <- function(){
    designs <- listDesigns()
    
@@ -27,7 +29,10 @@ Menu.param <- function(){
              return()
             }
       logger(paste(newname, "<-", command))
-      assign(newname, hilf, envir=.GlobalEnv)
+        putRcmdr("hilf", hilf)
+        ## replace assign by justDoIt; assign(newname, hilf, envir=.GlobalEnv)
+        justDoIt(paste(newname, "<- getRcmdr(\"hilf\")"))
+        rm("hilf", pos="RcmdrEnv")
      closeDialog(window=top)
      activeDataSet(newname)
      tkfocus(CommanderWindow())

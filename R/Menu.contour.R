@@ -24,7 +24,7 @@ if (exists("contours.at", where="RcmdrEnv"))
            rm("contours.at", pos="RcmdrEnv")
 
 ### default slice choices
-    putRcmdr("contours.default", lapply(get(.activeDataSet)[,varlistt], function(var) {
+    putRcmdr("contours.default", lapply(get(getRcmdr(".activeDataSet"))[,varlistt], function(var) {
         if (is.factor(var))
             factor(levels(var)[1], levels = levels(var))
         else round(mean(var),2)

@@ -1,2 +1,8 @@
-     import(tcltk, DoE.base, FrF2, DoE.wrapper)
+     import(DoE.base, FrF2, DoE.wrapper, Rcmdr)
+     ##importFrom(tcltk, tkfocus, tclvalue, ttkentry, ttkframe, ttkradiobutton, ttkscrollbar)
+     ## these are the ones changed by R Commander
+     export("fix")
      exportPattern("^[^\\.]")
+
+     S3method("fix",design)
+     S3method("fix",default)

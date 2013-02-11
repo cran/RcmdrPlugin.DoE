@@ -1,3 +1,4 @@
+## one instance of assign replaced
 Menu.wide <- function(){
 initializeDialog(window=tab6, title=gettextRcmdr("Change from long to wide format ..."),
        offset=c(-commanderPosition()+10))   
@@ -24,7 +25,10 @@ onOK <- function(){
              return()
             }
         logger(command)
-        assign(name, hilf, envir=.GlobalEnv)
+        putRcmdr("hilf", hilf)
+        ## replace assign by justDoIt; assign(name, hilf, envir=.GlobalEnv)
+        justDoIt(paste(name, "<- getRcmdr(\"hilf\")"))
+        rm("hilf", pos="RcmdrEnv")
         activeDataSet(name)
         closeDialog(window=tab6)
         tkwm.deiconify(CommanderWindow())
