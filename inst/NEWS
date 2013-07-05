@@ -1,5 +1,13 @@
 Version history for RcmdrPlugin.DoE: 
 
+05 Jul 2013, Version 0.12-1
+   - added dependence on relimp and tcltk in order to be able to remove these 
+     from DoE.base
+   - added functions showData, showData.default and showData.design 
+     to this package and removed it from DoE.base
+   - modified the maintainer address to match the sending address of the 
+     mail server
+
 11 Feb 2013, Version 0.12
    - adapted to new Rcmdr possibility of including plugin without closing 
      Commander window

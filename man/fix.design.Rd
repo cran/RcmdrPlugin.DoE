@@ -2,19 +2,73 @@
 \alias{fix}
 \alias{fix.design}
 \alias{fix.default}
+\alias{showData}
+\alias{showData.default}
+\alias{showData.design}
+
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{ Function to preserve class design when editing a design }
+\title{ Functions to preserve class design when editing a design 
+  and to use the view data button with class design objects}
 \description{
-This function allows to type in response data and other additional information 
+Function showData allows to view data, function fix allows to edit data. 
+For designs, it is only permitted to 
+type in response data and other additional information 
 like date or comments for experimental runs in R, such that all attributes 
 of the design objects are updated accordingly. However, it is recommended 
-to do such editing tasks outside of R, as R is not ideal for these.
+to do such editing tasks outside of R, as R is not ideal for these. 
 }
 \usage{
 ### generic function
 fix(x, ...)
 \method{fix}{default}(x, ...)
 \method{fix}{design}(x, ..., prompt=FALSE)
+showData(dataframe,colname.bgcolor = "grey50", 
+       rowname.bgcolor = "grey50", 
+       body.bgcolor = "white", 
+       colname.textcolor = "white", 
+       rowname.textcolor = "white", 
+       body.textcolor = "black",
+       font = "Courier 12", 
+       maxheight = 30, 
+       maxwidth = 80, 
+       title = NULL,
+       rowname.bar = "left",
+       colname.bar = "top",
+       rownumbers = FALSE, 
+       placement = "-20-40",
+       suppress.X11.warnings = TRUE)
+\method{showData}{default}(dataframe, 
+       colname.bgcolor = "grey50", 
+       rowname.bgcolor = "grey50", 
+       body.bgcolor = "white", 
+       colname.textcolor = "white", 
+       rowname.textcolor = "white", 
+       body.textcolor = "black",
+       font = "Courier 12", 
+       maxheight = 30, 
+       maxwidth = 80, 
+       title = NULL,
+       rowname.bar = "left",
+       colname.bar = "top",
+       rownumbers = FALSE, 
+       placement = "-20-40",
+       suppress.X11.warnings = TRUE)
+\method{showData}{design}(dataframe,
+       colname.bgcolor = "grey50", 
+       rowname.bgcolor = "grey50", 
+       body.bgcolor = "white", 
+       colname.textcolor = "white", 
+       rowname.textcolor = "white", 
+       body.textcolor = "black",
+       font = "Courier 12", 
+       maxheight = 30, 
+       maxwidth = 80, 
+       title = NULL,
+       rowname.bar = "left",
+       colname.bar = "top",
+       rownumbers = FALSE, 
+       placement = "-20-40",
+       suppress.X11.warnings = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -24,9 +78,26 @@ fix(x, ...)
   \item{prompt}{ logical asking whether user is to be prompted for selecting 
                  which new numeric variable is a response; default: all new numeric 
                  variables are response variables }
+    \item{dataframe}{data frame; if of S3 class \code{design}, the method for \code{design} is used, 
+       otherwise the default method}
+   \item{colname.bgcolor}{as documented in \pkg{\link[relimp:showData]{relimp}}}
+      \item{rowname.bgcolor}{as documented in \pkg{\link[relimp:showData]{relimp}}}
+      \item{body.bgcolor}{as documented in \pkg{\link[relimp:showData]{relimp}}}
+      \item{colname.textcolor}{as documented in \pkg{\link[relimp:showData]{relimp}}}
+      \item{rowname.textcolor}{as documented in \pkg{\link[relimp:showData]{relimp}}}
+      \item{body.textcolor}{as documented in \pkg{\link[relimp:showData]{relimp}}}
+      \item{font}{as documented in \pkg{\link[relimp:showData]{relimp}}}
+      \item{maxheight}{as documented in \pkg{\link[relimp:showData]{relimp}}}
+      \item{maxwidth}{as documented in \pkg{\link[relimp:showData]{relimp}}}
+      \item{title}{as documented in \pkg{\link[relimp:showData]{relimp}}}
+      \item{rowname.bar}{as documented in \pkg{\link[relimp:showData]{relimp}}}
+      \item{colname.bar}{as documented in \pkg{\link[relimp:showData]{relimp}}}
+      \item{rownumbers}{as documented in \pkg{\link[relimp:showData]{relimp}}}
+      \item{placement}{as documented in \pkg{\link[relimp:showData]{relimp}}}
+      \item{suppress.X11.warnings}{as documented in \pkg{\link[relimp:showData]{relimp}}}
 }
 \details{
-Function fix is made into an S3 generic. The default method preserves the 
+Function \code{fix} is made into an S3 generic. The default method preserves the 
 functionality from package \pkg{utils} for all objects that are not of class 
 \code{\link{design}}. 
 
@@ -46,6 +117,15 @@ data editor which leads to an extra row with missing values,
 a prompt allows to abort the changes; if changes are committed, the data frame 
 is stored under its original name without any of its attributes (and can thus 
 no longer be treated by any special tools for design objects).
+
+    The default method for \code{showData} is the function from package \pkg{\link[relimp:showData]{relimp}}, 
+    which is also used in R-Commander for viewing data sets. The method for class \code{design} objects 
+    is needed for successfully using the view button of \code{design} dataframes in R-commander. 
+    They are undesigned before viewing. However, it is preferrable to inspect a printout from function 
+    \code{print.design} which provides additional information. 
+    This can also be done in the R-Commander using the \code{Design} menu in package \code{RcmdrPlugin.DoE} 
+    (to be available soon).      
+
 }
 \value{
 For the default function, refer to \code{\link[utils]{fix}} and the links therein. 
@@ -61,6 +141,7 @@ function should be called with \code{prompt=TRUE} so that these are not
 taken to be response variables. Automatic default analyses (not yet available) would otherwise 
 include analyses for these variables.
 }
+
 \section{Warning}{ NOTE: Editing the data in R is only helpful for very small examples, 
 especially when using the default editor under Windows. 
 

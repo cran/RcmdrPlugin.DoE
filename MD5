@@ -1,5 +1,5 @@
-b1e70bdeabc933f31fb01802dd913b2c *DESCRIPTION
-baca0e845ef3ac103c6d8d20445f2fd5 *NAMESPACE
+8c17ac27d80ac51ba2b990defceca897 *DESCRIPTION
+28c2155852c0e5ace1db1a621ec68c14 *NAMESPACE
 42fd21470a55ee57d35b7cf36dcd0a68 *R/Menu.Dopt.r
 79cc1679c826eced864f34e93ade27a6 *R/Menu.EffectPlots.R
 48f3169705fa4681574841fec3fac3e8 *R/Menu.FrF2level.R
@@ -55,11 +55,12 @@ f2103c0d76611eb007c36ba2b913a5ee *R/menu.defaults.R
 71afb24c7e80110d4000e7aa174dc91e *R/menushelp.R
 815e157abef5b248aa46a41e4661c56e *R/modelFormulaDoE.R
 1f0ef5ddf5edc48b39d90dfdc35ee0fc *R/rsmFormula.R
+ba2df12e08965c3f60dba5c157a30817 *R/showData.R
 c9feba2a9d276becffe5b3a18dade359 *R/subsetBoxDoE.R
 82a5feba68f02ea0a6c1a13654e374ba *R/summarize.design.R
 e6fadb40b3680b18690dfbaead674533 *R/textentry.R
-70c370870df2418a736f30163b1e75cb *RcmdrPlugin.DoE-Ex.R
-fc4e30bf31bd2d382621ebfcc8557d04 *inst/NEWS
+101b6ce4c0ee8c81647f3432d2743651 *RcmdrPlugin.DoE-Ex.R
+0593d1a48fca01d10ba11f697098a817 *inst/NEWS
 ba4e3cca60d438929ba545e9eb749a6e *inst/etc/menus.txt
 f9968be61476d8a0311775aaae94d617 *inst/images/MaxC2res3image.gif
 39a2be0ca9ccb0c8d5e2a61022d18cc0 *inst/images/MaxC2res4image.gif
@@ -124,4 +125,4 @@ a2736987d8fcb71d1811c920aaf9f7fb *man/Menu.summarize.Rd
 48b92a35bb1dd0ca6803ec26b070b9f2 *man/PlotMeansDoE.menu.Rd
 b1b589761328357dce4049f2740b5525 *man/RcmdrPlugin.DoE-package.Rd
 8dbf2bd8536ae9ba58ce251cccddaa3e *man/RcmdrPlugin.DoEUndocumentedFunctions.Rd
-112286ca08c6e96461167441f8eb31f8 *man/fix.design.Rd
+2f27a1d506703746a21a6691adf1aab6 *man/fix.design.Rd

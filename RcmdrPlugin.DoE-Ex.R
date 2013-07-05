@@ -4,7 +4,7 @@ options(warn = 1)
 options(pager = "console")
 library('RcmdrPlugin.DoE')
 
-assign(".oldSearch", search(), pos = 'CheckExEnv')
+base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 cleanEx()
 nameEx("fix.design")
 ### * fix.design
@@ -12,8 +12,10 @@ nameEx("fix.design")
 flush(stderr()); flush(stdout())
 
 ### Name: fix.design
-### Title: Function to preserve class design when editing a design
-### Aliases: fix fix.design fix.default
+### Title: Functions to preserve class design when editing a design and to
+###   use the view data button with class design objects
+### Aliases: fix fix.design fix.default showData showData.default
+###   showData.design
 ### Keywords: array design
 
 ### ** Examples
@@ -34,7 +36,8 @@ flush(stderr()); flush(stdout())
 
 ### * <FOOTER>
 ###
-cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
+options(digits = 7L)
+base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
 grDevices::dev.off()
 ###
 ### Local variables: ***
