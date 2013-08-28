@@ -14,6 +14,7 @@ if (!pkgname %in% plugins) {
                  closeCommander(ask=FALSE, ask.save=TRUE)
            }
    }   
+  Commander()
 }
 packageStartupMessage(
 "\nALWAYS make sure you DO NOT WORK ON THE ONLY VERSION of your experimental data.\n",
@@ -26,7 +27,6 @@ packageStartupMessage(
 "please report such issues!\n"
 )
 
-Commander()
 }
 
 # get rid of notes in R CMD check for 2.15.1 plus

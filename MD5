@@ -1,5 +1,5 @@
-8c17ac27d80ac51ba2b990defceca897 *DESCRIPTION
-28c2155852c0e5ace1db1a621ec68c14 *NAMESPACE
+8105895928388a39fe43761a1dcfed7c *DESCRIPTION
+0b28578fd5680bd78d8ef2fc773dd35d *NAMESPACE
 42fd21470a55ee57d35b7cf36dcd0a68 *R/Menu.Dopt.r
 79cc1679c826eced864f34e93ade27a6 *R/Menu.EffectPlots.R
 48f3169705fa4681574841fec3fac3e8 *R/Menu.FrF2level.R
@@ -37,7 +37,8 @@ b7d20f4823936553d304ac476ac7869f *R/Menu.plot.R
 8df064dfdfe57c14ef67f9b563b40b2a *R/Menu.summarize.R
 287e24f071fa8a1734491d64760f2b92 *R/Menu.tab.R
 998e7cfa437dc00ae37a48853c84a0ad *R/Menu.wide.R
-8eb6d24c8fbb86194569374fc68eb0ea *R/aaa.R
+ac91543e9de29215991ba4bb92cd69bd *R/aaa.R
+d13a2ffeefbb0e57ea53f3744e476034 *R/checkWarnings.R
 211ec31cd44f4345b17a51d1d6a08ea1 *R/checkers.R
 a4c260ad216ad730986dbfeb4931fdfd *R/dc.R
 f55f13332a0fc5ebec3a9935052f4e04 *R/design.info.design.R
@@ -48,7 +49,7 @@ b93bd2855dfd770b3d8dc90ca5b30cdc *R/fix.R
 8b0ef3a82d922d1099254d4b0bdf8da3 *R/fix.design.R
 b914c22936c06bc9097961272f9c88a2 *R/fpairsc.R
 e21b9945cdf90d9bc44ea2d6ff111e14 *R/initializeDialogDoE.R
-0d29d3f050efd8ece89866aa6ad2fd23 *R/justDoItDoE.R
+e5e10c51ffe8e6518f42ce7a8f0a6cdf *R/justDoItDoE.R
 381f527f71309718a33d16b449259eb8 *R/listObjects.R
 e216345837553b59d17db253719fde80 *R/loadworkspace.R
 f2103c0d76611eb007c36ba2b913a5ee *R/menu.defaults.R
@@ -59,8 +60,7 @@ ba2df12e08965c3f60dba5c157a30817 *R/showData.R
 c9feba2a9d276becffe5b3a18dade359 *R/subsetBoxDoE.R
 82a5feba68f02ea0a6c1a13654e374ba *R/summarize.design.R
 e6fadb40b3680b18690dfbaead674533 *R/textentry.R
-101b6ce4c0ee8c81647f3432d2743651 *RcmdrPlugin.DoE-Ex.R
-0593d1a48fca01d10ba11f697098a817 *inst/NEWS
+b48bd65f780ae99c4e6409fb10177d2a *inst/NEWS
 ba4e3cca60d438929ba545e9eb749a6e *inst/etc/menus.txt
 f9968be61476d8a0311775aaae94d617 *inst/images/MaxC2res3image.gif
 39a2be0ca9ccb0c8d5e2a61022d18cc0 *inst/images/MaxC2res4image.gif
@@ -124,5 +124,5 @@ a2736987d8fcb71d1811c920aaf9f7fb *man/Menu.summarize.Rd
 5c8775c841b194a43ff623bec1d5f2e4 *man/Menus.Rd
 48b92a35bb1dd0ca6803ec26b070b9f2 *man/PlotMeansDoE.menu.Rd
 b1b589761328357dce4049f2740b5525 *man/RcmdrPlugin.DoE-package.Rd
-8dbf2bd8536ae9ba58ce251cccddaa3e *man/RcmdrPlugin.DoEUndocumentedFunctions.Rd
+0ec38fa052e1c407a0f56de196c2ab7c *man/RcmdrPlugin.DoEUndocumentedFunctions.Rd
 2f27a1d506703746a21a6691adf1aab6 *man/fix.design.Rd

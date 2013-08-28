@@ -1,5 +1,11 @@
 Version history for RcmdrPlugin.DoE: 
 
+28 Aug 2013, Version 0.12-2
+   - fixed a bug in the startup that affected users who loaded the plugin by 
+     the R Commander menu
+   - included function checkWarnings() from Rcmdr into here under a different 
+     name, in order to get rid of ::: in justDoItDoE
+
 05 Jul 2013, Version 0.12-1
    - added dependence on relimp and tcltk in order to be able to remove these 
      from DoE.base

@@ -15,6 +15,7 @@
   \alias{activeDataSetDesignWide}
   \alias{activeModelRSM}
   \alias{activeModelLM}
+  \alias{checkWarnings}
   \alias{dc} 
   \alias{display.design} 
   \alias{display.design.std.order} 
@@ -90,6 +91,7 @@
   activeDataSetDesignWide()
   activeModelRSM()
   activeModelLM()
+  checkWarnings(messages)
   dc() 
   display.design() 
   display.design.std.order() 
