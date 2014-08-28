@@ -2,6 +2,7 @@
   \alias{RcmdrPlugin.DoEUndocumentedFunctions}
   \alias{activeDataSetDesign2P} 
   \alias{activeDataSetDesign2Pwoc} 
+  \alias{activeDataSetDesign2Pnoccd} 
   \alias{activeDataSetDesign2PResp}
   \alias{activeDataSetDesignccd} 
   \alias{activeDataSetDesignlhs} 
@@ -80,6 +81,7 @@
 \usage{
   activeDataSetDesign2P() 
   activeDataSetDesign2Pwoc() 
+  activeDataSetDesign2Pnoccd() 
   activeDataSetDesign2PResp()
   activeDataSetDesignlhs() 
   activeDataSetDesignccd() 

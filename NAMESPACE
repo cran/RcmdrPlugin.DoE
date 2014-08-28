@@ -1,8 +1,10 @@
-     import(DoE.base, FrF2, DoE.wrapper, Rcmdr)
+     import(DoE.base, FrF2, DoE.wrapper, Rcmdr, RcmdrMisc)
      importFrom(relimp, "showData")
      importFrom(utils, "fix")
-     ##importFrom(tcltk, tkfocus, tclvalue, ttkentry, ttkframe, ttkradiobutton, ttkscrollbar)
+     importFrom(tcltk, tclObj, ttknotebook, tkadd, ttklabel, ttkcombobox, 
+                       tk_messageBox, tkbutton, ttkseparator)
      ## these are the ones changed by R Commander
+     ## importFrom(tcltk, tkfocus, tclvalue, ttkentry, ttkframe, ttkradiobutton, ttkscrollbar)
      ## export("fix", "showData") not needed as far as I can see
      exportPattern("^[^\\.]")
 

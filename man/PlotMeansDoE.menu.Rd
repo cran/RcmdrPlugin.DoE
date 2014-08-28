@@ -8,7 +8,7 @@ allows to plot individual main effects plots (one factor selected) or interactio
 
 \section{Details}{
 
-The menu calls the \pkg{Rcmdr} function \code{plotMeans} for creating simple
+The menu calls the \pkg{RcmdrMisc} function \code{plotMeans} for creating simple
 main effects or interaction plots for factorial designs. It is available whenever
 the active data frame is an experimental design with at least one response that
 has at least one factor (not a quantitative variable but a factor with categories).
@@ -25,7 +25,7 @@ at once.
 }
 
 \author{ Ulrike Groemping }
-\seealso{ See also \code{\link[Rcmdr]{plotMeans}} for
+\seealso{ See also \code{\link[RcmdrMisc]{plotMeans}} for
 the underlying function }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

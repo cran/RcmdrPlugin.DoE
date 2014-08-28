@@ -80,6 +80,13 @@ activeDataSetDesign2Pwoc <- function (){
   aus
 }
 
+activeDataSetDesign2Pnoccd <- function (){
+  aus <- FALSE
+  if (activeDataSetDesign2P())
+     aus <- !activeDataSetDesignccd()
+  aus
+}
+
 activeDataSetDesign2PResp <- function (){
   aus <- FALSE
   if (activeDataSetDesign2P())
