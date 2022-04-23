@@ -1,18 +1,44 @@
 Version history for RcmdrPlugin.DoE: 
 
-28 Aug 2014, Version 0.12-3
+Changes in version 0.12-4, 23 Apr 2022
+   - removed useless showData and fix functions, 
+     and added a design method for Rcmdr::editDataset 
+     that saves the edited design object under a new name 
+     (and thus avoids destroying the original).
+   - added help function for editDataset.design, and referenced
+     it in the warning dialogue box
+   - removed dependency on package relimp
+   - added imports from stats and utils
+   - changed require to requireNamespace for FrF2.catlg128
+   - made loading a catalogue from FrF2.catlg128 work whenever the package 
+     is *installed* (instead of already loaded), and modified the help 
+     accordingly
+   - changed data(catlgname) to "catlgname <- catlgname" 
+     for catalogues from FrF2.catlg128 
+     (because FrF2.catlg128 now lazy loads catalogues,
+     and the chosen catalogues are needed in the workspace)
+   - added a hint to the help for the FrF2 dialogue, regarding the loading
+     of catalogues from FrF2.catlg128
+   - updated maintainer contact details
+   - added a link to the package tutorial to the package manual and added the 
+     files themselves as vignette documentation
+   - fixed urls for R Commander installation notes
+   - changed package title and description to comply with CRAN rules
+   - changed NEWS file to be compatible with automatic news extraction
+
+Changes in version 0.12-3, 28 Aug 2014
    - added dependence on RcmdrMisc
    - changed links to help of former Rcmdr functions that are now in RcmdrMisc
    - imported from tcltk
    - fixed a glitch in modify design menu
 
-28 Aug 2013, Version 0.12-2
+Changes in version 0.12-2, 28 Aug 2013
    - fixed a bug in the startup that affected users who loaded the plugin by 
      the R Commander menu
    - included function checkWarnings() from Rcmdr into here under a different 
      name, in order to get rid of ::: in justDoItDoE
 
-05 Jul 2013, Version 0.12-1
+Changes in version 0.12-1, 05 Jul 2013
    - added dependence on relimp and tcltk in order to be able to remove these 
      from DoE.base
    - added functions showData, showData.default and showData.design 
@@ -20,7 +46,7 @@ Version history for RcmdrPlugin.DoE:
    - modified the maintainer address to match the sending address of the 
      mail server
 
-11 Feb 2013, Version 0.12
+Changes in version 0.12, 11 Feb 2013
    - adapted to new Rcmdr possibility of including plugin without closing 
      Commander window
    - adapted to new Rcmdr option regarding the Rcmdr search path in 
@@ -35,11 +61,11 @@ Version history for RcmdrPlugin.DoE:
      instead of DoE.base, in order to have all GUI-related stuff in 
      the same place
 
-18 Sep 2012, Version 0.11-7
+Changes in version 0.11-7, 18 Sep 2012
    - Bug fix: because of a name clash with function path from package igraph, 
      the "Export experiment" menu didn't work any more.
 
-19 Jul 2012, Version 0.11-6
+Changes in version 0.11-6, 19 Jul 2012
    - I followed advice by John Fox and added globalVariables command
      for getting rid of the notes in R CMD check.
    - bug fix: After upgrading package FrF2 to version 1.5+ (29 Jun 2012), 
@@ -48,47 +74,47 @@ Version history for RcmdrPlugin.DoE:
    - bug fix: Under a certain error constellation, 
      adding a response could not be reset from external file to R object.
 
-15 Nov 2011, Version 0.11-5
+Changes in version 0.11-5, 15 Nov 2011
    - bug fix: creation of long version parameter designs did not work
    - bug fix: Menu.aggregate returned to wrong dialog (Menu.export) on name specification error
    - Too many analysis facilities were on offer (but not functional) for long version parameter design 
    - added possibility to remove star portion from ccd design (Menu.pickcube) 
      in order to support interim analysis, if cube has been run but stars haven't
 
-08 Nov 2011, Version 0.11-4
+Changes in version 0.11-4, 08 Nov 2011
    - bug fix: activation filter for adding center points menu items caused 
      trouble 
 
-07 Nov 2011, Version 0.11-3
+Changes in version 0.11-3, 07 Nov 2011
    - bug fix: full factorial 2-level designs with center points 
      could not be augmented with a star portion
    - feature enhancement: possible to add different number of center points 
      to cube and star portion central composite designs
 
-13 Aug 2011, Version 0.11-2
+Changes in version 0.11-2, 13 Aug 2011
    - modified loading workspace of design menu to work properly for work spaces 
      with several objects in them
 
-10 Aug 2011, Version 0.11-1
+Changes in version 0.11-1, 10 Aug 2011
    - removed forgotten debugging tags
 
-10 Aug 2011, Version 0.11
+Changes in version 0.11, 10 Aug 2011
    - added blocked full factorials, based on version 0.22-4 of package 
      DoE.base 
 
-29 Jul 2011, Version 0.10-5
+Changes in version 0.10-5, 29 Jul 2011
    - fixed bugs in case central composite designs were created after 
      using 2-level design dialog for a completely different purpose 
      earlier in the session
 
-21 Jul 2011, Version 0.10-4
+Changes in version 0.10-4, 21 Jul 2011
    - allowed lazy loading
    - added a namespace and changed .First.lib to .onAttach
    - removed tkgrab.release(topdes2) from those help functions directly 
      used from within menus (they caused trouble for MacOS)
    - tidied separation of different help functions (dialogs vs. menus)
 
-04 Jun 2011, Version 0.10-3
+Changes in version 0.10-3, 04 Jun 2011
    - clarified steepest ascent dialog
    - corrected bug in Menu.rsmmodel (led to unusable follow-up dialog 
      when directly using coded designs)
@@ -97,12 +123,12 @@ Version history for RcmdrPlugin.DoE:
      center points with response surface methods (interesting for 
      steepest ascent etc.)
 
-21 Feb 2011, Version 0.10-2
+Changes in version 0.10-2, 21 Feb 2011
    - fixed an issue, which made adding observation statistics from the Models 
      menu fail with default linear models from the Design menu 
      (added modelWithSubset variable to Rcmdr namespace on model creation)
 
-04 Feb 2011, Version 0.10-1
+Changes in version 0.10-1, 04 Feb 2011
    - added more (redundant) possibilities for exporting to the Design menu 
      in order to spare users the necessity to get oriented in the File menu
    - Bug fix: fixed various places where function dQuote was used instead 
@@ -110,7 +136,7 @@ Version history for RcmdrPlugin.DoE:
      in commands on systems with option useFancyQuotes set to TRUE.
      
 
-31 Jan 2011, Version 0.10
+Changes in version 0.10, 31 Jan 2011
    - added the choice between actual and standard run order to the display design 
      menu item (requires DoE.base version 0.21)
    - added a check box for Taguchi order for 12 run orthogonal arrays
@@ -129,10 +155,10 @@ Version history for RcmdrPlugin.DoE:
    - fixed bug in dialog for creation of full factorial (wrong title text)
    - fixed bug in D-optimal design menu that always made the RHS formula disappear
 
-24 Jan 2011, Version 0.9-2
+Changes in version 0.9-2, 24 Jan 2011
    - added main effects and interaction plot menu for general factorial designs
 
-23 Jan 2011, Version 0.9-1
+Changes in version 0.9-1, 23 Jan 2011
    - deactivated D-optimal design creation menu for missing candidate designs
    - made D-optimal candidate design selection more comfortables, 
      allowing also selection of an existing design from within the candidate 
@@ -141,11 +167,11 @@ Version history for RcmdrPlugin.DoE:
      inaccessible
    - updated a link to Rcmdr installation instructions
 
-30 Oct 2010, Version 0.9
+Changes in version 0.9, 30 Oct 2010
    - adapted information on available designs in menu for fractional factorial 
      2-level designs to extensions in package FrF2 
 
-10 Aug 2010, Version 0.8
+Changes in version 0.8, 10 Aug 2010
    - added analysis functionality for response surface designs
      - response surface model with FO, TWI, PQ, and SO notation
      - steepest ascent / descent analysis
@@ -154,6 +180,7 @@ Version history for RcmdrPlugin.DoE:
    - improved menu for creation of ccd designs 
      (better defaults for cube portion, better guidance through menus)
    - modified NEWS file for better display with function news()
+   
    Bug fixes
    - resetting ccd menu would use wrong defaults (from lhs instead of ccd)
    - star portion of ccd augmentation ignored the specified number of center points 
@@ -163,11 +190,11 @@ Version history for RcmdrPlugin.DoE:
    - current model information was not stored for linear models based on design
    - a harmless warning was not suppressed in menuLinearModelDesign
 
-04 Jun 2010, Version 0.6-14
+Changes in version 0.6-14, 04 Jun 2010
    Bug fixes:
    - contrary to documentation, the default linear model tab worked for models with 2-level factors only.
 
-23 Apr 2010, Version 0.6-13
+Changes in version 0.6-13, 23 Apr 2010
    - improved Base Settings tab for regular fractional factorials 
      to allow specification of an extra catalogue without having to specify the design itself
        - fourth radio button for catlg only
@@ -176,18 +203,19 @@ Version history for RcmdrPlugin.DoE:
      for regular fractional factorials from package FrF2.catlg128, 
      if installed
    - added possibility to display design.info attribute
-bug fixes: 
+   
+  Bug fixes: 
    - fixed command for selection of specific catalogue 
      (for generating regular fractional factorials) and 
      added dependence on new version of FrF2, because catalogue selection did not 
      work properly in earlier versions
    - corrected an instruction in Menu.import.Rd (regarding loading of R workspace)
 
-03 Apr 2010, Version 0.6-12
+Changes in version 0.6-12, 03 Apr 2010
 bug fix: added requirement for DoE.base version 0.10 
 (new design inspection for creation of general orthogonal arrays did not work for older versions)
 
-26 Mar 2010, Version 0.6-11
+Changes in version 0.6-11, 26 Mar 2010
 - updated resolution information to include newly implemented designs 
   from packages FrF2 and DoE.base 
   (and included bug fix to previous version that was incomplete regarding 64 run designs)
@@ -202,32 +230,32 @@ bug fix: added requirement for DoE.base version 0.10
 - bug fix: creation of general orthogonal arrays did not work for most recent version 
   of package DoE.base
 
-03 Jan 2010, Version 0.6-10
+Changes in version 0.6-10, 03 Jan 2010
 - added possibility for compromise designs to estimable menu for regular fractional factorials
 - Bugfix: error message for wrong response specigication in add response menu
 
-18 Dec 2009, Version 0.6-9
+Changes in version 0.6-9, 18 Dec 2009
 Created comfort for analysing designs with several response variables:
 - added response selection to the currently available analysis menus
 - removed design selection from linear model menu; this menu now always refers 
   to the design in the active dataset, like the other analysis menus
 
-10 Dec 2009, Version 0.6-8
+Changes in version 0.6-8, 10 Dec 2009
 - added menu for permanently removing columns from the design
 - added menu for modifying factor contrasts
 - bug fix: help button for response selection menu now points to the correct 
   help file
 
-21 Nov 2009, Version 0.6-7
+Changes in version 0.6-7, 21 Nov 2009
 - improved help for manually incorporating blocks into designs with 
   estimable 2-factor interactions 
 - bug fix: directory selection did not work on export tabs of design creation
   menus
 
-25 Oct 2009, Version 0.6-6
+Changes in version 0.6-6, 25 Oct 2009
 - added help button to "Estimable Model" tab for regular 2-level fractional factorials
 
-25 Oct 2009, Version 0.6-5
+Changes in version 0.6-5, 25 Oct 2009
 - a few changes to help files
 - made several menus more comfortable:
   - keep decimal settings between menus and calls in menus (except for export sub 
@@ -243,7 +271,7 @@ Created comfort for analysing designs with several response variables:
   was not properly implemented (search was always 60 seconds);
   - improvement for this situation: indication that search is in progress in the output window
 
-18 Oct 2009, Version 0.6
+Changes in version 0.6, 18 Oct 2009
 - changed strategy for error messages when generating designs (affects all design 
   generating and design modifying menus):
   After pressing OK with options that lead to an error, instead of closing the 
@@ -261,16 +289,16 @@ Created comfort for analysing designs with several response variables:
   eventually, there will be an option for including a dummy
   ...
 
-17 Oct 2009, Version 0.5-6
+Changes in version 0.5-6, 17 Oct 2009
 - made changes to common factor levels for 2-level designs work immediately, not with delay
 - made radio buttons on "Estimable Model" tab for regular 2-level designs bring up the 
   appropriate controls without delay
 
-08 Oct 2009, Version 0.5-5
+Changes in version 0.5-5, 08 Oct 2009
 - corrected various copy-paste errors in titles and descriptions of help files
 - made all Info menu items always visible
 
-08 Oct 2009, Version 0.5-4
+Changes in version 0.5-4, 08 Oct 2009
 - introduced dependence on Rcmdr version at least 1.4-6 
   (because of issues with building menus and displaying messages in earlier versions)
 - added a help topic for choosing between screening and regular fractional factorial designs
@@ -281,20 +309,20 @@ Created comfort for analysing designs with several response variables:
   calls were awkward before for main effects and interaction plots, and 
   call documentation was incomplete for (half) normal effects plots
 
-28 Sep 2009, Version 0.5-3
+Changes in version 0.5-3, 28 Sep 2009
 - corrected default setting for colnospecifyVariable in menu for 
   general factorial designs
 - corrected behavior of the oa.design menu when switching back 
   from a named design with columns specified to automatic selection
 
-25 Sep 2009, Version 0.5-2
+Changes in version 0.5-2, 25 Sep 2009
 - corrected further links in documentation
 
-24 Sep 2009, Version 0.5-1
+Changes in version 0.5-1, 24 Sep 2009
 - corrected a few links in documentation 
 - added Encoding field to DESCRIPTION
 - added version requirements to packages DoE.base, FrF2 and DoE.wrapper 
   in DESCRIPTION
 
-24 Sep 2009, Version 0.5
+Changes in version 0.5, 24 Sep 2009
 First Beta version released to CRAN

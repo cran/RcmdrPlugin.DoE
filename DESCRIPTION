@@ -1,26 +1,26 @@
 Package: RcmdrPlugin.DoE
-Version: 0.12-3
-Date: 2014-08-28
-Title: R Commander Plugin for (industrial) Design of Experiments
+Version: 0.12-4
+Date: 2022-04-23
+Title: R Commander Plugin for (Industrial) Design of Experiments
 Authors@R: c(person("Ulrike", "Groemping", role = c("aut", "cre"), email =
-        "groemping@beuth-hochschule.de"), person("Fox", "John", role = "ctb"))
-Maintainer: Ulrike Groemping <groemping@beuth-hochschule.de>
+        "ulrike.groemping@bht-berlin.de"), person("Fox", "John", role = "ctb"))
+Maintainer: Ulrike Groemping <ulrike.groemping@bht-berlin.de>
 Depends: R (>= 2.10.0), utils, DoE.base (>= 0.22-8), FrF2 (>= 1.2-10),
-        DoE.wrapper (>= 0.8-6), tcltk, relimp
+        DoE.wrapper (>= 0.8-6), tcltk
 Imports: Rcmdr, RcmdrMisc
 Suggests: FrF2.catlg128
 RcmdrModels: rsm
-Description: The package provides a platform-independent GUI for design of experiments.
- It is implemented as a plugin to the R-Commander, which is a more general 
+Description: Provides a platform-independent GUI for design of experiments.
+ The package is implemented as a plugin to the R-Commander, which is a more general 
  graphical user interface for statistics in R based on tcl/tk. 
  DoE functionality can be accessed through the menu Design that is added to the 
  R-Commander menus.
 License: GPL (>= 2)
 Encoding: latin1
-URL: http://prof.beuth-hochschule.de/groemping/DoE
-Packaged: 2014-08-28 15:08:39 UTC; groemping
+URL: https://prof.bht-berlin.de/groemping/DoE/
 Author: Ulrike Groemping [aut, cre],
   Fox John [ctb]
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2014-08-28 19:56:17
+Packaged: 2022-04-23 16:35:48 UTC; Grömping
+Date/Publication: 2022-04-23 23:50:12 UTC

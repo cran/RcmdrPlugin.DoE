@@ -21,7 +21,7 @@ packageStartupMessage(
 "ALWAYS keep a copy of your valuable experimental data stored in a safe place!\n",
 "\nPackage RcmdrPlugin.DoE is still under development:\n",
 "The workhorse functions it accesses are reasonably well-tested,\n",
-"but the GUI-interface can be improved regarding at least regarding\n",
+"but the GUI-interface can be improved regarding at least\n",
 "parsimony of logged commands (but this is no priority).\n",
 "Almost certainly, there will be some bugs for as yet untested user inputs,\n",
 "please report such issues!\n"

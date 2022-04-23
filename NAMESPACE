@@ -1,14 +1,14 @@
      import(DoE.base, FrF2, DoE.wrapper, Rcmdr, RcmdrMisc)
-     importFrom(relimp, "showData")
-     importFrom(utils, "fix")
+#     importFrom(relimp, "showData")
      importFrom(tcltk, tclObj, ttknotebook, tkadd, ttklabel, ttkcombobox, 
                        tk_messageBox, tkbutton, ttkseparator)
+     importFrom("stats", "formula")
+     importFrom("utils", "combn", "head", "help", "tail")
      ## these are the ones changed by R Commander
      ## importFrom(tcltk, tkfocus, tclvalue, ttkentry, ttkframe, ttkradiobutton, ttkscrollbar)
      ## export("fix", "showData") not needed as far as I can see
      exportPattern("^[^\\.]")
 
-     S3method("fix",design)
-     S3method("fix",default)
-     S3method("showData",design)
-     S3method("showData",default)
+     S3method("editDataset",design)
+#     S3method("showData",design)
+#     S3method("showData",default)

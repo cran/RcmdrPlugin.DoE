@@ -1,11 +1,14 @@
 Menu.loadcatlg <- function(){
     ## FrF2.catlg128 is loaded
     candlist <- ""
-    logger("require(FrF2.catlg128)")
-    if (require(FrF2.catlg128)){
-         candlist <- c("catlg128.8to15",paste("catlg128",16:23,sep="."))}
-    if (identical(candlist, "")) {
-        Message(message=gettextRcmdr("There are no catalogues from which to choose."),
+    if (requireNamespace("FrF2.catlg128")){
+      command <- "require(FrF2.catlg128)"
+      logger(command)
+      justDoItDoE(command)
+      candlist <- c("catlg128.8to15",paste("catlg128",16:23,sep="."))
+      }
+    else{
+        Message(message=gettextRcmdr("There are no catalogues from which to choose, \nplease install package FrF2.catlg128."),
                 type="error")
         tkfocus(CommanderWindow())
         return()
@@ -17,7 +20,8 @@ Menu.loadcatlg <- function(){
 ## create button that calls further menu
 ## cascade menu in the menu entry
     onOK <- function(){
-        command <- paste("data(",getSelection(catlgBox),")")
+        command <- getSelection(catlgBox)
+        command <- paste(command, "<-", command)
         logger(command)
         justDoItDoE(command)
         closeDialog()

@@ -8,19 +8,15 @@
 }
 %- maybe also 'usage' for other objects documented here.
 \details{
-  This help file describes loading a catalogue from a loaded catalogues package. 
-  Currently, the only such package is \pkg{FrF2.catlg128}.
+  This help file describes loading a catalogue 
+  package is \pkg{FrF2.catlg128}, if that package is installed.
 
-  The menu is only available if package FrF2.catlg128 is loaded.
+  The menu is only available if package \pkg{FrF2.catlg128} is installed.
   
   Select the design from the drop-down list of available designs, and press OK.
 
-  For importing an unloaded R work space first, use the File menu 
-  (usually the left-most menu) of the R-commander. 
-  
-  For loading a catalogue package first (i.e. \pkg{FrF2.catlg128}), 
-  use the menu entry for loading packages in the \emph{Extras} menu 
-  of the R-commander. 
+  If R package \pkg{FrF2.catlg128} is not installed, it has to be installed
+  outside of the R-commander. 
   
 }
 \author{ Ulrike Groemping }

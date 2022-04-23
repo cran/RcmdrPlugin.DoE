@@ -63,13 +63,20 @@ and also from package \pkg{rsm}. All package allow more flexibility through comm
 programming than through using the GUI. Nevertheless, usage of the GUI should be sufficient 
 for reasonable creation and analysis of results at least in standard situations.
 
-So far, there is no tutorial available. For experienced users of other DoE Software, 
+There is a tutorial (see references) with example data; it is, however, far from 
+being comprehensive. For experienced users of other DoE Software, 
 the menus may be reasonably self-explanatory. Please feel free to contact me with issues 
 regarding the documentation; it is very informative and will help improve documentation, 
 if I understand where users get stuck. However, I am of course NOT a help desk for experimentation or 
 issues with using R or the R-Commander.
 }
-
+\references{
+Groemping, U. (2011). Tutorial for designing experiments using the R package \pkg{RcmdrPlugin.DoE}. 
+Report 4/2011, Reports in Mathematics, Physics and Chemistry, Department II, 
+Beuth University of Applied Sciences Berlin. \cr
+The report itself: \url{http://www1.bht-berlin.de/FB_II/reports/Report-2011-004.pdf}.\cr
+Example data: \url{https://prof.bht-berlin.de/fileadmin/prof/groemp/downloads/Tutorial_DoEGUI_exampleData.zip}.
+}
 \author{ Ulrike Groemping }
 \seealso{ See also \code{\link[DoE.base]{DoE.base-package}}, 
 \code{\link[FrF2]{FrF2-package}}, 

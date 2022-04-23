@@ -16,7 +16,7 @@ The most important technical point about this menu and the R-Commander in genera
 The R GUI should be installed with the Single Document Interface (SDI) mode 
 instead of the default MDI mode. John Fox, the author of R-Commander, has described 
 how to change MDI to SDI, if R has been installed in the wrong mode 
-(\url{http://socserv.mcmaster.ca/jfox/Books/Companion/installation.html}). 
+(\url{https://socialsciences.mcmaster.ca/jfox/Misc/Rcmdr/installation-notes.html}). 
 It is strongly discouraged to run the R-Commander under the MDI mode, 
 as it happens very frequently that windows suddenly disappear. They usually 
 have iconized only and can be retrieved from the taskbar; nevertheless, this behavior 
@@ -82,6 +82,12 @@ for the complete form with all tabs.
   separately store the form settings in this case. 
 }
 \author{ Ulrike Groemping }
+\examples{
+## running the menu with default settings corresponds to
+Design.1 <- FrF2(8, 4)
+## the stored code from the menu will look more complicated because it also lists
+##     the defaults for all the other arguments
+}
 \seealso{ See Also \code{\link[FrF2]{FrF2}} for the function behind this menu, 
 \code{\link[FrF2:CatalogueAccessors]{catlg}} for the design catalogues underlying this menu, and 
 \code{\link{Menu.2level}} for choice between regular fractional factorial designs 
