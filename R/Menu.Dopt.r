@@ -232,7 +232,7 @@ onRefresh <- function(){
 }
 
 onStore <- function(){
-        ## Speichernamen abfragen und hier ermöglichen (statt stored.designDopt)
+        ## Speichernamen abfragen und hier ermoeglichen (statt stored.designDopt)
         textentry() ## creates text string stored in savename.RcmdrPlugin.DoE
         if (!is.null(savename.RcmdrPlugin.DoE)){
         if (!is.valid.name(savename.RcmdrPlugin.DoE)){

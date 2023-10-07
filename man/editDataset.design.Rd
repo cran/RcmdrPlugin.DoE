@@ -6,7 +6,7 @@
 invokes a warning message before the data.frame method of editDataset is called
 }
 \usage{
-editDataset.design(data, dsname, ...)
+\method{editDataset}{design}(data, dsname, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

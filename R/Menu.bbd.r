@@ -233,7 +233,7 @@ onRefresh <- function(){
 }
 
 onStore <- function(){
-        ## Speichernamen abfragen und hier ermöglichen (statt stored.designbbd)
+        ## Speichernamen abfragen und hier ermoeglichen (statt stored.designbbd)
         textentry() ## creates text string stored in savename.RcmdrPlugin.DoE
         if (!is.null(savename.RcmdrPlugin.DoE)){
         if (!is.valid.name(savename.RcmdrPlugin.DoE)){
@@ -716,7 +716,7 @@ varlistshortt <- if (as.numeric(tclvalue(nfacVar))<=50)
     tkbind(faclabListBox, "<<ListboxSelect>>", checkIndexLab)
 
 
-    ### funktioniert, ist aber noch nicht schön
+    ### funktioniert, ist aber noch nicht schoen
     scrollbar <- ttkscrollbar(listFrame, command = function(...) {
             tkyview(facshortListBox, ...)
             tkyview(facnameListBox, ...)
@@ -728,7 +728,7 @@ varlistshortt <- if (as.numeric(tclvalue(nfacVar))<=50)
 #    tkgrid(tklabel(enterlistFrame,text="  ", width=5),enterFrame, sticky="w")
     tkgrid(enterFrame, sticky="w", columnspan=5)
     tkgrid.configure(enterFrame, pady=10)
-    ## Hoch-/Runterschieben von Einträgen ermöglichen
+    ## Hoch-/Runterschieben von Eintraegen ermoeglichen
 
     downupFrame <- ttkframe(listFrame)
     moveDownButton <- buttonRcmdr(downupFrame, text = gettextRcmdr("Move Down"), 

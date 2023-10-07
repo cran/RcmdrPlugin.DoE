@@ -1,8 +1,8 @@
 ## one instance of assign replaced by justDoIt
 
 Menu.importrdacsv <- function(){
-## Aktualisierung des neuen Namens bei Änderung in designsel funktioniert noch nicht
-## tkbind event vermutlich nicht gut gewählt!
+## Aktualisierung des neuen Namens bei Aenderung in designsel funktioniert noch nicht
+## tkbind event vermutlich nicht gut gewaehlt!
 
 if (!exists("nameVar")) putRcmdr("nameVar", tclVar(""))
 if (!exists("newnameVar")) putRcmdr("newnameVar", tclVar(""))

@@ -83,7 +83,7 @@ onInspect <- function(){
             logger(gettextRcmdr("Something went wrong, perhaps invalid values for number of runs?"))
             return()
             }
-      ## logger(command)  ## braucht man nur für justDoIt
+      ## logger(command)  ## braucht man nur fuer justDoIt
       tkgrab.release(topdes2)
       doItAndPrint(command)
       }
@@ -287,7 +287,7 @@ onRefresh <- function(){
 }
 
 onStore <- function(){
-        ## Speichernamen abfragen und hier ermöglichen (statt stored.designoa)
+        ## Speichernamen abfragen und hier ermoeglichen (statt stored.designoa)
         textentry() ## creates text string stored in savename.RcmdrPlugin.DoE
         if (!is.null(savename.RcmdrPlugin.DoE)){
         if (!is.valid.name(savename.RcmdrPlugin.DoE)){
@@ -885,7 +885,7 @@ if (idpos > 1) tkgrid(colnoFrame, pady=10,sticky="w")
     tkbind(faclabListBox, "<<ListboxSelect>>", checkIndexLab)
 
 
-    ### funktioniert, ist aber noch nicht schön
+    ### funktioniert, ist aber noch nicht schoen
     scrollbar <- ttkscrollbar(listFrame, command = function(...) {
             tkyview(facshortListBox, ...)
             tkyview(facnameListBox, ...)
@@ -898,7 +898,7 @@ if (idpos > 1) tkgrid(colnoFrame, pady=10,sticky="w")
 #    tkgrid(tklabel(enterlistFrame,text="  ", width=5),enterFrame, sticky="w")
     tkgrid(enterFrame, sticky="w", columnspan=5)
     tkgrid.configure(enterFrame, pady=10)
-    ## Hoch-/Runterschieben von Einträgen ermöglichen
+    ## Hoch-/Runterschieben von Eintraegen ermoeglichen
 
     downupFrame <- ttkframe(listFrame)
     moveDownButton <- buttonRcmdr(downupFrame, text = gettextRcmdr("Move Down"), 

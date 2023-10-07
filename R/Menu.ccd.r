@@ -8,11 +8,11 @@ Menu.ccd <- function(){
 #       else putRcmdr("designs", "")
 
 #angefangen
-#FrF2-Design Entry mit Knopf für Erzeugung über FrF2-Menü
+#FrF2-Design Entry mit Knopf fuer Erzeugung ueber FrF2-Menue
 
-## FrF2Var für zu verwendendes FrF2 (mit selection box designsBox auszuwählen)
+## FrF2Var fuer zu verwendendes FrF2 (mit selection box designsBox auszuwaehlen)
 ## Falls es noch kein FrF2 gibt oder ein anderes verwendet werden soll 
-##         (radio buttons): interim Aufruf des FrF2 Menüs mit Button, 
+##         (radio buttons): interim Aufruf des FrF2 Menues mit Button, 
 ##         anschl. ist FrF2Var das neu erzeugte Design
 
 
@@ -224,7 +224,7 @@ onRefresh <- function(){
 }
 
 onStore <- function(){
-        ## Speichernamen abfragen und hier ermöglichen (statt stored.designccd)
+        ## Speichernamen abfragen und hier ermoeglichen (statt stored.designccd)
         textentry() ## creates text string stored in savename.RcmdrPlugin.DoE
         if (!is.null(savename.RcmdrPlugin.DoE)){
         if (!is.valid.name(savename.RcmdrPlugin.DoE)){

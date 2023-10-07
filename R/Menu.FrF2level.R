@@ -414,7 +414,7 @@ onSpecialcb <- function(){
 }
 
 onStore <- function(){
-        ## Speichernamen abfragen und hier ermöglichen (statt stored.design2)
+        ## Speichernamen abfragen und hier ermoeglichen (statt stored.design2)
         textentry() ## creates text string stored in savename.RcmdrPlugin.DoE
         if (!is.null(savename.RcmdrPlugin.DoE)){
         if (!is.valid.name(savename.RcmdrPlugin.DoE)) {
@@ -776,7 +776,7 @@ onInfo1 <- function(){
               logger("# This is a replicated full factorial design.")
             return()
             }
-      ## logger(command)  ## braucht man nur für justDoIt
+      ## logger(command)  ## braucht man nur fuer justDoIt
       tkgrab.release(topdes2)
       doItAndPrint(command)
 }
@@ -784,14 +784,14 @@ onInfo1 <- function(){
 onInfo2 <- function(){
      ## generators for current designs
      command="dc()"
-        ## logger(command)  ## braucht man nur für justDoIt
+        ## logger(command)  ## braucht man nur fuer justDoIt
         doItAndPrint(command)
 }
 
 onInfo3 <- function(){
      ## alias pattern for current designs
      command="dc()"
-        ## logger(command)  ## braucht man nur für justDoIt
+        ## logger(command)  ## braucht man nur fuer justDoIt
         doItAndPrint(command)
 }
 
@@ -1244,7 +1244,7 @@ varlistshortt <- if (as.numeric(tclvalue(nfacVar))<=50)
     tkbind(faclev2ListBox, "<<ListboxSelect>>", checkIndexLev2)
     tkbind(faclabListBox, "<<ListboxSelect>>", checkIndexLab)
 
-    ### funktioniert, ist aber noch nicht schön
+    ### funktioniert, ist aber noch nicht schoen
     scrollbar <- ttkscrollbar(listFrame, command = function(...) {
             tkyview(facshortListBox, ...)
             tkyview(facnameListBox, ...)
@@ -1256,7 +1256,7 @@ varlistshortt <- if (as.numeric(tclvalue(nfacVar))<=50)
 #    tkgrid(tklabel(enterlistFrame,text="  ", width=5),enterFrame, sticky="w")
     tkgrid(enterFrame, sticky="w", columnspan=5)
 #    tkgrid.configure(enterFrame, columnspan=5)
-    ## Hoch-/Runterschieben von Einträgen ermöglichen
+    ## Hoch-/Runterschieben von Eintraegen ermoeglichen
 
     downupFrame <- ttkframe(listFrame)
     moveDownButton <- buttonRcmdr(downupFrame, text = gettext("Move Down"), 

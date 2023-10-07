@@ -1,5 +1,5 @@
 Menu.contour <- function(){
-#### Aktualisierung der gewählten Auswahl-Form klappt noch nicht
+#### Aktualisierung der gewaehlten Auswahl-Form klappt noch nicht
 
 putRcmdr("resphilf", all.vars(formula(ActiveModel()))[1])
 

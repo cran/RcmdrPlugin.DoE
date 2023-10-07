@@ -1,6 +1,6 @@
 Package: RcmdrPlugin.DoE
-Version: 0.12-4
-Date: 2022-04-23
+Version: 0.12-5
+Date: 2023-10-07
 Title: R Commander Plugin for (Industrial) Design of Experiments
 Authors@R: c(person("Ulrike", "Groemping", role = c("aut", "cre"), email =
         "ulrike.groemping@bht-berlin.de"), person("Fox", "John", role = "ctb"))
@@ -16,11 +16,10 @@ Description: Provides a platform-independent GUI for design of experiments.
  DoE functionality can be accessed through the menu Design that is added to the 
  R-Commander menus.
 License: GPL (>= 2)
-Encoding: latin1
 URL: https://prof.bht-berlin.de/groemping/DoE/
 Author: Ulrike Groemping [aut, cre],
   Fox John [ctb]
 NeedsCompilation: no
+Packaged: 2023-10-07 08:08:17 UTC; groemping
 Repository: CRAN
-Packaged: 2022-04-23 16:35:48 UTC; Grömping
-Date/Publication: 2022-04-23 23:50:12 UTC
+Date/Publication: 2023-10-07 09:10:02 UTC

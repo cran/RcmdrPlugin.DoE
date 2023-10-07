@@ -3,7 +3,7 @@
 Menu.addresponse <- function(){
 initializeDialogDoE(title=gettextRcmdr("Add response ..."))   
        ## refresh bei Nutzung der radiobuttons
-       ## Link auf das Menü des R-Commanders zum Einbinden von Daten --> anschl. R-Objekt verwenden
+       ## Link auf das Menue des R-Commanders zum Einbinden von Daten --> anschl. R-Objekt verwenden
 
 if (!exists("nameVar")) putRcmdr("nameVar", tclVar(""))
 if (!exists("newnameVar")) putRcmdr("newnameVar", tclVar(""))

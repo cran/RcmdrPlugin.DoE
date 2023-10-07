@@ -1,5 +1,10 @@
 Version history for RcmdrPlugin.DoE: 
 
+Changes in version 0.12-5, 07 Oct 2023
+   - removed latin1 encoding
+   - corrected formatting for documentation of design method 
+     for editDataset generic
+
 Changes in version 0.12-4, 23 Apr 2022
    - removed useless showData and fix functions, 
      and added a design method for Rcmdr::editDataset 
