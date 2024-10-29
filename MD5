@@ -1,4 +1,4 @@
-5bfa948be9c29cf2ce11c1ce98e52bc9 *DESCRIPTION
+34ebc6dd1a88f06a6f90600f3eba2558 *DESCRIPTION
 793066d1786db11b396235568fd7d3e7 *NAMESPACE
 8a21195930d43f49265416d85036e9f4 *R/Menu.Dopt.r
 79cc1679c826eced864f34e93ade27a6 *R/Menu.EffectPlots.R
@@ -57,7 +57,7 @@ f2103c0d76611eb007c36ba2b913a5ee *R/menu.defaults.R
 c9feba2a9d276becffe5b3a18dade359 *R/subsetBoxDoE.R
 82a5feba68f02ea0a6c1a13654e374ba *R/summarize.design.R
 e6fadb40b3680b18690dfbaead674533 *R/textentry.R
-32e17e44f6dce0b9d32dc168505e8926 *inst/NEWS
+f657c597b579955c5721226e2e0cbae0 *inst/NEWS
 bf3d923d2edf4ebd481e4e95697cf519 *inst/doc/Report-2011-004.pdf
 d9c5588bb907d841d8758a957cd1374f *inst/doc/Tutorial_DoEGUI_exampleData.zip
 39561d3724fbb41e6e262c716dfc73d9 *inst/etc/menus.txt
@@ -74,8 +74,8 @@ f5fe7d40e85f592dab9c48a61d6161e9 *man/DoEGlossary.Rd
 fe5271a5baf58215cf320a2d0ff61d6c *man/Menu.ExpImp.Rd
 61981cfcc4bfca1f22ab2c747743547d *man/Menu.FacDetails2Tab.Rd
 014d971c6409e6fe7df18eeb0561961e *man/Menu.FacDetailsGenTab.Rd
-0ff9c0368a17ea5f2af0c7d924c173f0 *man/Menu.FrF2level.Rd
-7454c6a82d46662b5230566868b0d43d *man/Menu.FrF2levelTab1.Rd
+3d90032ace29dd23c02ed075b724d87a *man/Menu.FrF2level.Rd
+c87bb4da8461957e51ce57539a56e1fc *man/Menu.FrF2levelTab1.Rd
 04a24b11117547840e20e743f888ff9f *man/Menu.FrF2levelTabEstimable.Rd
 8cd660924e4c3f777efa5c8e58c4cfb7 *man/Menu.General.Rd
 8998bb55ae6c7c870e92bf08bfe875ba *man/Menu.IAPlot.Rd
@@ -120,8 +120,8 @@ bbdad6817b633ca9c32171b55b2191bf *man/Menu.rsm.Rd
 fb67e501947952796880060eb4665f19 *man/Menu.steepest.Rd
 a2736987d8fcb71d1811c920aaf9f7fb *man/Menu.summarize.Rd
 7b853a8934db839d3972c39e72481d81 *man/Menu.tab.Rd
-389a73094e57a127b52068324e780271 *man/Menus.Rd
+5b5797286a12a06e5b8c2484b4547efb *man/Menus.Rd
 ae5f67782b17fde984c46b3a39a3c5df *man/PlotMeansDoE.menu.Rd
 5b549c7e8289157f99681dff053ce1b2 *man/RcmdrPlugin.DoE-package.Rd
-a10753d700f6114edc5e6778ae9ca075 *man/RcmdrPlugin.DoEUndocumentedFunctions.Rd
+1addb9b2d41facb62c42a09011d1261d *man/RcmdrPlugin.DoEUndocumentedFunctions.Rd
 bfe756d7e3220f746f60c2819da53c91 *man/editDataset.design.Rd

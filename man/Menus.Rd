@@ -9,7 +9,7 @@ The most important technical point about this menu and the R-Commander in genera
 The R GUI should be installed with the Single Document Interface (SDI) mode 
 instead of the default MDI mode. John Fox, the author of R-Commander, has described 
 how to change MDI to SDI, if R has been installed in the wrong mode 
-(\url{https://socialsciences.mcmaster.ca/jfox/Misc/Rcmdr/installation-notes.html}). 
+(\url{https://www.john-fox.ca/RCommander/installation-notes.html}). 
 It is strongly discouraged to run the R-Commander under the MDI mode, 
 as it happens very frequently that windows suddenly disappear. They usually 
 have iconized only and can be retrieved from the taskbar; nevertheless, this behavior 
